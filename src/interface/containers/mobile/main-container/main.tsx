@@ -1,9 +1,12 @@
 import * as S from "./styles"
 
-const MainContainer = () => {
+interface mainContainerProps{
+    children: React.ReactNode;
+}
+const MainContainer: React.FC<mainContainerProps> = ({children}) => {
     return ( 
     <S.Background>
-        oi :D
+       {children}
     </S.Background> 
     );
 }
