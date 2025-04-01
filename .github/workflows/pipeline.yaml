@@ -61,4 +61,4 @@ jobs:
         run: npx prisma db seed
 
       - name: Run tests
-        run: npm test --verbose
+        run: npm test --verbose -- --ci --reporters=default --reporters=jest-junit --detectOpenHandles
