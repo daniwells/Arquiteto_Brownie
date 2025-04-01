@@ -43,7 +43,6 @@ jobs:
       - name: Criar arquivo .env
         run: |
           echo "DATABASE_URL=postgres://test_user:test_password@127.0.0.1:5432/test_db" > .env
-          # echo "DATABASE_URL=postgres://neondb_owner:npg_Gyi3sg1Rtkjo@ep-patient-recipe-ac2blx3z-pooler.sa-east-1.aws.neon.tech/neondb?sslmode=require" > .env
         
       - name: Wait PostgreSQL start
         run: sleep 10
