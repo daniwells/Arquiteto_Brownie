@@ -40,9 +40,12 @@ jobs:
       - name: Installing dependencies
         run: npm install
 
-      - name: Criar arquivo .env.test
+      - name: Criar arquivo .env
         run: |
           echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" > .env
+        
+      - name: Wait PostgreSQL start
+        run: sleep 10
 
       - name: Rodar migrações no banco de testes
         run: npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
@@ -54,4 +57,4 @@ jobs:
         run: npx prisma db seed
 
       - name: Run tests
-        run: npm test
+        run: npm test --verbose
