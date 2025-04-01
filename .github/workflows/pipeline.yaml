@@ -42,7 +42,7 @@ jobs:
 
       - name: Criar arquivo .env.test
         run: |
-          echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" > .env.test
+          echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" > .env
 
       - name: Rodar migrações no banco de testes
         run: npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
