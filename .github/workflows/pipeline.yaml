@@ -4,11 +4,9 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   test:
@@ -26,6 +24,9 @@ jobs:
 
       - name: Installing dependencies
         run: npm install
+
+      - name: Run prisma
+        run: npm generate
 
       - name: Run tests
         run: npm test
