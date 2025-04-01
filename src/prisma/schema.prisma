@@ -58,3 +58,9 @@ model OrderItem {
 
   @@id([orderId, productId], map: "orderitems_orderId_productId_pk")
 }
+
+model Manager {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email    String @unique(map: "manager_email_idx")
+  password String
+}

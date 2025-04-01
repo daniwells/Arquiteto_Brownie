@@ -1,6 +1,6 @@
 'use server';
 
-import { prisma } from "@/db/prisma";
+import { prisma } from "../../db/prisma";
 import { LATEST_PRODUCTS_LIMIT } from "../constants";
 import { convertToPlainObject } from "../utils";
 
@@ -13,7 +13,7 @@ export async function getLatestProducts(){
     return convertToPlainObject(data);
 }
 
-export async function getProdutBySlig(slug: string){
+export async function getProdutBySlug(slug: string){
     return await prisma.product.findFirst({
         where: {slug: slug}
     });
