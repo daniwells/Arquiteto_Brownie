@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+      - run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
       - run: npm install
       - run: npx prisma generate
       - run: npx prisma db seed
