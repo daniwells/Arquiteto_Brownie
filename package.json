@@ -15,11 +15,18 @@
     "prisma:studio": "prisma studio --schema=src/prisma/schema.prisma"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "@prisma/adapter-neon": "^6.5.0",
+    "@prisma/client": "^6.5.0",
+    "@types/ws": "^8.18.0",
     "framer-motion": "^12.6.2",
+    "neon": "^2.0.0",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "styled-components": "^6.1.16"
+    "styled-components": "^6.1.16",
+    "ws": "^8.18.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

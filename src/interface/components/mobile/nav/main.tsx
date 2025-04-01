@@ -1,6 +1,6 @@
 import * as S from "./styles"
 import { useState } from "react";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 
 const navItems = ["Brownies Clássicos", "Brownies Meio Amargo"];
 
