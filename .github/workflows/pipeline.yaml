@@ -42,8 +42,14 @@ jobs:
 
       - name: Criar arquivo .env
         run: |
-          echo "DATABASE_URL=postgres://test_user:test_password@postgres:5432/test_db" > .env
+          echo "DATABASE_URL=postgres://test_user:test_password@localhost:5432/test_db" > .env
           # echo "DATABASE_URL=postgres://neondb_owner:npg_BfWmaorQ9YO3@ep-sparkling-bread-a5399btb-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require" > .env
+          
+      - name: Wait for PostgreSQL
+        run: |
+          echo "Waiting for PostgreSQL to be ready..."
+          timeout 60s bash -c 'until pg_isready -h localhost -U test_user -d test_db; do sleep 2; done'
+          echo "PostgreSQL is ready!"
 
       - name: Rodar migrações no banco de testes
         run: npx prisma migrate dev --name init --schema=src/prisma/schema.prisma
