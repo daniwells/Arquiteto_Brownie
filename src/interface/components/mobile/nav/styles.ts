@@ -6,12 +6,12 @@ export const Background = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 80px;
     gap: 20px;
 
     h1{
-        font-family: 'Comfortaa Bold';
-        color: ${colors.lightBrown};
+        font-family: 'Pacifico Regular';
+        color: ${colors.darkBrown};
+        font-size: 32px;
     }
 `
 
@@ -41,7 +41,7 @@ export const Underline = styled(motion.div)`
     position: absolute;
     z-index: -1;
     bottom: -2px;
-    width: 115%;
+    width: 105%;
     height: 10px;
     background-color: ${colors.beige}; 
     border-radius: 0px 0px 5px 0px;

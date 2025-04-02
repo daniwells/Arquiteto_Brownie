@@ -3,7 +3,7 @@ import * as S from "./styles"
 const Logo = () => {
     return (
         <>
-        <S.BackgroundLogo/>
+            <S.BackgroundLogo src="/svg/logo.svg" alt="Logo Arquiteto Brownie" />
         </>
     );
 }

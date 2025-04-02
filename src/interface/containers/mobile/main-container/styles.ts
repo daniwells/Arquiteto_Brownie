@@ -5,11 +5,11 @@ export const Background = styled.div`
     background-color: ${colors.grey};
     width: 100%;
     height: 100vh;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    grid-gap: 50px;
+    grid-gap: 20px;
 `
 

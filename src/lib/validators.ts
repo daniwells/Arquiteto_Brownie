@@ -13,6 +13,7 @@ export const insertProductSchema = z.object({
     slug: z.string().min(3, "Slug deve ter pelo menos 3 caracteres"),
     category: z.string().min(3, "Category deve ter pelo menos 3 caracteres"),
     description: z.string().min(3, "Description deve ter pelo menos 3 caracteres"),
-    images: z.array(z.string()).min(1, "Produto deve ter pelo menos uma imagem"),
+    images: z.array(z.string()).min(1, "Produto deve ter pelo menos uma imagem"), 
+    price: currency,
 });
 

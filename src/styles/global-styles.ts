@@ -9,20 +9,25 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-size: 20px;
   }
-  
+
   @font-face {
     font-family: 'Comfortaa Regular';
     src: url('/fonts/Comfortaa-Regular.ttf');
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Comfortaa Bold';
     src: url('/fonts/Comfortaa-Bold.ttf');
-}
+  }
+
+  @font-face {
+    font-family: 'Pacifico Regular';
+    src: url('/fonts/Pacifico-Regular.ttf');
+  }
 
   body{
     overflow-x: hidden;
-    font-family: 'Comfortaa Regular';
+    font-family: 'Comfortaa Regular', Arial, Helvetica, sans-serif;
   }
 
   a {

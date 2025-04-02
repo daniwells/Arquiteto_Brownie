@@ -9,12 +9,13 @@ export const Wrapper = styled.div`
     border-radius: 50px;
     width: 100%;
     border: solid 1px transparent; 
-    padding: 10px;
+    padding-block: 10px;
+    padding-inline: 20px;
     transition: border 0.3s ease-out, transform 0.3s ease-out;
 
     &:hover{
         border: solid 1px ${colors.darkerGrey};
-        transform: scale(1.02);
+        transform: scale(1.01);
     }
 `;
 
@@ -23,13 +24,10 @@ export const Input = styled.input`
     border: none;
     outline: none;
     font-size: 16px;
-    padding-left: 10px;
     background: transparent;
 `;
 
-export const Icon = styled.div`
-    background-image: url("/svg/search.svg");
-    background-size: 100%;
-    width: 24px;
-    height: 24px;
+export const Icon = styled.img`
+    width: 20px;
+    height: 20px;
 `;

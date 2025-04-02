@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
-export const BackgroundLogo = styled.div`
-    background-image: url("/png/logo.png");
+export const BackgroundLogo = styled.img`
+    margin-block: 20px;
+    width: 8rem;
 ` 
