@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import MainContainer from "@/interface/containers/mobile/main-container/main";
 import Search from "@/interface/components/mobile/search/main";
@@ -12,11 +12,8 @@ interface menuProps {
     data: productType[]
 }
 
-export const metadata = {
-    title: "Menu",
-}
-
 const Menu: React.FC<menuProps> = ({ data }) => {
+    console.log(data)
     return (
         <MainContainer>
             <Logo/>

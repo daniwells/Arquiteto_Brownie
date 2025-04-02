@@ -13,4 +13,3 @@ export const Background = styled.div`
     grid-gap: 20px;
     min-height: 30rem;
 `
-
