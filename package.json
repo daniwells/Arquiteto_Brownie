@@ -7,8 +7,9 @@
     "seed": "npx tsx ./src/db/seed.ts"
   },
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev --turbopack",
-    "build": "prisma generate --schema=src/prisma/schema.prisma && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
