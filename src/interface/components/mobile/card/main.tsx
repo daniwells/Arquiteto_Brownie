@@ -17,7 +17,7 @@ const Card: React.FC<cardProps> = ({ product }) => {
                     <h1>{product.name}</h1>
                     <span>{product.description}</span>
                 </div>
-                <p><ProductPrice value={product.price.toString()}/></p>
+                <ProductPrice value={product.price.toString()}/>
             </S.Content>
         </S.Container>
     );
