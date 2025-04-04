@@ -26,7 +26,6 @@ const Menu: React.FC<menuProps> = ({ data }) => {
     const [ selectedCategory, setSelectedCategory ] = useState("classico");
     
     const handleFilterProduct = () => {
-        console.log(filteredData)
         setFilteredData(
             data.filter(product => {
                     if(searchText === "") return true;
@@ -64,9 +63,9 @@ const Menu: React.FC<menuProps> = ({ data }) => {
             <CardContainer>
                 {   
                     filteredData.length > 0 && 
-                    filteredData.map((product) => (
-                        <Card key={product.slug} product={product}  />
-                    ))
+                        filteredData.map((product) => (
+                            <Card key={product.slug} product={product}  />
+                        ))
                 }
             </CardContainer>
         </MainContainer>
