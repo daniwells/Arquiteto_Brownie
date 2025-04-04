@@ -1,20 +1,31 @@
 import * as S from "./styles"
-import { useState } from "react";
-// import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
-const navItems = ["Brownies Clássicos", "Brownies Meio Amargo"];
+interface navProps {
+    handleChange: (category: string) => void,
+}
 
-const Nav = () => {
+const Nav: React.FC<navProps> = ({ handleChange }) => {
+    const navItems = [
+        {name: "Brownies Clássicos", value: "classico"}, 
+        {name: "Brownies Meio Amargo", value: "meio-amargo"},
+    ];
+
     const [active, setActive] = useState(navItems[0]);
+    
+    useEffect(() => {
+        console.log(active)
+        handleChange(active.value);
+    }, [active]);
 
     return (
         <S.Background>
             <h1>Nosso menu</h1>
             <S.Nav>
                 {navItems.map((item) => (
-                    <S.NavItem key={item} onClick={() => setActive(item)}>
-                        <a href="#">{item}</a>
-                        {active === item && <S.Underline layoutId="underline" />}
+                    <S.NavItem key={item.value} onClick={() => setActive(item)}>
+                        <a href="#">{item.name}</a>
+                        {active.value === item.value && <S.Underline layoutId="underline" />}
                     </S.NavItem>
                 ))}
             </S.Nav>

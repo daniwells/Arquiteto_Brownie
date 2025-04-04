@@ -10,7 +10,7 @@ const Card: React.FC<cardProps> = ({ product }) => {
     return (
         <S.Container>
             <S.Image 
-                url={product.images[0]}
+                $url={product.images[0]}
             />
             <S.Content>
                 <div>
