@@ -11,6 +11,5 @@ export const Background = styled.div`
     justify-content: center;
     align-items: center;
     grid-gap: 20px;
-    min-height: 30rem;
+    min-height: 34rem;
 `
-

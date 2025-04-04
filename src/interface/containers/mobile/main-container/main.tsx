@@ -5,9 +5,9 @@ interface mainContainerProps{
 }
 const MainContainer: React.FC<mainContainerProps> = ({children}) => {
     return ( 
-    <S.Background>
-       {children}
-    </S.Background> 
+        <S.Background>
+        {children}
+        </S.Background> 
     );
 }
  

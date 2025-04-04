@@ -4,11 +4,11 @@ import { colors } from "@/styles/themes";
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
-    height: 300px;
+    height: 150px;
 `
 
 interface imageProps {
-    url: string
+    $url: string
 }
 
 export const Image = styled.div<imageProps>`
@@ -16,8 +16,8 @@ export const Image = styled.div<imageProps>`
     width: 45%;
     height: 150px;
     ${
-        props => props?.url ? 
-            `background-image: url(${props?.url});`
+        props => props?.$url ? 
+            `background-image: url(${props?.$url});`
         :
             `background-color: ${colors.lightBrown};`
     };
