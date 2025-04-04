@@ -9,6 +9,7 @@ import Search from "@/interface/components/mobile/search/main";
 import Card from "@/interface/components/mobile/card/main";
 import CardContainer from "@/interface/containers/mobile/card-container/main";
 import Nav from "@/interface/components/mobile/nav/main";
+import Menu from "@/interface/components/mobile/menu/main";
 
 // assets
 import Logo from "@/interface/components/mobile/logo/main";
@@ -20,7 +21,7 @@ interface menuProps {
     data: productType[]
 }
 
-const Menu: React.FC<menuProps> = ({ data }) => {
+const MenuPage: React.FC<menuProps> = ({ data }) => {
     const [ searchText, setSearchText ] = useState("");
     const [ filteredData, setFilteredData ] = useState(data);
     const [ selectedCategory, setSelectedCategory ] = useState("classico");
@@ -68,8 +69,9 @@ const Menu: React.FC<menuProps> = ({ data }) => {
                         ))
                 }
             </CardContainer>
+            <Menu/>
         </MainContainer>
     );
 }
 
-export default Menu;
+export default MenuPage;

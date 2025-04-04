@@ -1,4 +1,4 @@
-import Menu from "./menu";
+import MenuPage from "./menu";
 import { getLatestProducts } from "../../lib/actions/product.actions";
 
 export const metadata = {
@@ -9,7 +9,7 @@ const Home = async () => {
     const latestProducts = await getLatestProducts();
 
     return (
-        <Menu
+        <MenuPage
             data={latestProducts}
         />
     );

@@ -14,7 +14,6 @@ const Nav: React.FC<navProps> = ({ handleChange }) => {
     const [active, setActive] = useState(navItems[0]);
     
     useEffect(() => {
-        console.log(active)
         handleChange(active.value);
     }, [active]);
 
