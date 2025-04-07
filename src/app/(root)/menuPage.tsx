@@ -55,7 +55,6 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
         handleFilterProduct();
     }, [searchText, selectedCategory]);
 
-
     return (
         <MainContainer>
             <Logo/>

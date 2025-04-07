@@ -8,5 +8,8 @@ export const Background = styled.div`
     height: 18rem;
     gap: 15px;
     overflow-y: auto;
+    overflow-x: hidden;
+    
     margin-block: 10px;
+
 `

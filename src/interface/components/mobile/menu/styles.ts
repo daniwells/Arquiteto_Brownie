@@ -8,7 +8,6 @@ export const Container = styled.div`
     justify-content: center;
     width: 100%;
     height: 50px;
-
 `
 
 export const HomeIcon = styled.div`
@@ -17,27 +16,26 @@ export const HomeIcon = styled.div`
     width: 24px;
     height: 24px;
     cursor: pointer;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out, opacity 0.3s ease-out;
+    transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
 
     &:hover {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         opacity: 0.8;
-    } 
-
+    }
 `
 
 export const CartIcon = styled.div`
- background-image: url("/svg/cart.svg");
+    background-image: url("/svg/cart.svg");
     background-size: 100%;
     width: 24px;
     height: 24px;
     cursor: pointer;
-    transition: width 0.4s ease-in-out, height 0.4s ease-in-out, opacity 0.3s ease-out;
+    transition: width 0.3s ease-out, height 0.3s ease-out, opacity 0.3s ease-out;
 
     &:hover {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         opacity: 0.8;
     } 
 `

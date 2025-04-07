@@ -8,7 +8,11 @@ interface cardProps {
 
 const Card: React.FC<cardProps> = ({ product }) => {
     return (
-        <S.Container>
+        <S.Container
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+        >
             <S.Image 
                 $url={product.images[0]}
             />

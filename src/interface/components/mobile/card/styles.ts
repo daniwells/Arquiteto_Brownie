@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { colors } from "@/styles/themes";
+import { motion } from "framer-motion";
 
-export const Container = styled.div`
+export const Container = styled(motion.div)`
     display: flex;
     flex-direction: row;
     height: 150px;
+    cursor: pointer;
 `
 
 interface imageProps {
