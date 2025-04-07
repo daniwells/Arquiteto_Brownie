@@ -4,14 +4,17 @@ import ProductPrice from "../product-price/main";
 
 interface cardProps {
     product: productType
+    handleClick: () => void
 }
 
-const Card: React.FC<cardProps> = ({ product }) => {
+const Card: React.FC<cardProps> = ({ product, handleClick }) => {
+
     return (
         <S.Container
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+            onClick={handleClick}
         >
             <S.Image 
                 $url={product.images[0]}

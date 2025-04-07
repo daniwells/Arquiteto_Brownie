@@ -10,6 +10,7 @@ import Card from "@/interface/components/mobile/card/main";
 import CardContainer from "@/interface/containers/mobile/card-container/main";
 import Nav from "@/interface/components/mobile/nav/main";
 import Menu from "@/interface/components/mobile/menu/main";
+import AboutProduct from "../../interface/containers/mobile/about-product/main";
 
 // assets
 import Logo from "@/interface/components/mobile/logo/main";
@@ -25,6 +26,11 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
     const [ searchText, setSearchText ] = useState("");
     const [ filteredData, setFilteredData ] = useState(data);
     const [ selectedCategory, setSelectedCategory ] = useState("classico");
+
+    const [open, setOpen] = useState(false);
+    const toggleDrawer = (newOpen: boolean) => {
+        setOpen(newOpen);
+    };
     
     const handleFilterProduct = () => {
         setFilteredData(
@@ -56,20 +62,27 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
     }, [searchText, selectedCategory]);
 
     return (
-        <MainContainer>
-            <Logo/>
-            <Search value={searchText} handleChange={setSearchText}/>
-            <Nav handleChange={setSelectedCategory} />
-            <CardContainer>
-                {   
-                    filteredData.length > 0 && 
-                        filteredData.map((product) => (
-                            <Card key={product.slug} product={product}  />
-                        ))
-                }
-            </CardContainer>
-            <Menu/>
-        </MainContainer>
+        <>
+            <AboutProduct open={open} toggleDrawer={toggleDrawer} />
+            <MainContainer>
+                <Logo/>
+                <Search value={searchText} handleChange={setSearchText}/>
+                <Nav handleChange={setSelectedCategory} />
+                <CardContainer>
+                    {   
+                        filteredData.length > 0 && 
+                            filteredData.map((product) => (
+                                <Card 
+                                    key={product.slug} 
+                                    product={product} 
+                                    handleClick={() => toggleDrawer(true)} 
+                                />
+                            ))
+                    }
+                </CardContainer>
+                <Menu/>
+            </MainContainer>
+        </>
     );
 }
 
