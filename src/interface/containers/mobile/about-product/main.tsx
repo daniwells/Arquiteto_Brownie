@@ -1,10 +1,11 @@
 'use client'
 
 import React from 'react';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { Drawer } from '@mui/material';
+
+import * as S from "./styles";
 
 interface aboutProductProps {
   open: boolean;
@@ -18,8 +19,14 @@ const AboutProduct: React.FC<aboutProductProps> = ({open, toggleDrawer}) => {
         anchor="bottom"
         open={open}
         onClose={() => toggleDrawer(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            borderTopLeftRadius: '18px',
+            borderTopRightRadius: '18px',
+          },
+        }}
       >
-        <Box sx={{ p: 2 }}>
+        <S.ContentAboutProduct>
           <h3>Test</h3>
           
           <TextField
@@ -41,7 +48,7 @@ const AboutProduct: React.FC<aboutProductProps> = ({open, toggleDrawer}) => {
           >
             Enviar
           </Button>
-        </Box>
+        </S.ContentAboutProduct>
       </Drawer>
     </div>
   );
