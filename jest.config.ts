@@ -4,8 +4,12 @@
  */
 
 import type {Config} from 'jest';
+import WebSocket from 'ws';
 
 const config: Config = {
+  globals: {
+    WebSocket: WebSocket
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
