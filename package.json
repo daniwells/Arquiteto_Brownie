@@ -17,11 +17,6 @@
     "schema": "src/prisma/schema.prisma",
     "seed": "npx tsx ./src/db/seed.ts"
   },
-  "jest": {
-    "globals": {
-      "WebSocket": "require('ws')"
-    }
-  },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.4",
     "@emotion/react": "^11.14.0",
