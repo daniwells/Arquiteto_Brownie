@@ -17,3 +17,19 @@ export const insertProductSchema = z.object({
     price: currency,
 });
 
+export const cartItemSchema = z.object({
+    productId: z.string().min(1, "Id do produto é necessário"),
+    name: z.string().min(1, "Nome do produto é necessário"),
+    slug: z.string().min(1, "Produto é necessário"),
+    qty: z.number().int().nonnegative("Quantidade deve ser um número positivo"),
+    image: z.string().min(1, "Imagens do produto são necessárias"),
+    price: currency
+});
+
+export const insertCartSchema = z.object({
+    items: z.array(cartItemSchema),
+    itemsPrice: currency,
+    sessionCartId: z.string().min(1, "Session cart id is required"),
+    custumerId: z.string().optional().nullable(),
+});
+
