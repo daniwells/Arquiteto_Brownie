@@ -2,7 +2,6 @@ import { getLatestProducts, getProdutBySlug } from "../lib/actions/product.actio
 
 test("response must have the same attributes", async () => {
     const response = await getProdutBySlug("classico_classico");
-    console.log(response)
     expect(
         {  
             ...response,
