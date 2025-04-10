@@ -19,8 +19,11 @@ export async function getCart(mockCookies?: RequestCookies){
     // Get user cart from cookies
     const cookieStore = mockCookies ?? (await cookies());
     const sessionCart = cookieStore.get("sessionCart") || null;
+    console.log(sessionCart)
     
-    if(!sessionCart || sessionCart.value == undefined) return {success: false, message: "Carrinho não encontrado"};
+    if(!sessionCart || !sessionCart.value || sessionCart.value == undefined){
+        return {success: false, message: "Carrinho não encontrado"};
+    }
     
     const cart: cartType = JSON.parse(sessionCart.value);
 
@@ -39,7 +42,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
         const sessionCart = cookieStore.get("sessionCart") || null;
         
         if(!sessionCart || sessionCart.value == undefined ){
-            (await cookies()).set("sessionCart", JSON.stringify({items: product, ...calcPrice([product]),}));
+            cookieStore.set("sessionCart", JSON.stringify({items: product, ...calcPrice([product]),}));
 
             return {
                 sucess: true,
@@ -60,7 +63,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
             }
 
             // Save cart
-            localStorage.setItem("sessionCart", JSON.stringify(newCart));
+            cookieStore.set("sessionCart", JSON.stringify(newCart));
 
             return {
                 sucess: true,
@@ -75,13 +78,14 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
     }
 }
 
-export async function removeItemFromCart(productId: string){
+export async function removeItemFromCart(productId: string, mockCookies?: RequestCookies){
     try{
-        // Get cart
-        const sessionCart = localStorage.getItem("sessionCart") || null;
+
+        const cookieStore = mockCookies ?? (await cookies());
+        const sessionCart = cookieStore.get("sessionCart") || null;
         if(!sessionCart) return {success: false, message: "Carrinho não encontrado"};
         
-        const newCart = JSON.parse(sessionCart);
+        const newCart = JSON.parse(sessionCart.value);
         
         // Get Product
         const itemExist: cartItemType = (newCart.items).find((item: cartItemType) => productId === item.id);
@@ -97,7 +101,7 @@ export async function removeItemFromCart(productId: string){
         }
 
         // Save cart
-        localStorage.setItem("sessionCart", JSON.stringify(newCart));
+        cookieStore.set("sessionCart", JSON.stringify(newCart));
 
         return {
             success: true,
