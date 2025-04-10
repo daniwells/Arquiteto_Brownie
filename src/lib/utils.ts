@@ -20,10 +20,10 @@ export function round2(value: number | string){
     }
 }
 
-const CURRENCY_FORMATTER = new Intl.NumberFormat("en-US", {
-    currency: "USD",
-    style: "currency",
-    minimumFractionDigits: 2,
+const CURRENCY_FORMATTER = new Intl.NumberFormat("pt-BR", {
+  style: "currency",
+  currency: "BRL",
+  minimumFractionDigits: 2,
 });
 
 // Format currency using the formatter above

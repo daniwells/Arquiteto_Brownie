@@ -45,7 +45,6 @@ test("response must fail", async () => {
             return undefined;
         },
     } as RequestCookies;
-    
 
     const response = await getCart(newMockCookies);
 

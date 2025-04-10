@@ -1,15 +1,21 @@
 'use client'
 
-import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import { Drawer } from '@mui/material';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import AddOrRemove from '@/interface/components/mobile/add-or-remove/main';
-import ProductPrice from '@/interface/components/mobile/product-price/main';
-
-import 'swiper/css';
+// Style
 import * as S from "./styles";
+import 'swiper/css';
+
+// Libs
+import React from 'react';
+import Image from 'next/image';
+import { Drawer } from '@mui/material';
+import { SwiperSlide } from 'swiper/react';
+
+// Components
+import AddOrRemove from '@/interface/components/mobile/add-or-remove/main';
+import PrimaryButton from "@/interface/components/mobile/primary-button/main";
+
+// Utils
+import { formatNumberWithDecimal, formatCurrency } from "@/lib/utils";
 
 interface aboutProductProps {
   open: boolean;
@@ -33,37 +39,44 @@ const AboutProduct: React.FC<aboutProductProps> = ({open, toggleDrawer}) => {
         
         <S.ContentAboutProduct>
 
-        <Swiper 
+        <S.CustomSwiper 
           className="my-swiper"
-          spaceBetween={20}
-          slidesPerView={3}
+          spaceBetween={5}
+          slidesPerView={2.5}
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          <SwiperSlide><img src="/images/sample-products/p1-1.jpg" alt=""/></SwiperSlide>
-          <SwiperSlide><img src="/images/sample-products/p1-2.jpg" alt=""/></SwiperSlide>
-          <SwiperSlide><img src="/images/sample-products/p1-1.jpg" alt=""/></SwiperSlide>
-          <SwiperSlide><img src="/images/sample-products/p1-2.jpg" alt=""/></SwiperSlide>
-        </Swiper>
+          <SwiperSlide>
+            <Image src="/images/sample-products/p1-1.jpg" alt="" width={80} height={80}/>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src="/images/sample-products/p1-2.jpg" alt="" width={80} height={80}/>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src="/images/sample-products/p1-1.jpg" alt="" width={80} height={80}/>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Image src="/images/sample-products/p1-2.jpg" alt="" width={80} height={80}/>
+          </SwiperSlide>
+        </S.CustomSwiper>
 
         <S.Product>
-          <h3>Clássico</h3>
-          <p>Brownie de massa normal</p>
+          <S.ContainerDesc>
+            <h3>Clássico</h3>
+            <p>Brownie de massa normal</p>
+          </S.ContainerDesc>
 
-          <div>
+          <S.Row>
             <AddOrRemove/>
-            <p>R$ 3,40</p>
-          </div> 
+            <p>{formatCurrency(3.40)}</p>
+          </S.Row> 
         </S.Product>
           
-          <Button 
-            variant="contained" 
-            fullWidth
-            sx={{ mt: 2 }}
-            onClick={() => toggleDrawer(false)}
-          >
-            Enviar
-          </Button>
+          
+          <PrimaryButton 
+            value="Adicionar ao carrinho"
+            handleClick={() => toggleDrawer(false)}
+          />
         </S.ContentAboutProduct>
       </Drawer>
     </>
