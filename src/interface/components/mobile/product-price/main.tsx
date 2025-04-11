@@ -11,8 +11,7 @@ const ProductPrice = ({
 
     return ( 
         <p>
-            $
-            {intValue}
+            R$ {intValue}
             <S.Span>
                 .{ floatValue }
             </S.Span>

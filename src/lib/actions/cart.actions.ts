@@ -19,7 +19,6 @@ export async function getCart(mockCookies?: RequestCookies){
     // Get user cart from cookies
     const cookieStore = mockCookies ?? (await cookies());
     const sessionCart = cookieStore.get("sessionCart") || null;
-    console.log(sessionCart)
     
     if(!sessionCart || !sessionCart.value || sessionCart.value == undefined){
         return {success: false, message: "Carrinho não encontrado"};
@@ -42,7 +41,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
         const sessionCart = cookieStore.get("sessionCart") || null;
         
         if(!sessionCart || sessionCart.value == undefined ){
-            cookieStore.set("sessionCart", JSON.stringify({items: product, ...calcPrice([product]),}));
+            cookieStore.set("sessionCart", JSON.stringify({items: [product], ...calcPrice([product]),}));
 
             return {
                 sucess: true,
@@ -64,7 +63,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
 
             // Save cart
             cookieStore.set("sessionCart", JSON.stringify(newCart));
-
+            
             return {
                 sucess: true,
                 message: `${product.name} ${existItem ? "atualizado no" : "adicionado no"} carrinho`

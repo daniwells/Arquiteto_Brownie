@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './styles';
 
-const AddOrRemove = () => {
-    const [quantity, setQuantity] = useState(0);
+interface addOrRemoveProps {
+  quantity: number
+  handleQuantity: (q: number) => void;
+}
 
-    const increase = () => setQuantity((q) => q + 1);
-    const decrease = () => setQuantity((q) => Math.max(0, q - 1));
+const AddOrRemove: React.FC<addOrRemoveProps> = ({quantity, handleQuantity}) => {  
+  const increase = () => handleQuantity(quantity+1);
+  const decrease = () => handleQuantity(quantity-1);
   
   return (
     <S.CounterWrapper>
-      <S.ButtonBackground onClick={decrease} disabled={quantity === 0}>-</S.ButtonBackground>
+      <S.ButtonBackground onClick={decrease} disabled={quantity === 1}>-</S.ButtonBackground>
       <S.Quantity>{quantity}</S.Quantity>
       <S.ButtonBackground onClick={increase}>+</S.ButtonBackground>
     </S.CounterWrapper>

@@ -16,6 +16,7 @@ export const PrimaryButtonStyle = styled.button`
     margin-block: 20px;
     padding: 14px;
     font-size: 18px;
+    cursor: pointer;
 `
     
   
