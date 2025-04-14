@@ -40,12 +40,17 @@ const AboutProduct: React.FC<AboutProductProps> = ({open, toggleDrawer, product}
         setQty(newQty);
     }
 
+    const handleToggle = () => {
+        setQty(1);
+        toggleDrawer(false);
+    }
+
     return (
         <>
             <Drawer
                 anchor="bottom"
                 open={open}
-                onClose={() => toggleDrawer(false)}
+                onClose={handleToggle}
                 sx={{
                     '& .MuiDrawer-paper': {
                         borderTopLeftRadius: '18px',

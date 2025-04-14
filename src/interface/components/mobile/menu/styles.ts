@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 export const Container = styled.div`
     display: flex;
@@ -10,7 +11,7 @@ export const Container = styled.div`
     height: 50px;
 `
 
-export const HomeIcon = styled.div`
+export const HomeIcon = styled(Link)`
     background-image: url("/svg/home.svg");
     background-size: 100%;
     width: 24px;
@@ -25,7 +26,7 @@ export const HomeIcon = styled.div`
     }
 `
 
-export const CartIcon = styled.div`
+export const CartIcon = styled(Link)`
     background-image: url("/svg/cart.svg");
     background-size: 100%;
     width: 24px;
