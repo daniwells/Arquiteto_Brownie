@@ -9,7 +9,9 @@ interface BaseInputProps {
     type?: string;
     altIcon: string;
     id: string;
-    handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+    handleChange: (e: string) => void;
+    min?: number;
+    max?: number;
 }
 
 const BaseInput: React.FC<BaseInputProps> = ({ 
@@ -19,17 +21,22 @@ const BaseInput: React.FC<BaseInputProps> = ({
     placeholder, 
     type,
     id,
-    handleChange
+    handleChange,
+    min,
+    max,
+    
 }) => {
     return (
         <S.InputContainer htmlFor={id} >
             <Image src={icon} alt={altIcon} width={20} height={20} />
             <S.InputStyle
-                onChange={handleChange}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}
                 type={type || "text"}
                 value={value}
                 placeholder={placeholder}
                 id={id}
+                maxLength={max}
+                minLength={min}
             />
         </S.InputContainer>
     );
