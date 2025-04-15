@@ -5,7 +5,7 @@ export const Background = styled.div`
     flex-direction: column;
     justify-content: left;
     width: 100%;
-    height: 18rem;
+    height: 12rem;
     gap: 15px;
     overflow-y: auto;
     overflow-x: hidden;

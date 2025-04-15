@@ -7,12 +7,6 @@ export const Background = styled.div`
     flex-direction: column;
     width: 100%;
     gap: 20px;
-
-    h1{
-        font-family: 'Pacifico Regular';
-        color: ${colors.darkBrown};
-        font-size: 32px;
-    }
 `
 
 export const Nav = styled.div`

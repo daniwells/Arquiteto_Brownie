@@ -1,5 +1,6 @@
 import * as S from "./styles"
 import { useState, useEffect } from "react";
+import Title from "../title/main";
 
 interface navProps {
     handleChange: (category: string) => void,
@@ -19,7 +20,7 @@ const Nav: React.FC<navProps> = ({ handleChange }) => {
 
     return (
         <S.Background>
-            <h1>Nosso menu</h1>
+            <Title text="Nosso menu"/>
             <S.Nav>
                 {navItems.map((item) => (
                     <S.NavItem key={item.value} onClick={() => setActive(item)}>
