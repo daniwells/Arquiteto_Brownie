@@ -4,14 +4,12 @@ import { cartItemType } from "@/types";
 
 type mockCartType = {
     items: any[];
-    itemsPrice: number;
-    totalPrice: number;
+    itemsPrice: string;
 }
 
 const mockCart: mockCartType = {
     items: [],
-    itemsPrice: 0,
-    totalPrice: 0,
+    itemsPrice: "0",
 };
 
 const mockCookies = (cart: mockCartType=mockCart) => {
@@ -34,7 +32,7 @@ test("response must be equal", async () => {
 
     expect(
         response
-    ).toEqual({items: [],itemsPrice: "0",totalPrice: "0",});
+    ).toEqual({items: [],itemsPrice: "0",});
 });
 
 // Test get item cart with undefined values
@@ -98,8 +96,7 @@ test("item must be removed", async () => {
 
     const newMockCart = {
         items: [product],
-        itemsPrice: 0,
-        totalPrice: 0,
+        itemsPrice: "0",
     };
 
     const response = await removeItemFromCart(product.id, mockCookies(newMockCart));
