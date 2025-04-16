@@ -4,8 +4,8 @@
 import React, { useState } from "react";
 
 // Components
-import MainContainer from "@/interface/containers/mobile/main-container/main";
-import DescriptionContainer from "@/interface/containers/mobile/description-container/main";
+import MainContainer from "@/interface/containers/mobile/global/main-container/main";
+import DescriptionContainer from "@/interface/containers/mobile/global/description-container/main";
 import TotalPriceInfo from "@/interface/components/mobile/total-price-info/main";
 import BaseInput from "@/interface/components/global/base-input/main";
 import PrimaryButton from "@/interface/components/mobile/primary-button/main";
@@ -39,7 +39,10 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     return (
         <MainContainer>
             <Logo/>
-            <DescriptionContainer/>
+            <DescriptionContainer 
+                title="Preencha seus dados"
+                desc="Para prosseguir com sua compra, preencha o formulário abaixo"
+            />
             <S.Form action="">
                 <BaseInput
                     value={form.nome}

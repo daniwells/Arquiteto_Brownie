@@ -4,13 +4,13 @@
 import { useState, useEffect } from "react";
 
 // components
-import MainContainer from "@/interface/containers/mobile/main-container/main";
+import MainContainer from "@/interface/containers/mobile/global/main-container/main";
 import Search from "@/interface/components/mobile/search/main";
 import Card from "@/interface/components/mobile/card/main";
-import CardContainer from "@/interface/containers/mobile/card-container/main";
+import CardContainer from "@/interface/containers/mobile/site/card-container/main";
 import Nav from "@/interface/components/mobile/nav/main";
 import Menu from "@/interface/components/mobile/menu/main";
-import AboutProduct from "@/interface/containers/mobile/about-product/main";
+import AboutProduct from "@/interface/containers/mobile/site/about-product/main";
 
 // assets
 import Logo from "@/interface/components/mobile/logo/main";
