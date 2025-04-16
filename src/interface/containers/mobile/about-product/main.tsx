@@ -79,7 +79,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({open, toggleDrawer, product}
 
                         <S.Row>
                             <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
-                            <ProductPrice value={String(product?.price || 0)} />
+                            <ProductPrice value={String(Number(product?.price)*qty || 0)} />
                         </S.Row> 
                     </S.Product>
                     

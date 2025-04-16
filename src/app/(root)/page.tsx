@@ -1,6 +1,7 @@
 import MenuPage from "./menuPage";
 import { getLatestProducts } from "../../lib/actions/product.actions";
 
+
 export const metadata = {
     title: "Menu",
 }

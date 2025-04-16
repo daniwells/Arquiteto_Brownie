@@ -1,7 +1,7 @@
 'use client'
 
 // Libs
-import { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // Components
 import MainContainer from "@/interface/containers/mobile/main-container/main";
@@ -20,7 +20,11 @@ import personIcon from "../../../../public/svg/person.svg";
 import phoneIcon from "../../../../public/svg/phone.svg";
 import placeIcon from "../../../../public/svg/place.svg";
 
-const FormsContent = () => {
+interface formsContentProps {
+    itemsPrice: string,
+}
+
+const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     const [ form, setForm ] = useState({
         nome: "", 
         fone: "",
@@ -31,10 +35,6 @@ const FormsContent = () => {
     const handleSetForm = (value: string, name: string) => {
         setForm({...form, [name]: value});
     }
-
-    useEffect(() => {
-        console.log(form);
-    }, [form])
 
     return (
         <MainContainer>
@@ -85,7 +85,7 @@ const FormsContent = () => {
                     }}
                     max={3}
                 />
-                <TotalPriceInfo date={new Date()} totalPrice={String(12)} />
+                <TotalPriceInfo date={new Date()} totalPrice={itemsPrice} />
                 <PrimaryButton value="Realizar pagamento" handleClick={() => {}} />
             </S.Form>
         </MainContainer>

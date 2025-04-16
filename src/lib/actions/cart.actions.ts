@@ -9,7 +9,6 @@ const calcPrice = (items: cartItemType[]) => {
     const itemsPrice = round2(
         items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0)
     )
-
     return {
         itemsPrice: itemsPrice.toFixed(2),
     }
@@ -29,7 +28,6 @@ export async function getCart(mockCookies?: RequestCookies){
     return convertToPlainObject({
         items: cart.items as cartItemType[],
         itemsPrice: cart.itemsPrice.toString(),
-        totalPrice: cart.totalPrice.toString(),
     });
 }
 
@@ -49,17 +47,19 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
             }
         } else {
             // Check if item is already in cart
-            const newCart: cartType = JSON.parse(sessionCart.value);
+            let newCart: cartType = JSON.parse(sessionCart.value);
             const existItem: cartItemType | null = (newCart.items).find((item) => product.id === item.id) || null;
             
             // Check if item exist
             if (existItem){
                 // Increase the quantity
-                (newCart.items).find((item) => product.id === item.id)!.qty = existItem.qty + 1;
+                (newCart.items).find((item) => product.id === item.id)!.qty = existItem.qty + product.qty;
             }else{
                 // Add item to the cart.items
                 newCart.items.push(product);
             }
+            
+            newCart = {...newCart, ...calcPrice(newCart.items),};
 
             // Save cart
             cookieStore.set("sessionCart", JSON.stringify(newCart));

@@ -12,6 +12,5 @@ export type cartItemType = productType & {qty: number}
 
 export type cartType = {
     items: cartItemType[];
-    itemsPrice: number;
-    totalPrice: number;
+    itemsPrice: string;
 }
