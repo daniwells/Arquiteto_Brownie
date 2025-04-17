@@ -16,10 +16,10 @@ export const ContentAboutProduct = styled.div`
     font-family: 'Comfortaa Regular';
     font-size: 18px;
   }
-
+  
   .my-swiper {
     .swiper-slide img {
-      width: 200px;
+      width: 100%;
       height: 140px;
       border-radius: 5px;
       object-fit: cover;

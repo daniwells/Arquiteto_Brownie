@@ -33,3 +33,8 @@ export const insertCartSchema = z.object({
     custumerId: z.string().optional().nullable(),
 });
 
+export const signInFormSchema = z.object({
+    email: z.string().email("Endereço de email inválido"),
+    password: z.string().min(6, "Sua senha deve ter pelo menos 6 caracteres"),
+})
+
