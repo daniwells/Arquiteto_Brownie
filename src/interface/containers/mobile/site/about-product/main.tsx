@@ -64,11 +64,11 @@ const AboutProduct: React.FC<AboutProductProps> = ({open, toggleDrawer, product}
                         spaceBetween={5}
                         slidesPerView={product?.images?.length && product?.images?.length > 2 ? 2.5 : 2}
                     >
-                    {product?.images.map((imagePath, key) => (
-                        <SwiperSlide key={key}>
-                            <Image src={imagePath} alt="" width={80} height={80}/>
-                        </SwiperSlide>
-                    )) || false}
+                        {product?.images.map((imagePath, key) => (
+                            <SwiperSlide key={key}>
+                                <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80}/>
+                            </SwiperSlide>
+                        )) || false}
                     </S.CustomSwiper>
 
                     <S.Product>
