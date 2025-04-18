@@ -7,7 +7,9 @@ interface TitleProps {
 
 const Title: React.FC<TitleProps> = ({ text }) => {
     return ( 
-        <S.TitleStyle>{text}</S.TitleStyle>
+        <S.Container>
+            <S.TitleStyle>{text}</S.TitleStyle>
+        </S.Container>
     );
 }
  

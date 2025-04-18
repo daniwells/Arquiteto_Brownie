@@ -11,4 +11,5 @@ export const Background = styled.div`
     align-items: center;
     grid-gap: 20px;
     min-height: 34rem;
+
 `

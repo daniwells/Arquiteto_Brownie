@@ -10,6 +10,7 @@ export const PrimaryButtonStyle = styled.button`
 
     &:hover{
         box-shadow: none;
+        background-color: ${colors.lightBrown};
     }
     width: 100%;
     border: none;

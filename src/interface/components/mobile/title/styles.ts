@@ -6,3 +6,10 @@ export const TitleStyle = styled.h1`
     color: ${colors.darkBrown};
     font-size: 32px;
 `
+
+export const Container = styled.div`
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: left;
+`
