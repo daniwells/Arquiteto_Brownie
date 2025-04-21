@@ -1,18 +1,21 @@
 import * as S from "./styles"
-import { productType } from "@/types";
 import ProductPrice from "../product-price/main";
 import AddOrRemove from "../add-or-remove/main";
 import Remove from "../remove/main";
-
+import { cartItemType } from "@/types";
 import React, { useState } from 'react';
 
+interface cartItemProps {
+    product: cartItemType
+}
 
-const CartItem = () => {
-    const [qty, setQty] = useState<number>(1);
+const CartItem: React.FC<cartItemProps> = ({ product }) => {
+    const [qty, setQty] = useState<number>(product.qty);
 
     const handleQuantity = (newQty: number) => {
         setQty(newQty);
     }
+
     return (
         <>
             <S.Container
@@ -20,17 +23,19 @@ const CartItem = () => {
                 whileTap={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-                <S.Image></S.Image>
+                <S.Image $url={product.images[0]}/>
                 <S.Content>
                     <div>
-                        <h1>Nome</h1>
-                        <Remove />
+                        <S.RowCard>
+                            <h1>{product.name}</h1>
+                            <Remove/>
+                        </S.RowCard>
+                        <span>{product.description}</span>
                     </div>
-                    <span>Descrição</span>
-                    <div>
-                        <ProductPrice value="4" />
+                    <S.RowCard>
+                        <ProductPrice value={String(Number(product.price) * qty)} />
                         <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
-                    </div>
+                    </S.RowCard>
                 </S.Content>
             </S.Container>
         </>

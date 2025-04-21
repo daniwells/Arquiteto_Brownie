@@ -10,7 +10,6 @@ export async function getLatestProducts(){
         orderBy: { createdAt: "desc" }
     })
 
-    
     return convertToPlainObject(data);
 }
 

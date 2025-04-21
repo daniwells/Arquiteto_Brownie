@@ -20,14 +20,17 @@ export async function getCart(mockCookies?: RequestCookies){
     const sessionCart = cookieStore.get("sessionCart") || null;
     
     if(!sessionCart || !sessionCart.value || sessionCart.value == undefined){
-        return {success: false, message: "Carrinho não encontrado"};
+        return {success: false, message: "Carrinho não encontrado", content: null};
     }
     
     const cart: cartType = JSON.parse(sessionCart.value);
 
     return convertToPlainObject({
-        items: cart.items as cartItemType[],
-        itemsPrice: cart.itemsPrice.toString(),
+        success: true,
+        content: {
+            items: cart.items as cartItemType[],
+            itemsPrice: cart.itemsPrice.toString(),
+        },
     });
 }
 

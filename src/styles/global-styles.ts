@@ -33,9 +33,14 @@ export const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
     color: inherit;
+    font-size: 16px;
   }
 
   ul {
     list-style: none;
+  }
+
+  p{
+    font-size: 16px;
   }
 `;

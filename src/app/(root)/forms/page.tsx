@@ -7,13 +7,8 @@ export const metadata = {
 
 const Forms = async () => {
     const cart = await getCart();
-    let itemsPrice = "0";
-    if('itemsPrice' in cart){
-        itemsPrice = cart?.itemsPrice
-    }
-   
 
-    return <FormsContent itemsPrice={itemsPrice} />;
+    return <FormsContent itemsPrice={cart?.content ? cart?.content.itemsPrice : "0"} />;
 }
  
 export default Forms;

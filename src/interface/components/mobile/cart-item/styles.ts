@@ -13,7 +13,13 @@ interface imageProps {
     $url: string
 }
 
-export const Image = styled.div`
+export const Image = styled.div<imageProps>`
+    ${
+        props => props?.$url ? 
+            `background-image: url(${props?.$url});`
+        :
+            `background-color: ${colors.lightBrown};`
+    };
     max-width: 200px;
     width: 45%;
     height: 150px;
@@ -42,10 +48,10 @@ export const Content = styled.div`
         font-size: 16px;
         font-family: 'Comfortaa Bold'
     }
+`
 
-    div{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
+export const RowCard = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 `
