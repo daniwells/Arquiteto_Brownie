@@ -6,16 +6,14 @@ import React, { useState } from "react";
 // Components
 import MainContainer from "@/interface/containers/mobile/global/main-container/main";
 import DescriptionContainer from "@/interface/containers/mobile/global/description-container/main";
-import TotalPriceInfo from "@/interface/components/mobile/total-price-info/main";
+import TotalPriceInfo from "@/interface/components/mobile/site/total-price-info/main";
 import BaseInput from "@/interface/components/global/base-input/main";
-import PrimaryButton from "@/interface/components/mobile/primary-button/main";
+import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
 import MaskedInput from "@/interface/components/global/masked-input/main";
-
-// Style
-import * as S from "./styles";
+import FormContainer from "@/interface/containers/mobile/global/form-container/main";
 
 // Images
-import Logo from "@/interface/components/mobile/logo/main";
+import Logo from "@/interface/components/mobile/global/logo/main";
 import personIcon from "../../../../public/svg/person.svg";
 import phoneIcon from "../../../../public/svg/phone.svg";
 import placeIcon from "../../../../public/svg/place.svg";
@@ -43,7 +41,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
                 title="Preencha seus dados"
                 desc="Para prosseguir com sua compra, preencha o formulário abaixo"
             />
-            <S.Form action="">
+            <FormContainer>
                 <BaseInput
                     value={form.nome}
                     icon={personIcon}
@@ -90,7 +88,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
                 />
                 <TotalPriceInfo date={new Date()} totalPrice={itemsPrice} />
                 <PrimaryButton value="Realizar pagamento" handleClick={() => {}} />
-            </S.Form>
+            </FormContainer>
         </MainContainer>
         
     );

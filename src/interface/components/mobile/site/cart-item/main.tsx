@@ -1,7 +1,7 @@
 import * as S from "./styles"
-import ProductPrice from "../product-price/main";
-import AddOrRemove from "../add-or-remove/main";
-import Remove from "../remove/main";
+import ProductPrice from "../../global/product-price/main";
+import AddOrRemove from "../../global/add-or-remove/main";
+import Remove from "../../global/remove/main";
 import { cartItemType } from "@/types";
 import React, { useState } from 'react';
 

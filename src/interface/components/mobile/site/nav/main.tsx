@@ -1,6 +1,6 @@
 import * as S from "./styles"
 import { useState, useEffect } from "react";
-import Title from "../title/main";
+import Title from "../../global/title/main";
 
 interface navProps {
     handleChange: (category: string) => void,

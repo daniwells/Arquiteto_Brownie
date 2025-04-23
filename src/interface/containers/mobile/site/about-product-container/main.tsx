@@ -11,9 +11,9 @@ import { Drawer } from '@mui/material';
 import { SwiperSlide } from 'swiper/react';
 
 // Components
-import AddOrRemove from '@/interface/components/mobile/add-or-remove/main';
-import PrimaryButton from "@/interface/components/mobile/primary-button/main";
-import ProductPrice from "@/interface/components/mobile/product-price/main";
+import AddOrRemove from '@/interface/components/mobile/global/add-or-remove/main';
+import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
+import ProductPrice from "@/interface/components/mobile/global/product-price/main";
 
 // Utils
 import { productType } from "@/types";

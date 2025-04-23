@@ -7,7 +7,7 @@ const SignInPage = async () => {
   const session = await auth();
 
   if(session){
-    return redirect("/");
+    return redirect("/admin/products");
   }
 
   return <SignIn handleSignIn={

@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import ProductPrice from "../product-price/main";
+import ProductPrice from "../../global/product-price/main";
 
 interface TotalPriceInfoProps {
     date: Date,

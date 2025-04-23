@@ -1,6 +1,6 @@
 import * as S from "./styles"
 import { productType } from "@/types";
-import ProductPrice from "../product-price/main";
+import ProductPrice from "../../global/product-price/main";
 
 interface cardProps {
     product: productType

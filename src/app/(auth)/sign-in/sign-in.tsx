@@ -2,7 +2,7 @@
 
 import React from "react";
 import * as S from "./styles";
-import PrimaryButton from "@/interface/components/mobile/primary-button/main";
+import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
 import DescriptionContainer from "@/interface/containers/mobile/global/description-container/main";
 import logo from "../../../../public/svg/logo.svg";
 

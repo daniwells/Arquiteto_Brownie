@@ -5,15 +5,15 @@ import { useState, useEffect } from "react";
 
 // components
 import MainContainer from "@/interface/containers/mobile/global/main-container/main";
-import Search from "@/interface/components/mobile/search/main";
-import Card from "@/interface/components/mobile/card/main";
+import Search from "@/interface/components/mobile/global/search/main";
+import Card from "@/interface/components/mobile/site/card/main";
 import CardContainer from "@/interface/containers/mobile/site/card-container/main";
-import Nav from "@/interface/components/mobile/nav/main";
-import Menu from "@/interface/components/mobile/menu/main";
-import AboutProduct from "@/interface/containers/mobile/site/about-product/main";
+import Nav from "@/interface/components/mobile/site/nav/main";
+import Menu from "@/interface/components/mobile/global/menu/main";
+import AboutProduct from "@/interface/containers/mobile/site/about-product-container/main";
 
 // assets
-import Logo from "@/interface/components/mobile/logo/main";
+import Logo from "@/interface/components/mobile/global/logo/main";
 
 // types
 import { productType } from "@/types";

@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import Title from "@/interface/components/mobile/title/main";
+import Title from "@/interface/components/mobile/global/title/main";
 
 interface descriptionContainerProps {
     desc: string,
