@@ -6,10 +6,13 @@ import {
 export type productType = z.infer<typeof insertProductSchema> & {
     id?: string;
     createdAt: Date;
-    
 }
 
-export type cartItemType = productType & {qty: number}
+export type productTypeImageString = Omit<productType, 'images'> & {
+    images: string[];
+}
+
+export type cartItemType = productTypeImageString & {qty: number}
 
 export type cartType = {
     items: cartItemType[];

@@ -7,6 +7,8 @@ import { formatError } from "../utils";
 import { productType } from "@/types";
 import { auth } from "../../../auth";
 import { insertProductSchema } from "../validators";
+import { join } from 'path';
+import { writeFile, mkdir } from 'fs/promises';
 
 export async function getLatestProducts(){
     const data = await prisma.product.findMany({
@@ -40,8 +42,38 @@ export async function insertProduct(product: productType){
             price: product.price,
             active: product.active,
         });
+        
+        // Adding path of images instead the File
+        const imagesString: string[] = []
 
-        const insertedProduct = await prisma.product.create({ data: productObj });
+        try{
+            await Promise.all(
+                product?.images?.map(async (img) => {
+                    const arrayBuffer = await img.arrayBuffer();
+                    const buffer = Buffer.from(arrayBuffer); 
+    
+                    const nameImg = img.name
+    
+                    const dir = join(process.cwd(), 'public/images/sample-products');
+                    await mkdir(dir, { recursive: true }); 
+                    
+                    const pathImg = join(dir, nameImg);
+                    await writeFile(pathImg, buffer); 
+    
+                    imagesString.push('/images/sample-products/' + nameImg)
+                })
+            );
+        }catch{
+            throw new Error('Não foi possível salvar as imagens do produto');
+        }
+        
+        const productObjFinal = {
+            ...productObj,
+            images: imagesString,
+        }
+        
+        // Save product in database
+        const insertedProduct = await prisma.product.create({ data: productObjFinal });
 
         if(!insertedProduct) throw new Error('Erro ao criar o produto');
         

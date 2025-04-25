@@ -16,10 +16,10 @@ import AboutProduct from "@/interface/containers/site/about-product-container/ma
 import Logo from "@/interface/components/global/logo/main";
 
 // types
-import { productType } from "@/types";
+import { productTypeImageString } from "@/types";
 
 interface menuProps {
-    data: productType[]
+    data: productTypeImageString[];
 }
 
 const MenuPage: React.FC<menuProps> = ({ data }) => {
@@ -28,7 +28,7 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
     const [ selectedCategory, setSelectedCategory ] = useState("classico");
 
     const [open, setOpen] = useState(false);
-    const [currentProduct, setCurrentProduct] = useState<productType | null>(null);
+    const [currentProduct, setCurrentProduct] = useState<productTypeImageString | null>(null);
 
     const toggleDrawer = (newOpen: boolean) => {
         setOpen(newOpen);

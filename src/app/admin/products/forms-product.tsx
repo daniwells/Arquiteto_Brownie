@@ -62,18 +62,12 @@ const FormsProduct = () => {
     });
 
     const onSubmit = async (data: formData) => {
-        const images: string[] = []
-
-        data?.images?.map((img) => {
-            const nameImg = img.name
-            const pathImg = "/images/sample-products/" + nameImg
-            images.push(pathImg)
-        })
+        
 
         const producToSave = {
             ...data,
-            slug: data.category + "_" + normalizeString(data?.name),
-            images: images,
+            slug: normalizeString(data?.name) + "_" + data.category,
+            // images: images,
             active: data.active == "Ativo" ? true : false,
             createdAt: new Date(),
             price: data.price.replace(",", "."),
@@ -141,10 +135,7 @@ const FormsProduct = () => {
                 <MultiImageInput
                     value={watchFields.images}
                     id="images"
-                    handleChange={(value: File[]) => {
-                        console.log(value)
-                        setValue("images", value)
-                    }}
+                    handleChange={(value: File[]) => setValue("images", value)}
                 />
 
                 <Dropdown
@@ -155,7 +146,6 @@ const FormsProduct = () => {
                     ]}
                     selectedOption={watchFields.active}
                     setSelectedOption={(value: string) => {
-                        
                         setValue("active", value)}
                     }
                     width={"175px"}

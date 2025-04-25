@@ -13,7 +13,14 @@ export const insertProductSchema = z.object({
     slug: z.string().min(3, "Slug deve ter pelo menos 3 caracteres"),
     category: z.string().min(3, "Category deve ter pelo menos 3 caracteres"),
     description: z.string().min(3, "Description deve ter pelo menos 3 caracteres"),
-    images: z.array(z.string()).min(1, "Produto deve ter pelo menos uma imagem"), 
+    images: z.array(
+        z.instanceof(File)
+        .refine((file) => file.size <= 5 * 1024 * 1024, {
+            message: "O arquivo deve ter no máximo 5MB",
+        })
+        .refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
+            message: "Apenas arquivos JPG ou PNG são permitidos",
+        })).min(1, "Produto deve ter pelo menos uma imagem"), 
     price: currency,
     active: z.boolean(),
 });

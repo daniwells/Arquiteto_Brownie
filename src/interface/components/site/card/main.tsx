@@ -1,9 +1,9 @@
 import * as S from "./styles"
-import { productType } from "@/types";
+import { productTypeImageString } from "@/types";
 import ProductPrice from "../../global/product-price/main";
 
 interface cardProps {
-    product: productType
+    product: productTypeImageString
     handleClick: () => void
 }
 

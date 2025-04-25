@@ -16,7 +16,7 @@ import PrimaryButton from "@/interface/components/global/primary-button/main";
 import ProductPrice from "@/interface/components/global/product-price/main";
 
 // Utils
-import { productType } from "@/types";
+import { productTypeImageString } from "@/types";
 
 // Actions
 import { addItemToCart } from "@/lib/actions/cart.actions";
@@ -24,7 +24,7 @@ import { addItemToCart } from "@/lib/actions/cart.actions";
 interface AboutProductProps {
   open: boolean;
   toggleDrawer: (open: boolean) => void;
-  product: null | productType;
+  product: null | productTypeImageString;
 }
 
 const AboutProduct: React.FC<AboutProductProps> = ({open, toggleDrawer, product}) => {
