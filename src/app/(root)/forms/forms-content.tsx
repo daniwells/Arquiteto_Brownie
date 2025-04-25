@@ -4,16 +4,16 @@
 import React, { useState } from "react";
 
 // Components
-import MainContainer from "@/interface/containers/mobile/global/main-container/main";
-import DescriptionContainer from "@/interface/containers/mobile/global/description-container/main";
-import TotalPriceInfo from "@/interface/components/mobile/site/total-price-info/main";
+import MainContainer from "@/interface/containers/global/main-container/main";
+import DescriptionContainer from "@/interface/containers/global/description-container/main";
+import TotalPriceInfo from "@/interface/components/site/total-price-info/main";
 import BaseInput from "@/interface/components/global/base-input/main";
-import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
+import PrimaryButton from "@/interface/components/global/primary-button/main";
 import MaskedInput from "@/interface/components/global/masked-input/main";
-import FormContainer from "@/interface/containers/mobile/global/form-container/main";
+import FormContainer from "@/interface/containers/global/form-container/main";
 
 // Images
-import Logo from "@/interface/components/mobile/global/logo/main";
+import Logo from "@/interface/components/global/logo/main";
 import personIcon from "../../../../public/svg/person.svg";
 import phoneIcon from "../../../../public/svg/phone.svg";
 import placeIcon from "../../../../public/svg/place.svg";

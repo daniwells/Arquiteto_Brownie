@@ -1,17 +1,11 @@
 import styled from "styled-components";
 import { colors } from "@/styles/themes";
 
-export const TextareaStyle = styled.textarea`
-    border: 0px solid transparent;
-    background-color: transparent;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    font-size: 20px;
-    resize: none;
-`
+export const InputImage = styled.input`
+  display: none;
+`;
 
-export const FieldContainer = styled.label`
+export const InputContainer = styled.label`
     display: flex;
     border: 1px solid ${colors.lightGray};
     border-radius: 30px;
@@ -19,5 +13,12 @@ export const FieldContainer = styled.label`
     width: 100%;
     height: 100px;
     padding: 20px;
+    cursor: pointer;
     background-color: white;
+    
+    p{
+        font-size: 18px;
+        opacity: 60%;
+        cursor: pointer;
+    }
 `

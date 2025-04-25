@@ -56,3 +56,28 @@ export async function formatError(error: any){
         error.message : JSON.stringify(error.message);
     }
 }
+
+export const normalizeString = (str: string): string => {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/ç/g, "c")
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+export const formatMessagesZod = (zodError: any) => {
+  let finalErrorMessage = "Erro: "
+  
+  zodError.map((item: any, index: number) => {
+      if(zodError.length - 1 === index){
+          finalErrorMessage += item.message + ".";
+      }else{
+          finalErrorMessage += item.message + "; ";
+      }
+      
+  });
+
+  return finalErrorMessage;
+}

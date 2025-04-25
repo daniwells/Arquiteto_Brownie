@@ -4,15 +4,15 @@
 import { redirect } from "next/navigation";
 
 // Components
-import MainContainer from "@/interface/containers/mobile/global/main-container/main";
-import Logo from "@/interface/components/mobile/global/logo/main";
-import Menu from "@/interface/components/mobile/global/menu/main";
-import CardContainer from "@/interface/containers/mobile/site/card-container/main";
-import CartItem from "@/interface/components/mobile/site/cart-item/main";
-import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
-import Title from "@/interface/components/mobile/global/title/main";
-import TotalPriceInfo from "@/interface/components/mobile/site/total-price-info/main";
-import BackToMenu from "@/interface/components/mobile/site/back-to-menu/main";
+import MainContainer from "@/interface/containers/global/main-container/main";
+import Logo from "@/interface/components/global/logo/main";
+import Menu from "@/interface/components/global/menu/main";
+import CardContainer from "@/interface/containers/site/card-container/main";
+import CartItem from "@/interface/components/site/cart-item/main";
+import PrimaryButton from "@/interface/components/global/primary-button/main";
+import Title from "@/interface/components/global/title/main";
+import TotalPriceInfo from "@/interface/components/site/total-price-info/main";
+import BackToMenu from "@/interface/components/site/back-to-menu/main";
 
 // Utils
 import { cartType } from "@/types";

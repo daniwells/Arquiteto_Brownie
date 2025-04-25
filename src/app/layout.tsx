@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from "../lib/constants";
 import { ThemeProvider } from "next-themes";
 import { GlobalStyles } from "@/styles/global-styles";
+import { PopupProvider } from "../contexts/PopupContext";
 
 const inter = Inter({subsets: ['latin']});
 
@@ -30,7 +31,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <PopupProvider>
+            {children}
+          </PopupProvider>
           <GlobalStyles/>
         </ThemeProvider>
       </body>

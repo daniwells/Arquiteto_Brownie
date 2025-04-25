@@ -15,6 +15,7 @@ export const insertProductSchema = z.object({
     description: z.string().min(3, "Description deve ter pelo menos 3 caracteres"),
     images: z.array(z.string()).min(1, "Produto deve ter pelo menos uma imagem"), 
     price: currency,
+    active: z.boolean(),
 });
 
 export const cartItemSchema = z.object({

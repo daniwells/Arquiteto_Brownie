@@ -2,8 +2,8 @@
 
 import React from "react";
 import * as S from "./styles";
-import PrimaryButton from "@/interface/components/mobile/global/primary-button/main";
-import DescriptionContainer from "@/interface/containers/mobile/global/description-container/main";
+import PrimaryButton from "@/interface/components/global/primary-button/main";
+import DescriptionContainer from "@/interface/containers/global/description-container/main";
 import logo from "../../../../public/svg/logo.svg";
 
 interface signInProps {
@@ -19,7 +19,7 @@ const SignIn: React.FC<signInProps> = ({handleSignIn}) => {
             <form
                 action={handleSignIn}
             >
-                <PrimaryButton isSecondary type="submit" value="Entrar com o Google"/>
+                <PrimaryButton category="dark" type="submit" value="Entrar com o Google"/>
             </form>
         </S.ContentLogin>
     </S.MainLogin>

@@ -10,6 +10,7 @@ export const InputContainer = styled.label`
     gap: 15px;
     align-items: center;
     width: 100%;
+    background-color: white;
 `;
 
 export const MaskedInputStyle = styled(IMaskInput)`
