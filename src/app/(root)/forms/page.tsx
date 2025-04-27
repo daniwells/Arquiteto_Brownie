@@ -7,7 +7,6 @@ export const metadata = {
 
 const Forms = async () => {
   const cart = await getCart();
-
   return <FormsContent itemsPrice={cart?.content ? cart?.content.itemsPrice : '0'} />;
 };
 

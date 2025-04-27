@@ -41,7 +41,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
         title="Preencha seus dados"
         desc="Para prosseguir com sua compra, preencha o formulário abaixo"
       />
-      <FormContainer>
+      <FormContainer handleSubmit={() => {}} >
         <BaseInput
           value={form.nome}
           icon={personIcon}
