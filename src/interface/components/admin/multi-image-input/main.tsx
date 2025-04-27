@@ -1,24 +1,18 @@
-import React, { ChangeEvent } from "react";
-import * as S from "./styles";
-import Image from "next/image";
-import imagesIcon from "../../../../../public/svg/images.svg"
+import React, { ChangeEvent } from 'react';
+import * as S from './styles';
+import Image from 'next/image';
+import imagesIcon from '../../../../../public/svg/images.svg';
 
 interface MultiImageInputProps {
   handleChange: (files: File[]) => void;
-  value?: File[],
-  id: string,
+  value?: File[];
+  id: string;
 }
 
-const MultiImageInput: React.FC<MultiImageInputProps> = ({ 
-  handleChange, 
-  id,
-  value,
-}) => {
+const MultiImageInput: React.FC<MultiImageInputProps> = ({ handleChange, id, value }) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
-    const filtered = files.filter((file) =>
-      ["image/png", "image/jpeg"].includes(file.type)
-    );
+    const filtered = files.filter((file) => ['image/png', 'image/jpeg'].includes(file.type));
     handleChange(filtered);
   };
 
@@ -32,21 +26,16 @@ const MultiImageInput: React.FC<MultiImageInputProps> = ({
         onChange={handleFileChange}
         id={id}
       />
-      {
-        value && value.length > 0 ?
-          <p>
-            {
-              value.map((image, index) => (
-                <span key={index}>{image.name};</span>
-              ))
-            }
-          </p>
-        :
-          <p>Imagens</p>
-      }
-      
+      {value && value.length > 0 ? (
+        <p>
+          {value.map((image, index) => (
+            <span key={index}>{image.name};</span>
+          ))}
+        </p>
+      ) : (
+        <p>Imagens</p>
+      )}
     </S.InputContainer>
-    
   );
 };
 

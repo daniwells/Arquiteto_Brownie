@@ -1,8 +1,8 @@
-import React from "react";
-import { RemoveIcon } from "./styles";
+import React from 'react';
+import { RemoveIcon } from './styles';
 
 const Remove = () => {
-    return <RemoveIcon/>;
-}
+  return <RemoveIcon />;
+};
 
 export default Remove;

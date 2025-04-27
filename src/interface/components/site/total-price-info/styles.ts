@@ -1,21 +1,21 @@
-import styled from "styled-components";
-import { colors } from "@/styles/themes";
+import styled from 'styled-components';
+import { colors } from '@/styles/themes';
 
 export const TotalPriceContainer = styled.div`
-    text-align: center;
-    color: ${colors.darkGray};
-    margin-top: 20px;
-`
+  text-align: center;
+  color: ${colors.darkGray};
+  margin-top: 20px;
+`;
 
 export const Row = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 250px;
-    font-size: 18px;
-`
+  display: flex;
+  justify-content: space-between;
+  width: 250px;
+  font-size: 18px;
+`;
 
 export const Span = styled.span`
-    color: ${colors.blackGray};
-    font-weight: 600;
-    font-size: 18px;
-`
+  color: ${colors.blackGray};
+  font-weight: 600;
+  font-size: 18px;
+`;

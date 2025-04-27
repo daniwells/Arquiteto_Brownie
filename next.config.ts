@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   typescript: {
@@ -7,11 +7,11 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "utfs.io",
-        port: "",
-      }
-    ]
+        protocol: 'https',
+        hostname: 'utfs.io',
+        port: '',
+      },
+    ],
   },
   experimental: {
     serverActions: {

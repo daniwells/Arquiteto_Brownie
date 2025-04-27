@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Span = styled.span`
-    vertical-align: super;
-    font-size: 12px;
-`
+  vertical-align: super;
+  font-size: 12px;
+`;

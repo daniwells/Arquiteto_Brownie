@@ -1,7 +1,5 @@
 const AdminProducts = () => {
-    return (
-        <></>
-    );
-}
- 
+  return <></>;
+};
+
 export default AdminProducts;

@@ -1,5 +1,5 @@
-import { UserConfig } from '@commitlint/types'
+import { UserConfig } from '@commitlint/types';
 
-const config: UserConfig = { extends: ['gitmoji'] }
+const config: UserConfig = { extends: ['gitmoji'] };
 
-export default config
+export default config;

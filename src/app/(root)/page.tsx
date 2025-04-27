@@ -1,18 +1,14 @@
-import MenuPage from "./menuPage";
-import { getLatestProducts } from "../../lib/actions/product.actions";
+import MenuPage from './menuPage';
+import { getLatestProducts } from '../../lib/actions/product.actions';
 
 export const metadata = {
-    title: "Menu",
-}
+  title: 'Menu',
+};
 
 const Home = async () => {
-    const latestProducts = await getLatestProducts();
+  const latestProducts = await getLatestProducts();
 
-    return (
-        <MenuPage
-            data={latestProducts}
-        />
-    );
-}
+  return <MenuPage data={latestProducts} />;
+};
 
 export default Home;

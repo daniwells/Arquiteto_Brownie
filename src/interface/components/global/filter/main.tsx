@@ -20,7 +20,7 @@
 //     const toggleOption = (option: { value: string; label: string }) => {
 //         onChange(option.label.toLowerCase());
 
-//         setSelectedOptions((prev) => 
+//         setSelectedOptions((prev) =>
 //             prev.includes(option.label)
 //                 ? prev.filter((item) => item !== option.label)
 //                 : [...prev, option.label]
@@ -35,7 +35,7 @@
 //         <S.DropdownContainer>
 //             <S.DropdownHeader onClick={() => setIsOpen(!isOpen)}>
 //                 <S.IconFilter />
-//                 Filtrar 
+//                 Filtrar
 //             </S.DropdownHeader>
 
 //             {isOpen && (
@@ -64,7 +64,7 @@
 //                             </S.SelectedFilters>
 
 //                             <S.ClearFilters onClick={clearSelected}>
-        
+
 //                                 Remova todos os filtros
 //                             </S.ClearFilters>
 //                         </>

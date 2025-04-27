@@ -1,22 +1,22 @@
-import styled from "styled-components";
-import { colors } from "@/styles/themes";
+import styled from 'styled-components';
+import { colors } from '@/styles/themes';
 import { Swiper } from 'swiper/react';
 
 export const ContentAboutProduct = styled.div`
   padding: 20px;
   border-radius: 20px;
 
-  h3{
+  h3 {
     font-family: 'Pacifico Regular';
     color: ${colors.darkBrown};
     font-size: 24px;
   }
 
-  p{ 
+  p {
     font-family: 'Comfortaa Regular';
     font-size: 18px;
   }
-  
+
   .my-swiper {
     .swiper-slide img {
       width: 100%;
@@ -25,26 +25,26 @@ export const ContentAboutProduct = styled.div`
       object-fit: cover;
     }
   }
-`
+`;
 
 export const CustomSwiper = styled(Swiper)`
-  div{
+  div {
     display: flex;
     justify-content: space-between;
   }
-`
+`;
 
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 export const ContainerDesc = styled.div`
   margin-block: 20px;
-`
+`;
 
 export const Product = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: 15px;
-`
+`;

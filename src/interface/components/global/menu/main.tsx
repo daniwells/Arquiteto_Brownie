@@ -1,13 +1,13 @@
 'use client';
-import * as S from "./styles"
+import * as S from './styles';
 
 const Menu = () => {
-    return (
-        <S.Container>
-            <S.HomeIcon href="/" />
-            <S.CartIcon href="/cart" />
-        </S.Container>
-      );
-}
- 
+  return (
+    <S.Container>
+      <S.HomeIcon href="/" />
+      <S.CartIcon href="/cart" />
+    </S.Container>
+  );
+};
+
 export default Menu;

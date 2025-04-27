@@ -1,5 +1,5 @@
-import * as S from "./styles";
-import Image from "next/image";
+import * as S from './styles';
+import Image from 'next/image';
 
 interface PhoneInputProps {
   icon: string;

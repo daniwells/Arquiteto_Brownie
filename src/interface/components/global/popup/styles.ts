@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { colors } from "@/styles/themes";
+import styled from 'styled-components';
+import { colors } from '@/styles/themes';
 
 export const Overlay = styled.div`
   position: fixed;
@@ -35,4 +35,4 @@ export const TitleError = styled.h2`
   font-size: 32px;
   text-align: center;
   margin-block: 20px;
-`
+`;

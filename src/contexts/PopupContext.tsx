@@ -1,9 +1,9 @@
-"use client"
+'use client';
 
-import React, { createContext, useContext, useState } from "react";
-import PopupError from "@/interface/components/global/popup/main";
+import React, { createContext, useContext, useState } from 'react';
+import PopupError from '@/interface/components/global/popup/main';
 
-type typePopup = "error" | "success" | "description";
+type typePopup = 'error' | 'success' | 'description';
 
 interface popupContextProps {
   openPopup: (message: string, type: typePopup) => void;
@@ -17,26 +17,23 @@ interface popupProviderProps {
 
 export const PopupProvider: React.FC<popupProviderProps> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [message, setMessage] = useState("");
-  const [type, setType] = useState<typePopup>("error");
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState<typePopup>('error');
 
   const openPopup = (message: string, type: typePopup) => {
     setMessage(message);
     setIsOpen(true);
     setType(type);
-  } 
+  };
 
   const closePopup = () => {
-    setMessage("");
+    setMessage('');
     setIsOpen(false);
-  }
+  };
 
   return (
     <PopupContext.Provider value={{ openPopup }}>
-      {
-        isOpen &&
-        <PopupError type={type} message={message} onClose={closePopup}  />
-      } 
+      {isOpen && <PopupError type={type} message={message} onClose={closePopup} />}
       {children}
     </PopupContext.Provider>
   );
@@ -45,8 +42,8 @@ export const PopupProvider: React.FC<popupProviderProps> = ({ children }) => {
 export const usePopup = () => {
   const context = useContext(PopupContext);
   if (!context) {
-    throw new Error("usepopup must be used within a TicketProvider");
+    throw new Error('usepopup must be used within a TicketProvider');
   }
-  
+
   return context;
-}
+};

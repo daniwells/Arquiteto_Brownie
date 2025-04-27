@@ -1,22 +1,16 @@
-import * as S from "./styles";
+import * as S from './styles';
 
-const ProductPrice = ({ 
-    value
-}:{
-    value: string;
-}) => {
-    const stringValue = Number(value).toFixed(2);
+const ProductPrice = ({ value }: { value: string }) => {
+  const stringValue = Number(value).toFixed(2);
 
-    const [intValue, floatValue] = stringValue.split(".");
+  const [intValue, floatValue] = stringValue.split('.');
 
-    return ( 
-        <p>
-            R$ {intValue}
-            <S.Span>
-                .{ floatValue }
-            </S.Span>
-        </p>
-    );
-}
- 
+  return (
+    <p>
+      R$ {intValue}
+      <S.Span>.{floatValue}</S.Span>
+    </p>
+  );
+};
+
 export default ProductPrice;
