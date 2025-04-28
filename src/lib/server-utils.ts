@@ -1,22 +1,17 @@
 import { join } from 'path';
-import { readdir, unlink, mkdir } from 'fs/promises';
+import { unlink, mkdir } from 'fs/promises';
 
-export const removeImages = async (slug: string) => {
-    try {
-    const dir = join(process.cwd(), 'public/images/sample-products');
-      const files = await readdir(dir);
-  
-      const filesToDelete = files.filter(file => file.startsWith(slug));
-  
-      // Remove file
-      for (const file of filesToDelete) {
-        const filePath = join(dir, file);
-        await unlink(filePath);
-      }
-  
-    } catch (error) {
-      console.log('Erro ao remover arquivos:', error);
+// Remove image for each path in the list
+export const removeImages = async (filesToDelete: string[]) => {
+  try {    
+    for (const relativePath of filesToDelete) {
+      const filePath = join(process.cwd(), 'public', relativePath);
+      await unlink(filePath);
     }
+  
+  } catch (error) {
+    console.log('Erro ao remover arquivos:', error);
+  }
 };
 
 export const saveImage = async (img: File, slug: string) => {

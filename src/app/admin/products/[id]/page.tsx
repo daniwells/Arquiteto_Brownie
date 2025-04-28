@@ -7,7 +7,7 @@ const EditProduct = async (props: {params: Promise<{id: string;}>}) => {
 
   const product = await getProdutById(String(id) || "");
 
-  if (!product) return notFound();
+  if (!product || !product.content) return notFound();
 
   const productContent = JSON.parse(JSON.stringify(product.content));
 

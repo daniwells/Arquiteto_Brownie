@@ -16,7 +16,6 @@ model Product {
   images      String[]
   description String
   price       Decimal     @default(0) @db.Decimal(12, 2)
-  banner      String?
   createdAt   DateTime    @default(now()) @db.Timestamp(6)
   active      Boolean
   orderItem   OrderItem[]

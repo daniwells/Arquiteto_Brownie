@@ -117,6 +117,8 @@ export async function editProduct(id: string, product: productType) {
       where: { id: id },
     });
 
+    const oldImages = selectedProduct?.images;
+
     if(!selectedProduct) return {
       success: false,
       message: 'Produto não encontrado, id incorreto',
@@ -175,7 +177,7 @@ export async function editProduct(id: string, product: productType) {
     if (!updatedProduct) throw new Error('Erro ao editar o produto');
 
     if(!imagesIsString) {
-      await removeImages(productObjFinal.slug);
+      await removeImages(oldImages || []);
       await writeFile(pathImg, buffer);
     }
 
