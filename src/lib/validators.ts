@@ -29,6 +29,10 @@ export const insertProductSchema = z.object({
   active: z.boolean(),
 });
 
+export const editProductSchema = insertProductSchema.extend({
+  images: z.array(z.string())
+})
+
 export const cartItemSchema = z.object({
   productId: z.string().min(1, 'Id do produto é necessário'),
   name: z.string().min(1, 'Nome do produto é necessário'),

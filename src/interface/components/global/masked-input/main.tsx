@@ -1,5 +1,6 @@
 import * as S from './styles';
 import Image from 'next/image';
+// import { MaskedPattern } from 'imask';
 
 interface PhoneInputProps {
   icon: string;
@@ -8,7 +9,11 @@ interface PhoneInputProps {
   placeholder: string;
   id: string;
   handleChange: (value: string) => void;
-  mask: string;
+  mask: any;
+  radix?: string;
+  min?: number;
+  max?: number;
+  scale?: number;
 }
 
 const MaskedInput: React.FC<PhoneInputProps> = ({
@@ -19,6 +24,10 @@ const MaskedInput: React.FC<PhoneInputProps> = ({
   id,
   handleChange,
   mask,
+  radix,
+  min,
+  max,
+  scale
 }) => {
   return (
     <S.InputContainer htmlFor={id}>
@@ -29,6 +38,10 @@ const MaskedInput: React.FC<PhoneInputProps> = ({
         onAccept={(val: string) => handleChange(val)}
         placeholder={placeholder}
         id={id}
+        radix={radix}
+        min={min}
+        max={max}
+        scale={scale}
       />
     </S.InputContainer>
   );

@@ -58,6 +58,7 @@ test('item must be added', async () => {
     images: ['/images/sample-products/p1-1.jpg', '/images/sample-products/p1-2.jpg'],
     price: '4',
     qty: 1,
+    active: true,
   };
 
   const response = await addItemToCart(product, mockCookies());
@@ -69,7 +70,7 @@ test('item must be added', async () => {
 });
 
 test('item must be removed', async () => {
-  const product = {
+  const product: cartItemType = {
     id: '1',
     createdAt: new Date(),
     name: 'Clássico',
@@ -79,6 +80,7 @@ test('item must be removed', async () => {
     images: ['/images/sample-products/p1-1.jpg', '/images/sample-products/p1-2.jpg'],
     price: '4',
     qty: 1,
+    active: true,
   };
 
   const newMockCart = {
@@ -86,7 +88,7 @@ test('item must be removed', async () => {
     itemsPrice: '0',
   };
 
-  const response = await removeItemFromCart(product.id, mockCookies(newMockCart));
+  const response = await removeItemFromCart(String(product.id), mockCookies(newMockCart));
 
   expect(response).toEqual({
     success: true,

@@ -77,3 +77,15 @@ export const formatMessagesZod = (zodError: any) => {
 
   return finalErrorMessage;
 };
+
+export const omitFields = <T extends object, K extends keyof T>(obj: T, fields: K[]): Omit<T, K> => {
+  const newObj = { ...obj };
+  for (const field of fields) {
+    delete newObj[field];
+  }
+  return newObj;
+}
+
+export const getNameImageFromPath = (image: string) => {
+  return image.split("/")[image.split("/").length - 1].split("-").slice(2).join("-")
+}

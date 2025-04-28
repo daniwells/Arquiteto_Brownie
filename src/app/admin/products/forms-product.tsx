@@ -26,10 +26,11 @@ import categoryIcon from '../../../../public/svg/category.svg';
 import infoIcon from '../../../../public/svg/information.svg';
 
 // Actions
-import { insertProduct } from '@/lib/actions/product.actions';
+import { insertProduct, editProduct } from '@/lib/actions/product.actions';
 
 // Utils
 import { normalizeString } from '@/lib/utils';
+import { productType } from '@/types';
 
 // Context
 import { usePopup } from '@/contexts/PopupContext';
@@ -43,31 +44,41 @@ interface formData {
   active: string;
 }
 
-const FormsProduct = () => {
-  const { openPopup } = usePopup();
+interface formsProduct {
+  selectedProduct?: productType;
+}
 
+const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
+  const { openPopup } = usePopup();
+  
   const { handleSubmit, setValue, watch } = useForm<formData>({
     defaultValues: {
-      name: '',
-      price: '',
-      category: '',
-      description: '',
-      images: [],
-      active: 'Ativo',
+      name: selectedProduct?.name || '',
+      price: selectedProduct?.price?.replace(".", ",") || '',
+      category: selectedProduct?.category || '',
+      description: selectedProduct?.description || '',
+      images: selectedProduct?.images,
+      active: selectedProduct ? selectedProduct?.active ? "Ativo" : "Desativado" : "Ativo",
     },
   });
-
+  
   const onSubmit = async (data: formData) => {
     const producToSave = {
       ...data,
       slug: normalizeString(data?.name) + '_' + data.category,
-      // images: images,
       active: data.active == 'Ativo' ? true : false,
       createdAt: new Date(),
       price: data.price.replace(',', '.'),
     };
 
-    const response = await insertProduct(producToSave);
+    let response: {success: boolean, message: string | Promise<any>} = {success: false, message: ""};
+
+    if(selectedProduct){
+      response = await editProduct(String(selectedProduct?.id), producToSave);
+    }else{
+      response = await insertProduct(producToSave);
+    }
+
     if (!response?.success) {
       const message =
         response.message instanceof Promise ? await response.message : response.message;
@@ -83,10 +94,19 @@ const FormsProduct = () => {
   return (
     <MainContainer>
       <HeaderAdmin redirect="/admin/products" />
-      <DescriptionContainer
-        title="Criar produto"
-        desc="Preencha os campos abaixo para criar um novo produto"
-      />
+      {
+        selectedProduct ?
+          <DescriptionContainer
+            title="Editar produto"
+            desc="Altere qualquer informação deste produto"
+          />
+        :
+          <DescriptionContainer
+            title="Criar produto"
+            desc="Preencha os campos abaixo para criar um novo produto"
+          />
+      }
+      
       <FormContainer handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           value={watchFields.name}
@@ -98,13 +118,17 @@ const FormsProduct = () => {
         />
 
         <MaskedInput
-          mask="00,00"
+          mask={Number}
           value={watchFields.price}
           icon={priceIcon}
           altIcon="ícone de dolar"
           placeholder="Preço"
           id="price"
           handleChange={(value: string) => setValue('price', value)}
+          max={1000}
+          min={0}
+          radix=","
+          scale={2}
         />
 
         <BaseInput
@@ -144,7 +168,7 @@ const FormsProduct = () => {
           width={'175px'}
         />
 
-        <PrimaryButton type="submit" value="Criar produto" />
+        <PrimaryButton type="submit" value={selectedProduct ? "Editar produto" : "Criar produto"} />
       </FormContainer>
     </MainContainer>
   );

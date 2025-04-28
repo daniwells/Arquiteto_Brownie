@@ -1,11 +1,19 @@
-import React, { ChangeEvent } from 'react';
+// Styles
 import * as S from './styles';
+
+// Libs
 import Image from 'next/image';
+import React, { ChangeEvent } from 'react';
+
+// Images
 import imagesIcon from '../../../../../public/svg/images.svg';
+
+// Utils
+import { getNameImageFromPath } from '@/lib/utils';
 
 interface MultiImageInputProps {
   handleChange: (files: File[]) => void;
-  value?: File[];
+  value?: File[] | string[];
   id: string;
 }
 
@@ -26,12 +34,23 @@ const MultiImageInput: React.FC<MultiImageInputProps> = ({ handleChange, id, val
         onChange={handleFileChange}
         id={id}
       />
-      {value && value.length > 0 ? (
-        <p>
+      {value && value.length > 0  ? (
+        <div>
           {value.map((image, index) => (
-            <span key={index}>{image.name};</span>
+            <p key={index}>
+              {
+                <span>
+                  {
+                    image instanceof File ? 
+                      image.name
+                    : 
+                      getNameImageFromPath(image)
+                  };
+                </span>
+              }
+            </p>
           ))}
-        </p>
+        </div>
       ) : (
         <p>Imagens</p>
       )}

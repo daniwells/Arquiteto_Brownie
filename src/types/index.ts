@@ -3,7 +3,7 @@ import { insertProductSchema } from '../lib/validators';
 
 export type productType = z.infer<typeof insertProductSchema> & {
   id?: string;
-  createdAt: Date;
+  createdAt?: Date;
 };
 
 export type productTypeImageString = Omit<productType, 'images'> & {

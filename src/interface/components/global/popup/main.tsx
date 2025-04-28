@@ -10,7 +10,6 @@ interface popupErrorProps {
 }
 
 const PopupError: React.FC<popupErrorProps> = ({ message, onClose, type }) => {
-  console.log(type);
   return (
     <S.Overlay>
       <S.Container>
