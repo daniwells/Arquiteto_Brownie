@@ -64,7 +64,7 @@ export async function insertProduct(product: productType) {
       price: product.price,
       active: product.active,
     });
-
+    
     // Adding path of images instead the File
     const imagesString: string[] = [];
 
@@ -85,10 +85,16 @@ export async function insertProduct(product: productType) {
       throw new Error('Não foi possível salvar as imagens do produto');
     }
 
-    const productObjFinal = { ...productObj, images: imagesString,};
+    const insertedCategory = await prisma.category.create({ data: {category: productObj.category}});
+    
+    const productObjFinal = {
+      ...productObj,
+      categoryId: insertedCategory.id,
+      images: imagesString,
+    };
 
     // Save product in database
-    const insertedProduct = await prisma.product.create({ data: productObjFinal });
+    const insertedProduct = await prisma.product.create({ data: omitFields(productObjFinal, ['category']) });
 
     if (!insertedProduct) throw new Error('Erro ao criar o produto');
     
@@ -160,18 +166,21 @@ export async function editProduct(id: string, product: productType) {
         throw new Error('Não foi possível salvar as imagens do produto');
       }
     }
-
-    const productObjWithoutImages = omitFields(productObj, ['images']);
-
+    
+    const productObjWithoutImages = omitFields(productObj, ['images', 'category']);
+    
+    const insertedCategory = await prisma.category.create({ data: {category: productObj.category}});
+    
     const productObjFinal = {
       ...productObjWithoutImages,
       ...(!imagesIsString && { images: imagesString }),
+      categoryId: insertedCategory.id
     };
 
     // Update in database
     const updatedProduct = await prisma.product.update({
       where: { id },
-      data: productObjFinal,
+      data: {...productObjFinal},
     });
 
     if (!updatedProduct) throw new Error('Erro ao editar o produto');

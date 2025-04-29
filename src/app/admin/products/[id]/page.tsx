@@ -18,4 +18,5 @@ const EditProduct = async (props: {params: Promise<{id: string;}>}) => {
   return <FormsProduct selectedProduct={formatedProduct} />;
 };
 
+
 export default EditProduct;

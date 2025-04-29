@@ -12,13 +12,15 @@ model Product {
   id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String
   slug        String      @unique(map: "product_slug_idx")
-  category    String
+  categoryId  String      @db.Uuid
   images      String[]
   description String
   price       Decimal     @default(0) @db.Decimal(12, 2)
   createdAt   DateTime    @default(now()) @db.Timestamp(6)
   active      Boolean
   orderItem   OrderItem[]
+
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 model Customer {
@@ -56,4 +58,10 @@ model Manager {
   id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   email    String @unique(map: "manager_email_idx")
   password String
+}
+
+model Category {
+  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  category String    @unique
+  product  Product[]
 }
