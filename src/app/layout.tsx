@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+
 import { Inter } from 'next/font/google';
 import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from '../lib/constants';
 import { ThemeProvider } from 'next-themes';
