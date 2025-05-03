@@ -8,9 +8,17 @@ export const removeImages = async (filesToDelete: string[]) => {
       const filePath = join(process.cwd(), 'public', relativePath);
       await unlink(filePath);
     }
-  
-  } catch (error) {
-    console.log('Erro ao remover arquivos:', error);
+    
+    return {
+      success: true,
+      message: 'Imagens removidas com sucesso',
+    }
+  } catch{
+    return {
+      success: false,
+      message: 'Erro ao remover os arquivos de imagens',
+    }
+    
   }
 };
 
@@ -18,7 +26,7 @@ export const saveImage = async (img: File, slug: string) => {
     const arrayBuffer = await img.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const nameImg = `${slug}-${Date.now()}-${img.name}`;
+    const nameImg = `(${slug}-${Date.now()})${img.name}`;
     
     const dir = join(process.cwd(), 'public/images/sample-products');
     await mkdir(dir, { recursive: true });

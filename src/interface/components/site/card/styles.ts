@@ -19,8 +19,8 @@ export const Image = styled.div<imageProps>`
   height: 150px;
   ${(props) =>
     props?.$url
-      ? `background-image: url(${props?.$url});`
-      : `background-color: ${colors.lightBrown};`};
+      ? `background-image: url("${props?.$url}");`
+      : `background-color: ${colors.lightGray};`};
   border-radius: 5px;
   background-repeat: no-repeat;
   background-size: cover;
