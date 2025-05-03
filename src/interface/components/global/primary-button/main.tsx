@@ -10,7 +10,7 @@ interface primaryButtonProps {
 const PrimaryButton: React.FC<primaryButtonProps> = ({ value, handleClick, type, category }) => {
   return (
     <S.PrimaryButtonStyle $category={category} type={type} onClick={handleClick}>
-      {value}
+    {value}
     </S.PrimaryButtonStyle>
   );
 };

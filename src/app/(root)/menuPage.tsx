@@ -67,7 +67,7 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
       <AboutProduct open={open} toggleDrawer={toggleDrawer} product={currentProduct} />
       <MainContainer>
         <Logo />
-        <Search value={searchText} handleChange={setSearchText} />
+        <Search value={searchText} handleChange={setSearchText} placeholder='Pesquisar por produto' />
         <Nav handleChange={setSelectedCategory} />
         <CardContainer>
           {filteredData.length > 0 &&
