@@ -5,6 +5,7 @@ import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from '../lib/constants';
 import { ThemeProvider } from 'next-themes';
 import { GlobalStyles } from '@/styles/global-styles';
 import { PopupProvider } from '../contexts/PopupContext';
+// import StyledComponentsRegistry from '../lib/styled-components-registry';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,7 +32,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PopupProvider>{children}</PopupProvider>
+          <PopupProvider>
+            {/* <StyledComponentsRegistry> */}
+              {children}
+            {/* </StyledComponentsRegistry> */}
+          </PopupProvider>
           <GlobalStyles />
         </ThemeProvider>
       </body>

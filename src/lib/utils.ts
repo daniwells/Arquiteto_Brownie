@@ -87,5 +87,5 @@ export const omitFields = <T extends object, K extends keyof T>(obj: T, fields: 
 }
 
 export const getNameImageFromPath = (image: string) => {
-  return image.split("/")[image.split("/").length - 1].split("-").slice(2).join("-")
+  return image.split("/")[image.split("/").length - 1].split(")").slice(1).join("-");
 }

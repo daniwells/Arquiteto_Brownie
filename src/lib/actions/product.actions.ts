@@ -18,24 +18,42 @@ export async function getLatestProducts() {
   const data = await prisma.product.findMany({
     take: LATEST_PRODUCTS_LIMIT,
     orderBy: { createdAt: 'desc' },
+    include: {
+      category: true,
+    },
   });
 
-  return convertToPlainObject(data);
+  const newData = data.map(({ category, ...rest }) => ({
+    ...rest,
+    category: category.category,
+  }));
+
+  return convertToPlainObject(newData);
 }
 
 const getProduct = async (key: string, value: string) => {
   const product = await prisma.product.findFirst({
     where: { [key]: value },
+    include: {
+      category: true,
+    },
   });
 
   if(!product) return {
     success: false,
     message: `Produto não encontrado, ${key} incorreto`,
   }
+
+  const {category, ...rest} = product;
+
+  const newProduct = {
+    ...rest,
+    category: category.category,
+  }
   
   return {
     success: true,
-    content: product
+    content: newProduct
   }
 }
 
@@ -85,8 +103,13 @@ export async function insertProduct(product: productType) {
       throw new Error('Não foi possível salvar as imagens do produto');
     }
 
-    const insertedCategory = await prisma.category.create({ data: {category: productObj.category}});
+    const insertedCategory = await prisma.category.findFirst({ where: {category: productObj.category}});
     
+    if(!insertedCategory) return {
+      success: false,
+      message: `Categoria não encontrada`,
+    }
+
     const productObjFinal = {
       ...productObj,
       categoryId: insertedCategory.id,
@@ -169,7 +192,12 @@ export async function editProduct(id: string, product: productType) {
     
     const productObjWithoutImages = omitFields(productObj, ['images', 'category']);
     
-    const insertedCategory = await prisma.category.create({ data: {category: productObj.category}});
+    const insertedCategory = await prisma.category.findFirst({ where: {category: productObj.category}});
+    
+    if(!insertedCategory) return {
+      success: false,
+      message: `Categoria não encontrada`,
+    }
     
     const productObjFinal = {
       ...productObjWithoutImages,
@@ -186,8 +214,20 @@ export async function editProduct(id: string, product: productType) {
     if (!updatedProduct) throw new Error('Erro ao editar o produto');
 
     if(!imagesIsString) {
-      await removeImages(oldImages || []);
-      await writeFile(pathImg, buffer);
+      const responseRemoveImage = await removeImages(oldImages || []);
+
+      if(!responseRemoveImage.success){
+        return responseRemoveImage;
+      }
+
+      try{
+        await writeFile(pathImg, buffer);
+      }catch{
+        return {
+          success: false,
+          message: 'Não foi possível salvar as imagens dos produtos',
+        };    
+      }
     }
 
     return {
