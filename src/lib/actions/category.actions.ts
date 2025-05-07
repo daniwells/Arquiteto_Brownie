@@ -11,9 +11,18 @@ import { auth } from '../../../auth';
 import { formatError } from '../utils';
 
 export async function getAllCategories() {
-  const data = await prisma.category.findMany();
-
-  return convertToPlainObject(data);
+  try{
+    const data = await prisma.category.findMany();
+    return {
+      success: true,
+      content: convertToPlainObject(data),
+    };
+  }catch(error){
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
 }
 
 export async function insertCategory(category: string) {

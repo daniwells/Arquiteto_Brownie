@@ -14,8 +14,10 @@ import categoryIcon from '../../../../public/svg/category.svg';
 import { useEffect } from "react";
 import { getAllCategories, insertCategory, removeCategory } from "@/lib/actions/category.actions";
 import MenuAdmin from "@/interface/components/admin/menu-admin/main";
+import { usePopup } from "@/contexts/PopupContext";
 
 const CategoryContent = () => {
+    const { openPopup } = usePopup();
     const [ createdCategory, setCreatedCategory ] = useState("");
     const [ listCategories, setListCategories ] = useState<{
         category: string;
@@ -24,7 +26,15 @@ const CategoryContent = () => {
     
     const handleGetAllCategories = async () => {
         const allCategories = await getAllCategories();
-        setListCategories(allCategories);
+        
+        if(!allCategories.success){
+            openPopup(allCategories.message instanceof Promise ? await allCategories.message : allCategories.message, "error");
+            return;
+        }
+
+        const categoriesResponse = allCategories?.content instanceof Promise ? await allCategories.content : allCategories.content
+        
+        setListCategories(categoriesResponse);
     }
 
     const handleSubmit = async () => {

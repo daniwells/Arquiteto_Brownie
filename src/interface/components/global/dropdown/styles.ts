@@ -43,7 +43,7 @@ export const DropdownItem = styled.li`
   transition: background 0.3s;
 
   &:hover {
-    background-color: ${colors.darkGray};
+    background-color: ${colors.mediumGray};
     color: white;
   }
 `;

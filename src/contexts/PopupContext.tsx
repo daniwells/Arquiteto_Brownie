@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import PopupError from '@/interface/components/global/popup/main';
 
-type typePopup = 'error' | 'success' | 'description';
+type typePopup = 'error' | 'success';
 
 interface popupContextProps {
   openPopup: (message: string, type: typePopup) => void;

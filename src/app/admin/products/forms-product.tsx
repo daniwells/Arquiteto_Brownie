@@ -4,7 +4,7 @@
 import { colors } from '@/styles/themes';
 
 // Libs
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Components
@@ -18,6 +18,7 @@ import BaseTextarea from '@/interface/components/global/base-textarea/main';
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import MultiImageInput from '@/interface/components/admin/multi-image-input/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
+import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
 
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';
@@ -27,6 +28,7 @@ import infoIcon from '../../../../public/svg/information.svg';
 
 // Actions
 import { insertProduct, editProduct } from '@/lib/actions/product.actions';
+import { getAllCategories } from '@/lib/actions/category.actions';
 
 // Utils
 import { normalizeString } from '@/lib/utils';
@@ -50,6 +52,27 @@ interface formsProduct {
 
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const { openPopup } = usePopup();
+  const [ categories, setCategories ] = useState([""]);
+
+  const handleGetAllCategories = async () => {
+    const response = await getAllCategories();
+    if(!response.success){
+      openPopup(response.message instanceof Promise ? await response.message : "", "error");
+      return
+    }
+
+    const categoriesResponse = response?.content instanceof Promise ? await response.content : response.content
+    const categories = [""]
+    categoriesResponse.map((category: {category: string;id: string;}) => {
+      categories.push(category.category)
+    })
+
+    setCategories(categories)
+  }
+
+  useEffect(() => {
+    handleGetAllCategories();
+  }, [])
   
   const { handleSubmit, setValue, watch } = useForm<formData>({
     defaultValues: {
@@ -81,7 +104,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
 
     if (!response?.success) {
       const message =
-        response.message instanceof Promise ? await response.message : response.message;
+        response.message instanceof Promise ? await response.message : "";
 
       openPopup(message, 'error');
     } else {
@@ -131,13 +154,13 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
           scale={2}
         />
 
-        <BaseInput
-          value={watchFields.category}
+        <DropdownSecond
           icon={categoryIcon}
-          altIcon="ícone de categoria"
-          placeholder="Categoria"
-          id="category"
-          handleChange={(value: string) => setValue('category', value)}
+          value={watchFields.category}
+          onChange={(value: string) => {
+            setValue('category', value);
+          }}
+          options={categories}
         />
 
         <BaseTextarea

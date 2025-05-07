@@ -1,5 +1,10 @@
-const AdminProducts = () => {
-  return <></>;
-};
+import React from "react";
+import ContentManage from "./manage-content";
 
-export default AdminProducts;
+const AdminProducts = () =>{
+    return(
+        <ContentManage></ContentManage>
+    )
+}
+
+export default AdminProducts

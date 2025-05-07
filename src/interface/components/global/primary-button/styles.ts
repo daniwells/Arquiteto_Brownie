@@ -24,7 +24,7 @@ export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
     background-color: ${(props) =>
       !(props.$category == 'error') && !(props.$category == 'success') && colors.lightBrown};
   }
-  width: 60%;
+  width: 100%;
   border: none;
   margin-block: 20px;
   padding: 14px;
