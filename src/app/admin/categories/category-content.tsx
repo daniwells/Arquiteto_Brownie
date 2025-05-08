@@ -53,8 +53,13 @@ const CategoryContent = () => {
     const handleRemoveCategory = async (categoryId: string) => {
         
         setLoading(true);
-        removeCategory(categoryId);
+        const response = await removeCategory(categoryId);
         setLoading(false);
+
+        if (!response?.success) {
+            const message = response.message instanceof Promise ? await response.message : "";
+            openPopup(message, 'error');
+        }
 
         handleGetAllCategories();
     }
