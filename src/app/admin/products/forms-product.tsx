@@ -20,6 +20,7 @@ import MultiImageInput from '@/interface/components/admin/multi-image-input/main
 import Dropdown from '@/interface/components/global/dropdown/main';
 import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
 
+
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';
 import priceIcon from '../../../../public/svg/dolar.svg';

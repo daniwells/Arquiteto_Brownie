@@ -51,7 +51,7 @@ const CategoryContent = () => {
     }
 
     const handleRemoveCategory = async (categoryId: string) => {
-        
+
         setLoading(true);
         const response = await removeCategory(categoryId);
         setLoading(false);
