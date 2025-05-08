@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
 import Logo from '@/interface/components/global/logo/main';
-import Menu from '@/interface/components/global/menu/main';
+import Menu from '@/interface/components/site/menu/main';
 import CardContainer from '@/interface/containers/site/card-container/main';
 import CartItem from '@/interface/components/site/cart-item/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
@@ -22,9 +22,10 @@ interface cartContentProps {
 }
 
 const CartContent: React.FC<cartContentProps> = ({ cart }) => {
+  console.log(cart)
   return (
     <>
-      <MainContainer minHeight={!cart?.items ? '100vh' : undefined}>
+      <MainContainer minHeight={cart?.items ? cart?.items?.length > 0 ? undefined : '100vh' : '100vh'}>
         <Logo />
         <Title text="Carrinho" />
         {cart && cart?.items?.length > 0 ? (

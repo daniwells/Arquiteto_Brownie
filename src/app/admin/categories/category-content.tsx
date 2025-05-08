@@ -17,6 +17,7 @@ import MenuAdmin from "@/interface/components/admin/menu-admin/main";
 import { usePopup } from "@/contexts/PopupContext";
 
 const CategoryContent = () => {
+    const [loading, setLoading] = useState(false);
     const { openPopup } = usePopup();
     const [ createdCategory, setCreatedCategory ] = useState("");
     const [ listCategories, setListCategories ] = useState<{
@@ -25,7 +26,9 @@ const CategoryContent = () => {
     }[] | null>(null);
     
     const handleGetAllCategories = async () => {
+        setLoading(true);
         const allCategories = await getAllCategories();
+        setLoading(false);
         
         if(!allCategories.success){
             openPopup(allCategories.message instanceof Promise ? await allCategories.message : allCategories.message, "error");
@@ -38,11 +41,21 @@ const CategoryContent = () => {
     }
 
     const handleSubmit = async () => {
-        insertCategory(createdCategory);
+        setLoading(true);
+        const response = await insertCategory(createdCategory);
+        if (!response?.success) {
+            const message = response.message instanceof Promise ? await response.message : "";
+            openPopup(message, 'error');
+        }
+        setLoading(false);
     }
 
     const handleRemoveCategory = async (categoryId: string) => {
+        
+        setLoading(true);
         removeCategory(categoryId);
+        setLoading(false);
+
         handleGetAllCategories();
     }
 
@@ -66,13 +79,14 @@ const CategoryContent = () => {
                     id="category"
                     handleChange={(value: string) => setCreatedCategory(value)}
                 />
-                <PrimaryButton type="submit" value={"Criar categoria"} />
+                <PrimaryButton loading={loading} type="submit" value={"Criar categoria"} />
                 <LineStyle/>
             </FormContainer>
             <CardContainer>
                 { 
                     listCategories && listCategories.map((category) => (
                         <CardCategory 
+                            loading={loading}
                             handleRemove={() => handleRemoveCategory(category.id)}
                             value={category.category}
                             key={category.id}

@@ -64,7 +64,7 @@ test('item must be added', async () => {
   const response = await addItemToCart(product, mockCookies());
 
   expect(response).toEqual({
-    sucess: true,
+    success: true,
     message: `${product.name} adicionado no carrinho`,
   });
 });

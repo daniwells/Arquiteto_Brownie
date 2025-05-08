@@ -43,7 +43,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
       cookieStore.set('sessionCart', JSON.stringify({ items: [product], ...calcPrice([product]) }));
 
       return {
-        sucess: true,
+        success: true,
         message: `${product.name} adicionado no carrinho`,
       };
     } else {
@@ -67,7 +67,7 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
       cookieStore.set('sessionCart', JSON.stringify(newCart));
 
       return {
-        sucess: true,
+        success: true,
         message: `${product.name} ${existItem ? 'atualizado no' : 'adicionado no'} carrinho`,
       };
     }
@@ -85,7 +85,7 @@ export async function removeItemFromCart(productId: string, mockCookies?: Reques
     const sessionCart = cookieStore.get('sessionCart') || null;
     if (!sessionCart) return { success: false, message: 'Carrinho não encontrado' };
 
-    const newCart = JSON.parse(sessionCart.value);
+    let newCart = JSON.parse(sessionCart.value);
 
     // Get Product
     const itemExist: cartItemType = newCart.items.find(
@@ -102,6 +102,8 @@ export async function removeItemFromCart(productId: string, mockCookies?: Reques
       (newCart.items as cartItemType[]).find((item) => item.id === productId)!.qty =
         itemExist.qty - 1;
     }
+
+    newCart = { ...newCart, ...calcPrice(newCart.items) };
 
     // Save cart
     cookieStore.set('sessionCart', JSON.stringify(newCart));

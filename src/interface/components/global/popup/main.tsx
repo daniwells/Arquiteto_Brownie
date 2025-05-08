@@ -14,7 +14,7 @@ const PopupError: React.FC<popupErrorProps> = ({ message, onClose, type }) => {
     <S.Overlay>
       <S.Container>
         <S.TitleError>
-          {type === 'error' ? 'Erro!' : type === 'success' ? 'Sucesso!' : 'description'}
+          {type === 'error' ? 'Erro!' : type === 'success' ? 'successo!' : 'description'}
         </S.TitleError>
         <S.Message>{message}.</S.Message>
         <PrimaryButton category={type} handleClick={onClose} value="Fechar" />

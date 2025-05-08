@@ -9,7 +9,7 @@ import Search from '@/interface/components/global/search/main';
 import Card from '@/interface/components/site/card/main';
 import CardContainer from '@/interface/containers/site/card-container/main';
 import Nav from '@/interface/components/site/nav/main';
-import Menu from '@/interface/components/global/menu/main';
+import Menu from '@/interface/components/site/menu/main';
 import AboutProduct from '@/interface/containers/site/about-product-container/main';
 
 // assets

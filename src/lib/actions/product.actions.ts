@@ -125,7 +125,7 @@ export async function insertProduct(product: productType) {
 
     return {
       success: true,
-      message: 'Produto criado com sucesso',
+      message: 'Produto criado com successo',
     };
   } catch (error) {
     return {
@@ -232,7 +232,7 @@ export async function editProduct(id: string, product: productType) {
 
     return {
       success: true,
-      message: 'Produto editado com sucesso',
+      message: 'Produto editado com successo',
     };
   }catch (error) {
     return {

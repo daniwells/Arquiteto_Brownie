@@ -21,6 +21,9 @@ import { productTypeImageString } from '@/types';
 // Actions
 import { addItemToCart } from '@/lib/actions/cart.actions';
 
+// Contexts
+import { usePopup } from '@/contexts/PopupContext';
+
 interface AboutProductProps {
   open: boolean;
   toggleDrawer: (open: boolean) => void;
@@ -29,10 +32,19 @@ interface AboutProductProps {
 
 const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product }) => {
   const [qty, setQty] = useState<number>(1);
+  const [loading, setLoading] = useState(false);
+  const { openPopup } = usePopup();
 
-  const handleGetItemsCart = async () => {
+  const handleAddItemsCart = async () => {
     if (product) {
-      await addItemToCart({ ...product, qty: qty });
+      setLoading(true);
+      const response = await addItemToCart({ ...product, qty: qty });
+      setLoading(false);
+
+      if (!response?.success) {
+        const message = response.message instanceof Promise ? await response.message : "";
+        openPopup(message, 'error');
+      }
     }
   };
 
@@ -83,7 +95,11 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
             </S.Row>
           </S.Product>
 
-          <PrimaryButton value="Adicionar ao carrinho" handleClick={handleGetItemsCart} />
+          <PrimaryButton 
+            loading={loading}
+            value="Adicionar ao carrinho"
+            handleClick={handleAddItemsCart} 
+          />
         </S.ContentAboutProduct>
       </Drawer>
     </>

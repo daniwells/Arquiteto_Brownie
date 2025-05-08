@@ -53,6 +53,7 @@ interface formsProduct {
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const { openPopup } = usePopup();
   const [ categories, setCategories ] = useState([""]);
+  const [ loading, setLoading ] = useState(false);
 
   const handleGetAllCategories = async () => {
     const response = await getAllCategories();
@@ -86,6 +87,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   });
   
   const onSubmit = async (data: formData) => {
+
     const producToSave = {
       ...data,
       slug: normalizeString(data?.name) + '_' + data.category,
@@ -96,19 +98,21 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
 
     let response: {success: boolean, message: string | Promise<any>} = {success: false, message: ""};
 
+    setLoading(true)
     if(selectedProduct){
       response = await editProduct(String(selectedProduct?.id), producToSave);
     }else{
       response = await insertProduct(producToSave);
     }
-
+    setLoading(false)
+    
     if (!response?.success) {
       const message =
-        response.message instanceof Promise ? await response.message : "";
-
+      response.message instanceof Promise ? await response.message : "";
+      
       openPopup(message, 'error');
     } else {
-      openPopup('Produto criado com sucesso', 'success');
+      openPopup('Produto criado com successo', 'success');
     }
   };
 
@@ -191,7 +195,11 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
           width={'175px'}
         />
 
-        <PrimaryButton type="submit" value={selectedProduct ? "Editar produto" : "Criar produto"} />
+        <PrimaryButton 
+          loading={loading}
+          type="submit"
+          value={selectedProduct ? "Editar produto" : "Criar produto"} 
+        />
       </FormContainer>
     </MainContainer>
   );

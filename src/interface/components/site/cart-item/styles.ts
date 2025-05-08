@@ -9,18 +9,14 @@ export const Container = styled(motion.div)`
   cursor: pointer;
 `;
 
-interface imageProps {
-  $url: string;
-}
-
-export const Image = styled.div<imageProps>`
-  ${(props) =>
-    props?.$url
-      ? `background-image: url(${props?.$url});`
-      : `background-color: ${colors.lightBrown};`};
+export const Image = styled.div<{$url: string;}>`
   max-width: 200px;
   width: 45%;
   height: 150px;
+  ${(props) =>
+    props?.$url
+      ? `background-image: url("${props?.$url}");`
+      : `background-color: ${colors.lightGray};`};
   border-radius: 5px;
   background-repeat: no-repeat;
   background-size: cover;

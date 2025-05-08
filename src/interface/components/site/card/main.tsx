@@ -15,7 +15,7 @@ const Card: React.FC<cardProps> = ({ product, handleClick }) => {
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       onClick={handleClick}
     >
-      <S.Image $url={product.images[0]} />
+      <S.Image $url={product.images[0]}/>
       <S.Content>
         <div>
           <h1>{product.name}</h1>
