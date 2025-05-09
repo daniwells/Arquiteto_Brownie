@@ -1,35 +1,39 @@
 import styled from "styled-components";
 import { colors } from "@/styles/themes";
+import { motion } from 'framer-motion';
 
-export const Background = styled.div`
+export const BackgroundCardManage = styled(motion.div)`
     display: flex;
     flex-direction: column;
     height: 270px;
-    width: 400px;
     border-radius: 20px;
     background-color: white;
     padding: 20px;
-    grid-gap: 20px;
 `
 
-export const Image = styled.div`
+export const ImageProductManageCard = styled.div<{$url: string}>`
+    border-radius: 5px;
+    background-color: ${colors.gray};
     max-width: 200px;
-    width: 50%;
+    width: 45%;
     height: 150px;
+    ${(props) => props?.$url
+      ? `background-image: url("${props?.$url}");`
+      : `background-color: ${colors.lightGray};`};
     border-radius: 5px;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-color: ${colors.gray};
 `
 
 export const AboutProduct = styled.div`
     display: flex;
     flex-direction: column;
     grid-gap: 10px;
-    width: 50%;
+    width: 55%;
     font-family: 'Comfortaa Regular';
     color: ${colors.darkGray};
+    padding-right: 15px;
 
     h3{ 
         font-size: 15px;
@@ -40,12 +44,11 @@ export const AboutProduct = styled.div`
         display: flex;
         flex-direction: row;
         gap: 5px;
+        justify-content: space-between;
 
-        span{ 
-            color: ${colors.blackGray};
+        >span{
             font-size: 15px;
             font-weight: bold;
-
         }
     }
 
@@ -53,4 +56,9 @@ export const AboutProduct = styled.div`
 export const Column = styled.div`
     display: flex;
     flex-direction: row;
+`
+
+export const SpanColor = styled.span<{status: string}>`
+    font-size: 15px;
+    color: ${props => props.status === "active" ? colors.green : colors.red};
 `

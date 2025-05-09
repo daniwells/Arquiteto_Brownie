@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 import { motion } from 'framer-motion';
 
-export const Background = styled.div`
+export const BackgroundNav = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

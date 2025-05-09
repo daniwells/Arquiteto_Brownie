@@ -91,7 +91,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
 
     const producToSave = {
       ...data,
-      slug: normalizeString(data?.name) + '_' + data.category,
+      slug: normalizeString(data?.name) + '_' + normalizeString(data.category),
       active: data.active == 'Ativo' ? true : false,
       createdAt: new Date(),
       price: data.price.replace(',', '.'),

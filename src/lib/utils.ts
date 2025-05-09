@@ -40,18 +40,27 @@ export function formatCurrency(amount: number | string | null) {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function formatError(error: any) {
   if (error.name === 'ZodError') {
-    // Handle Zod error
-    const fieldErrors = Object.keys(error.errors).map((field) => error.errors[field].message);
-
+    const fieldErrors = Object.keys(error.errors).map(
+      (field) => error.errors[field].message
+    );
     return fieldErrors.join('. ');
-  } else if (error.name === 'PrismaClientKnownRequestError' && error.code === 'P2002') {
-    // Handle Prisma error
-    const field = error.meta?.target ? error.meta.target[0] : 'Field';
-    return `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
-  } else {
-    // Handle other errors
-    return typeof error.message === 'string' ? error.message : JSON.stringify(error.message);
   }
+
+  if (error.name === 'PrismaClientKnownRequestError') {
+    if (error.code === 'P2002') {
+      const field = error.meta?.target ? error.meta.target[0] : 'Campo';
+      return `${field.charAt(0).toUpperCase() + field.slice(1)} já existe`;
+    }
+
+    if (error.code === 'P2003') {
+      return 'Não é possível excluir esta categoria pois existem produtos associados a ela';
+    }
+  }
+
+  // Default fallback
+  return typeof error.message === 'string'
+    ? error.message
+    : 'Ocorreu um erro inesperado.';
 }
 
 export const normalizeString = (str: string): string => {

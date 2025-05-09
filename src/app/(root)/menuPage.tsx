@@ -20,12 +20,13 @@ import { productTypeImageString } from '@/types';
 
 interface menuProps {
   data: productTypeImageString[];
+  categories: {name: string, value: string}[]
 }
 
-const MenuPage: React.FC<menuProps> = ({ data }) => {
+const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(data);
-  const [selectedCategory, setSelectedCategory] = useState('classico');
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const [open, setOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<productTypeImageString | null>(null);
@@ -52,8 +53,10 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
         })
         .filter((product) => {
           if (selectedCategory === '') return true;
-
           return product.category?.toLowerCase() === selectedCategory.toLowerCase();
+        })
+        .filter((product) => {
+          return product.active;
         }),
     );
   };
@@ -67,8 +70,8 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
       <AboutProduct open={open} toggleDrawer={toggleDrawer} product={currentProduct} />
       <MainContainer>
         <Logo />
-        <Search value={searchText} handleChange={setSearchText} placeholder='Pesquisar por produto' />
-        <Nav handleChange={setSelectedCategory} />
+        <Search value={searchText} handleChange={setSearchText} placeholder='Pesquisar por produto'/>
+        <Nav navItems={categories} handleChange={setSelectedCategory} />
         <CardContainer>
           {filteredData.length > 0 &&
             filteredData.map((product) => (
@@ -80,7 +83,7 @@ const MenuPage: React.FC<menuProps> = ({ data }) => {
                   setCurrentProduct(product);
                 }}
               />
-            ))}
+          ))}
         </CardContainer>
         <Menu />
       </MainContainer>

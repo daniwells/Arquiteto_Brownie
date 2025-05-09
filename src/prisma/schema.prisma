@@ -20,7 +20,7 @@ model Product {
   active      Boolean
   orderItem   OrderItem[]
 
-  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 }
 
 model Customer {

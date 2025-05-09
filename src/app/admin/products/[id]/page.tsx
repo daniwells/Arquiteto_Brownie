@@ -1,8 +1,16 @@
 import FormsProduct from '@/app/admin/products/forms-product';
 import { getProdutById } from '@/lib/actions/product.actions';
 import { notFound } from 'next/navigation';
+import { auth } from '../../../../../auth';
+import { redirect } from 'next/navigation';
 
 const EditProduct = async (props: {params: Promise<{id: string;}>}) => {
+  const session = await auth();
+  
+  if (!session) {
+    return redirect('/sign-in');
+  }
+
   const { id } = await props.params;
 
   const product = await getProdutById(String(id) || "");

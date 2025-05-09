@@ -5,7 +5,7 @@ interface backgroundProps {
   $minheight?: string;
 }
 
-export const Background = styled.main<backgroundProps>`
+export const BackgroundMainContainer = styled.main<backgroundProps>`
   background-color: ${colors.gray};
   width: 100%;
   padding: 20px;

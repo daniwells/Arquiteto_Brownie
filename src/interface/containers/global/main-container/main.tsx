@@ -6,7 +6,7 @@ interface mainContainerProps {
 }
 
 const MainContainer: React.FC<mainContainerProps> = ({ children, minHeight }) => {
-  return <S.Background $minheight={minHeight}>{children}</S.Background>;
+  return <S.BackgroundMainContainer $minheight={minHeight}>{children}</S.BackgroundMainContainer>;
 };
 
 export default MainContainer;

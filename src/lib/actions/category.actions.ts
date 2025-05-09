@@ -21,6 +21,7 @@ export async function getAllCategories() {
     return {
       success: false,
       message: formatError(error),
+      content: [],
     };
   }
 }

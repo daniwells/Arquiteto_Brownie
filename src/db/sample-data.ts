@@ -11,7 +11,7 @@ const sampleData = {
     {
       name: 'Clássico',
       slug: 'classico_classico',
-      category: 'classico',
+      category: 'Clássicos',
       description: 'Brownie de massa normal',
       images: [
         '/images/sample-products/(classico_classico-123456789)p1-1.jpg',
@@ -23,7 +23,7 @@ const sampleData = {
     {
       name: 'Confete',
       slug: 'confete_classico',
-      category: 'classico',
+      category: 'Clássicos',
       description: 'Brownie de massa normal, com cobertura de confetes',
       images: [
         '/images/sample-products/(confete_classico-123456789)p2-1.jpg',
@@ -35,7 +35,7 @@ const sampleData = {
     {
       name: 'Meio amargo',
       slug: 'meio-amargo_meio-amargo',
-      category: 'meio-amargo',
+      category: 'Meio Amargo',
       description: 'Brownie de massa meio amargo',
       images: [
         '/images/sample-products/(meio-amargo_meio-amargo-123456789)p3-1.jpg',

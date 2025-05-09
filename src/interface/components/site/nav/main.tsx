@@ -4,14 +4,10 @@ import Title from '../../global/title/main';
 
 interface navProps {
   handleChange: (category: string) => void;
+  navItems: {name: string, value: string}[]
 }
 
-const Nav: React.FC<navProps> = ({ handleChange }) => {
-  const navItems = [
-    { name: 'Brownies Clássicos', value: 'classico' },
-    { name: 'Brownies Meio Amargo', value: 'meio-amargo' },
-  ];
-
+const Nav: React.FC<navProps> = ({ handleChange, navItems }) => {
   const [active, setActive] = useState(navItems[0]);
 
   useEffect(() => {
@@ -19,7 +15,7 @@ const Nav: React.FC<navProps> = ({ handleChange }) => {
   }, [active]);
 
   return (
-    <S.Background>
+    <S.BackgroundNav>
       <Title text="Nosso menu" />
       <S.Nav>
         {navItems.map((item) => (
@@ -29,7 +25,7 @@ const Nav: React.FC<navProps> = ({ handleChange }) => {
           </S.NavItem>
         ))}
       </S.Nav>
-    </S.Background>
+    </S.BackgroundNav>
   );
 };
 export default Nav;
