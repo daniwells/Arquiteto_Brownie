@@ -8,7 +8,7 @@ import MainContainer from '@/interface/containers/global/main-container/main';
 import Search from '@/interface/components/global/search/main';
 import Card from '@/interface/components/site/card/main';
 import CardContainer from '@/interface/containers/site/card-container/main';
-import Nav from '@/interface/components/site/nav/main';
+import NavCategories from '@/interface/components/site/nav-categories/main';
 import Menu from '@/interface/components/site/menu/main';
 import AboutProduct from '@/interface/containers/site/about-product-container/main';
 
@@ -71,7 +71,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
       <MainContainer>
         <Logo />
         <Search value={searchText} handleChange={setSearchText} placeholder='Pesquisar por produto'/>
-        <Nav navItems={categories} handleChange={setSelectedCategory} />
+        <NavCategories navItems={categories} handleChange={setSelectedCategory} />
         <CardContainer>
           {filteredData.length > 0 &&
             filteredData.map((product) => (
