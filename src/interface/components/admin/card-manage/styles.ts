@@ -56,6 +56,7 @@ export const AboutProduct = styled.div`
 export const Column = styled.div`
     display: flex;
     flex-direction: row;
+    margin-bottom: 20px;
 `
 
 export const SpanColor = styled.span<{status: string}>`

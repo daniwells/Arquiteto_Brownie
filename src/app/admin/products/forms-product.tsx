@@ -6,6 +6,7 @@ import { colors } from '@/styles/themes';
 // Libs
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { redirect } from 'next/navigation';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -20,7 +21,6 @@ import MultiImageInput from '@/interface/components/admin/multi-image-input/main
 import Dropdown from '@/interface/components/global/dropdown/main';
 import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
 
-
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';
 import priceIcon from '../../../../public/svg/dolar.svg';
@@ -28,7 +28,7 @@ import categoryIcon from '../../../../public/svg/category.svg';
 import infoIcon from '../../../../public/svg/information.svg';
 
 // Actions
-import { insertProduct, editProduct } from '@/lib/actions/product.actions';
+import { insertProduct, editProduct, removeProduct } from '@/lib/actions/product.actions';
 import { getAllCategories } from '@/lib/actions/category.actions';
 
 // Utils
@@ -56,26 +56,6 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const [ categories, setCategories ] = useState([""]);
   const [ loading, setLoading ] = useState(false);
 
-  const handleGetAllCategories = async () => {
-    const response = await getAllCategories();
-    if(!response.success){
-      openPopup(response.message instanceof Promise ? await response.message : "", "error");
-      return
-    }
-
-    const categoriesResponse = response?.content instanceof Promise ? await response.content : response.content
-    const categories = [""]
-    categoriesResponse.map((category: {category: string;id: string;}) => {
-      categories.push(category.category)
-    })
-
-    setCategories(categories)
-  }
-
-  useEffect(() => {
-    handleGetAllCategories();
-  }, [])
-  
   const { handleSubmit, setValue, watch } = useForm<formData>({
     defaultValues: {
       name: selectedProduct?.name || '',
@@ -87,8 +67,9 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
     },
   });
   
+  const watchFields = watch();
+  
   const onSubmit = async (data: formData) => {
-
     const producToSave = {
       ...data,
       slug: normalizeString(data?.name) + '_' + normalizeString(data.category),
@@ -117,7 +98,38 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
     }
   };
 
-  const watchFields = watch();
+  const handleGetAllCategories = async () => {
+    const response = await getAllCategories();
+    if(!response.success){
+      openPopup(response.message instanceof Promise ? await response.message : "", "error");
+      return
+    }
+
+    const categoriesResponse = response?.content instanceof Promise ? await response.content : response.content
+    const categories = [""]
+    categoriesResponse.map((category: {category: string;id: string;}) => {
+      categories.push(category.category)
+    })
+
+    setCategories(categories)
+  }
+
+  useEffect(() => {
+    handleGetAllCategories();
+  }, [])
+
+  const handleRemoveProduct = async () => {
+    const response = await removeProduct(selectedProduct?.id || '');
+
+    if (!response?.success) {
+      const message =
+      response.message instanceof Promise ? await response.message : "";
+      openPopup(message, 'error');
+    } else {
+      openPopup('Produto removido com successo', 'success');
+      redirect("/admin/products");
+    }
+  }
 
   return (
     <MainContainer>
@@ -201,6 +213,16 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
           type="submit"
           value={selectedProduct ? "Editar produto" : "Criar produto"} 
         />
+        {
+          selectedProduct && 
+            <PrimaryButton
+              category="delete"
+              loading={loading}
+              type="button"
+              value="Remover produto"
+              handleClick={handleRemoveProduct}
+            />
+        }
       </FormContainer>
     </MainContainer>
   );

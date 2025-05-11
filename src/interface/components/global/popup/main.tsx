@@ -3,13 +3,13 @@ import React from 'react';
 import * as S from './styles';
 import PrimaryButton from '../primary-button/main';
 
-interface popupErrorProps {
+interface popupProps {
   message: string;
   onClose: () => void;
   type: 'error' | 'success';
 }
 
-const PopupError: React.FC<popupErrorProps> = ({ message, onClose, type }) => {
+const Popup: React.FC<popupProps> = ({ message, onClose, type }) => {
   return (
     <S.Overlay>
       <S.Container>
@@ -23,4 +23,4 @@ const PopupError: React.FC<popupErrorProps> = ({ message, onClose, type }) => {
   );
 };
 
-export default PopupError;
+export default Popup;

@@ -1,5 +1,6 @@
 // Libs
 import React from "react";
+import { redirect } from "next/navigation";
 
 // Styles
 import * as S from "./styles"
@@ -44,7 +45,7 @@ const CardManage: React.FC<cardManageProps> = ({ product }) => {
                 fontSize="14px"
                 value="Editar produto"
                 category="secondary"
-                handleClick={() => {}}
+                handleClick={() => {redirect(`/admin/products/${product.id}`)}}
             />
         </S.BackgroundCardManage> 
     );

@@ -5,7 +5,7 @@ interface primaryButtonProps {
   value: string;
   handleClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
-  category?: 'success' | 'error' | 'dark' | 'normal' | 'secondary' ;
+  category?: 'success' | 'error' | 'dark' | 'normal' | 'secondary' | 'delete' ;
   loading?: boolean;
   fontSize?: string;
 }

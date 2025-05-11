@@ -22,7 +22,6 @@ interface cartContentProps {
 }
 
 const CartContent: React.FC<cartContentProps> = ({ cart }) => {
-  console.log(cart)
   return (
     <>
       <MainContainer minHeight={cart?.items ? cart?.items?.length > 0 ? undefined : '100vh' : '100vh'}>

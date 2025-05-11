@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState } from 'react';
-import PopupError from '@/interface/components/global/popup/main';
+import Popup from '@/interface/components/global/popup/main';
 
 type typePopup = 'error' | 'success';
 
@@ -33,7 +33,7 @@ export const PopupProvider: React.FC<popupProviderProps> = ({ children }) => {
 
   return (
     <PopupContext.Provider value={{ openPopup }}>
-      {isOpen && <PopupError type={type} message={message} onClose={closePopup} />}
+      {isOpen && <Popup type={type} message={message} onClose={closePopup} />}
       {children}
     </PopupContext.Provider>
   );

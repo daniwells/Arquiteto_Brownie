@@ -29,6 +29,7 @@ export const Message = styled.p`
   font-size: 16px;
   text-align: center;
   color: ${colors.blackGray};
+  margin-bottom: 20px;
 `;
 
 export const TitleError = styled.h2`

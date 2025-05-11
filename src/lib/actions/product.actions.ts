@@ -137,7 +137,8 @@ export async function insertProduct(product: productType) {
 
 export async function editProduct(id: string, product: productType) {
   try {
-    if (!product) return { success: false, message: 'Produto não encontrado' };
+    if (!id) return { success: false, message: 'Produto não encontrado' };
+    if (!product) return { success: false, message: 'Novo produto não recebido' };
 
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
@@ -228,6 +229,42 @@ export async function editProduct(id: string, product: productType) {
           message: 'Não foi possível salvar as imagens dos produtos',
         };    
       }
+    }
+
+    return {
+      success: true,
+      message: 'Produto editado com successo',
+    };
+  }catch (error) {
+    return {
+      success: false,
+      message: formatError(error),
+    };
+  }
+}
+
+export async function removeProduct(id: string) {
+  try {
+    if (!id) return { success: false, message: 'Produto não encontrado' };
+
+    const session = await auth();
+    if (!session) throw new Error('Usuário não autenticado');
+
+    const selectedProduct = await prisma.product.delete({
+      where: { id: id },
+    });
+
+    const oldImages = selectedProduct?.images;
+
+    if(!selectedProduct) return {
+      success: false,
+      message: 'Produto não encontrado',
+    }
+
+    const responseRemoveImage = await removeImages(oldImages || []);
+
+    if(!responseRemoveImage.success){
+      return responseRemoveImage;
     }
 
     return {
