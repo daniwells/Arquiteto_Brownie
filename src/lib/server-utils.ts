@@ -11,7 +11,7 @@ export const removeImages = async (filesToDelete: string[]) => {
     
     return {
       success: true,
-      message: 'Imagens removidas com successo',
+      message: 'Imagens removidas com sucesso',
     }
   } catch{
     return {

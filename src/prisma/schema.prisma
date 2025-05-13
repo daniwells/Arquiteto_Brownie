@@ -26,8 +26,9 @@ model Product {
 model Customer {
   id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name    String  @default("NO_NAME")
-  address Json?   @db.Json
+  cep     String
   phone   String  @unique(map: "customer_phone_idx")
+  number  String
   order   Order[]
 }
 

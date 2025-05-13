@@ -94,7 +94,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
       
       openPopup(message, 'error');
     } else {
-      openPopup('Produto criado com successo', 'success');
+      openPopup('Produto criado com sucesso', 'success');
     }
   };
 
@@ -126,7 +126,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
       response.message instanceof Promise ? await response.message : "";
       openPopup(message, 'error');
     } else {
-      openPopup('Produto removido com successo', 'success');
+      openPopup('Produto removido com sucesso', 'success');
       redirect("/admin/products");
     }
   }

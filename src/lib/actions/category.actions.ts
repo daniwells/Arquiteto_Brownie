@@ -40,7 +40,7 @@ export async function insertCategory(category: string) {
 
     return {
       success: true,
-      message: 'Categoria criada com successo',
+      message: 'Categoria criada com sucesso',
     };
   } catch (error) {
     return {
@@ -66,7 +66,7 @@ export async function removeCategory(categoryId: string) {
 
     return {
       success: true,
-      message: 'Categoria criada com successo',
+      message: 'Categoria criada com sucesso',
     };
   } catch (error) {
     return {

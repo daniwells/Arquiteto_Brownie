@@ -32,7 +32,7 @@ export async function getCart(mockCookies?: RequestCookies) {
   });
 }
 
-export async function addItemToCart(product: cartItemType, mockCookies?: RequestCookies) {
+export async function addItemToCart(product: cartItemType,mockCookies?: RequestCookies){
   try {
     if (!product) return { success: false, message: 'Produto não encontrado' };
 
@@ -40,7 +40,10 @@ export async function addItemToCart(product: cartItemType, mockCookies?: Request
     const sessionCart = cookieStore.get('sessionCart') || null;
 
     if (!sessionCart || sessionCart.value == undefined) {
-      cookieStore.set('sessionCart', JSON.stringify({ items: [product], ...calcPrice([product]) }));
+      cookieStore.set('sessionCart', JSON.stringify({ 
+        items: [product], 
+        ...calcPrice([product]),
+      }));
 
       return {
         success: true,
