@@ -1,6 +1,6 @@
 'use client';
 
 const OrdersContent = () => {
-  return (<></>);
+  return <></>;
 };
 export default OrdersContent;

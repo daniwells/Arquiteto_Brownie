@@ -28,7 +28,7 @@ async function main() {
         images: product.images,
         price: product.price,
         active: product.active,
-        categoryId: category.id
+        categoryId: category.id,
       },
     });
   }

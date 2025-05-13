@@ -20,7 +20,7 @@ import { productTypeImageString } from '@/types';
 
 interface menuProps {
   data: productTypeImageString[];
-  categories: {name: string, value: string}[]
+  categories: { name: string; value: string }[];
 }
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
@@ -70,7 +70,11 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
       <AboutProduct open={open} toggleDrawer={toggleDrawer} product={currentProduct} />
       <MainContainer>
         <Logo />
-        <Search value={searchText} handleChange={setSearchText} placeholder='Pesquisar por produto'/>
+        <Search
+          value={searchText}
+          handleChange={setSearchText}
+          placeholder="Pesquisar por produto"
+        />
         <NavCategories navItems={categories} handleChange={setSelectedCategory} />
         <CardContainer>
           {filteredData.length > 0 &&
@@ -83,7 +87,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
                   setCurrentProduct(product);
                 }}
               />
-          ))}
+            ))}
         </CardContainer>
         <Menu />
       </MainContainer>

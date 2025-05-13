@@ -1,12 +1,12 @@
 import * as S from './styles';
-import { useState, useEffect, useRef  } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Title from '../../global/title/main';
-import { SwiperSlide  } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import { Swiper as SwiperClass } from 'swiper';
 
 interface navProps {
   handleChange: (category: string) => void;
-  navItems: {name: string, value: string}[]
+  navItems: { name: string; value: string }[];
 }
 
 const NavCategories: React.FC<navProps> = ({ handleChange, navItems }) => {
@@ -26,7 +26,7 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems }) => {
 
   return (
     <S.BackgroundNav>
-      <Title text="Nosso menu"/>
+      <Title text="Nosso menu" />
       <S.NavBar
         className="my-swiper"
         spaceBetween={20}
@@ -35,13 +35,13 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems }) => {
       >
         {navItems.map((item, index) => (
           <SwiperSlide key={item.value}>
-            <S.NavItem  onClick={() => handleItemClick(item, index)}>
+            <S.NavItem onClick={() => handleItemClick(item, index)}>
               <a href="#">{item.name}</a>
               {active.value === item.value && <S.Underline layoutId="underline" />}
             </S.NavItem>
           </SwiperSlide>
-        ))}        
-      </S.NavBar>      
+        ))}
+      </S.NavBar>
     </S.BackgroundNav>
   );
 };

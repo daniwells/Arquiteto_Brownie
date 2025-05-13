@@ -15,7 +15,7 @@ const sampleData = {
       description: 'Brownie de massa normal',
       images: [
         '/images/sample-products/(classico_classico-123456789)p1-1.jpg',
-        '/images/sample-products/(classico_classico-123456789)p1-2.jpg'
+        '/images/sample-products/(classico_classico-123456789)p1-2.jpg',
       ],
       price: 4.0,
       active: true,
@@ -27,7 +27,7 @@ const sampleData = {
       description: 'Brownie de massa normal, com cobertura de confetes',
       images: [
         '/images/sample-products/(confete_classico-123456789)p2-1.jpg',
-        '/images/sample-products/(confete_classico-123456789)p2-2.jpg'
+        '/images/sample-products/(confete_classico-123456789)p2-2.jpg',
       ],
       price: 5.0,
       active: true,

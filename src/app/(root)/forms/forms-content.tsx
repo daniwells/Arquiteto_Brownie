@@ -25,8 +25,9 @@ import { usePopup } from '@/contexts/PopupContext';
 
 // Actions
 import { createCustomer } from '@/lib/actions/customer.actions';
-import { getCart } from '@/lib/actions/cart.actions';
+import { getCart, deleteCart } from '@/lib/actions/cart.actions';
 import { createOrder } from '@/lib/actions/order.actions';
+import { cartType } from '@/types';
 
 interface formData {
   name: string;
@@ -41,94 +42,109 @@ interface formsContentProps {
 
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup } = usePopup();
-  const [ loading, setLoading ] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
+
   const { handleSubmit, setValue, watch } = useForm<formData>({
     defaultValues: {
-      name: "",
-      phone: "",
-      cep: "",
-      number: "",
+      name: '',
+      phone: '',
+      cep: '',
+      number: '',
     },
   });
-    
+
   const watchFields = watch();
 
   const handleCreateCustomer = async (data: formData) => {
     const customer = {
       ...data,
-      phone: data.phone.replace(/\D/g, ""),
-      cep: data.cep.replace("-", ""),
-    }
+      phone: data.phone.replace(/\D/g, ''),
+      cep: data.cep.replace('-', ''),
+    };
 
     let response: {
-      success: boolean,
-      message: string | Promise<any>,
-      content?: string | undefined
-    } = {success: false, message: ""};
+      success: boolean;
+      message: string | Promise<any>;
+      content?: string | undefined;
+    } = { success: false, message: '' };
 
-    setLoading(true)
+    setLoading(true);
     response = await createCustomer(customer);
-    setLoading(false)
-    
+    setLoading(false);
+
     if (!response?.success) {
-      const message =
-      response.message instanceof Promise ? await response.message : "";
-      
+      const message = response.message instanceof Promise ? await response.message : '';
+
       openPopup(message, 'error');
       return false;
     }
 
     return response.content;
-  }
+  };
 
-  const handleCreateOrder = async (idCustomer: string) => {
-    setLoading(true)
+  const handleCreateOrder = async (idCustomer: string, cart: cartType) => {
+    if (cart) {
+      setLoading(true);
+      const order = await createOrder(cart, idCustomer);
+      setLoading(false);
+
+      if (!order?.success) {
+        const message = order.message instanceof Promise ? await order.message : '';
+
+        openPopup(message, 'error');
+        return false;
+      }
+      await deleteCart();
+      return true;
+    }
+    return false;
+  };
+
+  const handleGetCart = async () => {
+    setLoading(true);
     const cart = await getCart();
-    setLoading(false)
-    
+    setLoading(false);
+
     if (!cart?.success) {
       const message = 'message' in cart ? cart.message : '';
-    
+
       openPopup(message, 'error');
       return false;
     }
 
     if(cart?.content){
-      setLoading(true)
-      const order = await createOrder(cart?.content, idCustomer);
-      setLoading(false)
-
-      if (!order?.success) {
-        const message = order.message instanceof Promise ? await order.message : "";
-      
-        openPopup(message, 'error');
-        return false;
+      if(cart.content.items.length <= 0){
+        openPopup("Nenhum produto no carrinho", 'error');
+        return false
       }
-      return true
+      return cart.content;
     }
-    return false
+    return false;
   }
 
   const onSubmit = async (data: formData) => {
-    const idCustomer = await handleCreateCustomer(data);
-    if(idCustomer){
-      const responseOrder = await handleCreateOrder(idCustomer);
-      if(responseOrder){
-        openPopup("Pedido criado com sucesso", 'success');
+    const cart = await handleGetCart();
+
+    if(cart){
+      const idCustomer = await handleCreateCustomer(data);
+      if (idCustomer) {
+        const responseOrder = await handleCreateOrder(idCustomer, cart);
+        if (responseOrder) {
+          openPopup('Pedido criado com sucesso', 'success');
+        }
       }
     }
   };
 
   return (
     <MainContainer>
-      <Return redirect='/'/>
+      <Return redirect="/" />
       <Logo />
       <DescriptionContainer
         title="Preencha seus dados"
         desc="Para prosseguir com sua compra, preencha o formulário abaixo"
       />
-      <FormContainer handleSubmit={handleSubmit(onSubmit)} >
+      <FormContainer handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           value={watchFields.name}
           icon={personIcon}
@@ -175,7 +191,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
               setValue('number', val);
             }
           }}
-          max={3}
+          max={10}
         />
         <TotalPriceInfo date={new Date()} totalPrice={itemsPrice} />
         <PrimaryButton loading={loading} value="Realizar pagamento" type="submit" />

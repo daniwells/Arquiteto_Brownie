@@ -34,7 +34,7 @@ export default function RootLayout({
         >
           <PopupProvider>
             {/* <StyledComponentsRegistry> */}
-              {children}
+            {children}
             {/* </StyledComponentsRegistry> */}
           </PopupProvider>
           <GlobalStyles />

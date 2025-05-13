@@ -53,22 +53,22 @@ interface formsProduct {
 
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const { openPopup } = usePopup();
-  const [ categories, setCategories ] = useState([""]);
-  const [ loading, setLoading ] = useState(false);
+  const [categories, setCategories] = useState(['']);
+  const [loading, setLoading] = useState(false);
 
   const { handleSubmit, setValue, watch } = useForm<formData>({
     defaultValues: {
       name: selectedProduct?.name || '',
-      price: selectedProduct?.price?.replace(".", ",") || '',
+      price: selectedProduct?.price?.replace('.', ',') || '',
       category: selectedProduct?.category || '',
       description: selectedProduct?.description || '',
       images: selectedProduct?.images,
-      active: selectedProduct ? selectedProduct?.active ? "Ativo" : "Desativado" : "Ativo",
+      active: selectedProduct ? (selectedProduct?.active ? 'Ativo' : 'Desativado') : 'Ativo',
     },
   });
-  
+
   const watchFields = watch();
-  
+
   const onSubmit = async (data: formData) => {
     const producToSave = {
       ...data,
@@ -78,20 +78,22 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
       price: data.price.replace(',', '.'),
     };
 
-    let response: {success: boolean, message: string | Promise<any>} = {success: false, message: ""};
+    let response: { success: boolean; message: string | Promise<any> } = {
+      success: false,
+      message: '',
+    };
 
-    setLoading(true)
-    if(selectedProduct){
+    setLoading(true);
+    if (selectedProduct) {
       response = await editProduct(String(selectedProduct?.id), producToSave);
-    }else{
+    } else {
       response = await insertProduct(producToSave);
     }
-    setLoading(false)
-    
+    setLoading(false);
+
     if (!response?.success) {
-      const message =
-      response.message instanceof Promise ? await response.message : "";
-      
+      const message = response.message instanceof Promise ? await response.message : '';
+
       openPopup(message, 'error');
     } else {
       openPopup('Produto criado com sucesso', 'success');
@@ -100,53 +102,52 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
 
   const handleGetAllCategories = async () => {
     const response = await getAllCategories();
-    if(!response.success){
-      openPopup(response.message instanceof Promise ? await response.message : "", "error");
-      return
+    if (!response.success) {
+      openPopup(response.message instanceof Promise ? await response.message : '', 'error');
+      return;
     }
 
-    const categoriesResponse = response?.content instanceof Promise ? await response.content : response.content
-    const categories = [""]
-    categoriesResponse.map((category: {category: string;id: string;}) => {
-      categories.push(category.category)
-    })
+    const categoriesResponse =
+      response?.content instanceof Promise ? await response.content : response.content;
+    const categories = [''];
+    categoriesResponse.map((category: { category: string; id: string }) => {
+      categories.push(category.category);
+    });
 
-    setCategories(categories)
-  }
+    setCategories(categories);
+  };
 
   useEffect(() => {
     handleGetAllCategories();
-  }, [])
+  }, []);
 
   const handleRemoveProduct = async () => {
     const response = await removeProduct(selectedProduct?.id || '');
 
     if (!response?.success) {
-      const message =
-      response.message instanceof Promise ? await response.message : "";
+      const message = response.message instanceof Promise ? await response.message : '';
       openPopup(message, 'error');
     } else {
       openPopup('Produto removido com sucesso', 'success');
-      redirect("/admin/products");
+      redirect('/admin/products');
     }
-  }
+  };
 
   return (
     <MainContainer>
       <HeaderAdmin redirect="/admin/products" />
-      {
-        selectedProduct ?
-          <DescriptionContainer
-            title="Editar produto"
-            desc="Altere qualquer informação deste produto"
-          />
-        :
-          <DescriptionContainer
-            title="Criar produto"
-            desc="Preencha os campos abaixo para criar um novo produto"
-          />
-      }
-      
+      {selectedProduct ? (
+        <DescriptionContainer
+          title="Editar produto"
+          desc="Altere qualquer informação deste produto"
+        />
+      ) : (
+        <DescriptionContainer
+          title="Criar produto"
+          desc="Preencha os campos abaixo para criar um novo produto"
+        />
+      )}
+
       <FormContainer handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           value={watchFields.name}
@@ -208,21 +209,20 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
           width={'175px'}
         />
 
-        <PrimaryButton 
+        <PrimaryButton
           loading={loading}
           type="submit"
-          value={selectedProduct ? "Editar produto" : "Criar produto"} 
+          value={selectedProduct ? 'Editar produto' : 'Criar produto'}
         />
-        {
-          selectedProduct && 
-            <PrimaryButton
-              category="delete"
-              loading={loading}
-              type="button"
-              value="Remover produto"
-              handleClick={handleRemoveProduct}
-            />
-        }
+        {selectedProduct && (
+          <PrimaryButton
+            category="delete"
+            loading={loading}
+            type="button"
+            value="Remover produto"
+            handleClick={handleRemoveProduct}
+          />
+        )}
       </FormContainer>
     </MainContainer>
   );

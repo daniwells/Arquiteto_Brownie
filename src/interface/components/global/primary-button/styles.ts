@@ -9,40 +9,46 @@ interface primaryButtonStyleProps {
 export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
   /* margin-block: 20px; */
   background-color: ${(props) =>
-    props.$category == 'dark' ? 
-      colors.lightBrown : props.$category == 'error' ? 
-        colors.red : props.$category == 'success' ? 
-          colors.green : props.$category == 'secondary' || props.$category == 'delete' ?
-            'transparent' : colors.beige
-  };
+    props.$category == 'dark'
+      ? colors.lightBrown
+      : props.$category == 'error'
+        ? colors.red
+        : props.$category == 'success'
+          ? colors.green
+          : props.$category == 'secondary' || props.$category == 'delete'
+            ? 'transparent'
+            : colors.beige};
   font-family: 'Comfortaa Bold';
-  color: ${ 
-    props => props?.$category == 'secondary' ? 
-      colors.beige : props?.$category == 'delete' ? 
-        colors.red :'white'
-  };
+  color: ${(props) =>
+    props?.$category == 'secondary'
+      ? colors.beige
+      : props?.$category == 'delete'
+        ? colors.red
+        : 'white'};
   border-radius: 30px;
   box-shadow: none;
   width: 100%;
-  border: ${ 
-    props => props?.$category == 'secondary' ? 
-      '1px solid'+colors.beige : props?.$category == 'delete' ? 
-        '1px solid'+colors.red : 'none'
-  };
+  border: ${(props) =>
+    props?.$category == 'secondary'
+      ? '1px solid' + colors.beige
+      : props?.$category == 'delete'
+        ? '1px solid' + colors.red
+        : 'none'};
   padding: 14px;
-  font-size: ${props => props?.$fontSize ? props?.$fontSize : '18px'};
+  font-size: ${(props) => (props?.$fontSize ? props?.$fontSize : '18px')};
   cursor: pointer;
-  transition: all .5s ease-in-out;
-  
+  transition: all 0.5s ease-in-out;
+
   &:hover {
     box-shadow: none;
     background-color: ${(props) =>
-      !(props.$category == 'error') && 
-        !(props.$category == 'success') && 
-          props.$category == 'secondary' ? 
-            colors.beige : props?.$category == 'delete' ? 
-              colors.red : colors.lightBrown
-    };
+      !(props.$category == 'error') &&
+      !(props.$category == 'success') &&
+      props.$category == 'secondary'
+        ? colors.beige
+        : props?.$category == 'delete'
+          ? colors.red
+          : colors.lightBrown};
     color: white;
   }
 `;

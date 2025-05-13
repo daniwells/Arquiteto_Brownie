@@ -5,7 +5,7 @@ export const metadata = {
 };
 
 const Orders = async () => {
-  return <OrdersContent/>;
+  return <OrdersContent />;
 };
 
 export default Orders;

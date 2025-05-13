@@ -39,30 +39,31 @@ const getProduct = async (key: string, value: string) => {
     },
   });
 
-  if(!product) return {
-    success: false,
-    message: `Produto não encontrado, ${key} incorreto`,
-  }
+  if (!product)
+    return {
+      success: false,
+      message: `Produto não encontrado, ${key} incorreto`,
+    };
 
-  const {category, ...rest} = product;
+  const { category, ...rest } = product;
 
   const newProduct = {
     ...rest,
     category: category.category,
-  }
-  
+  };
+
   return {
     success: true,
-    content: newProduct
-  }
-}
+    content: newProduct,
+  };
+};
 
 export async function getProdutBySlug(slug: string) {
-  return getProduct("slug", slug);
+  return getProduct('slug', slug);
 }
 
 export async function getProdutById(id: string) {
-  return getProduct("id", id);
+  return getProduct('id', id);
 }
 
 export async function insertProduct(product: productType) {
@@ -82,19 +83,19 @@ export async function insertProduct(product: productType) {
       price: product.price,
       active: product.active,
     });
-    
+
     // Adding path of images instead the File
     const imagesString: string[] = [];
 
-    let pathImg = "";
-    let buffer: Buffer<ArrayBuffer> | string = "";
+    let pathImg = '';
+    let buffer: Buffer<ArrayBuffer> | string = '';
 
     try {
       await Promise.all(
         product?.images?.map(async (img) => {
           const contentImage = await saveImage(img, productObj.slug);
-          pathImg = contentImage.pathImg
-          buffer = contentImage.buffer
+          pathImg = contentImage.pathImg;
+          buffer = contentImage.buffer;
 
           imagesString.push('/images/sample-products/' + contentImage.nameImg);
         }),
@@ -103,12 +104,15 @@ export async function insertProduct(product: productType) {
       throw new Error('Não foi possível salvar as imagens do produto');
     }
 
-    const insertedCategory = await prisma.category.findFirst({ where: {category: productObj.category}});
-    
-    if(!insertedCategory) return {
-      success: false,
-      message: `Categoria não encontrada`,
-    }
+    const insertedCategory = await prisma.category.findFirst({
+      where: { category: productObj.category },
+    });
+
+    if (!insertedCategory)
+      return {
+        success: false,
+        message: `Categoria não encontrada`,
+      };
 
     const productObjFinal = {
       ...productObj,
@@ -117,10 +121,12 @@ export async function insertProduct(product: productType) {
     };
 
     // Save product in database
-    const insertedProduct = await prisma.product.create({ data: omitFields(productObjFinal, ['category']) });
+    const insertedProduct = await prisma.product.create({
+      data: omitFields(productObjFinal, ['category']),
+    });
 
     if (!insertedProduct) throw new Error('Erro ao criar o produto');
-    
+
     await writeFile(pathImg, buffer);
 
     return {
@@ -149,12 +155,13 @@ export async function editProduct(id: string, product: productType) {
 
     const oldImages = selectedProduct?.images;
 
-    if(!selectedProduct) return {
-      success: false,
-      message: 'Produto não encontrado, id incorreto',
-    }
-    
-    const imagesIsString = typeof product?.images[0] === "string"
+    if (!selectedProduct)
+      return {
+        success: false,
+        message: 'Produto não encontrado, id incorreto',
+      };
+
+    const imagesIsString = typeof product?.images[0] === 'string';
 
     const datas = {
       name: product.name,
@@ -164,25 +171,27 @@ export async function editProduct(id: string, product: productType) {
       images: product.images,
       price: product.price,
       active: product.active,
-    }
+    };
 
     // Create product object
-    const productObj = imagesIsString ? editProductSchema.parse(datas) : insertProductSchema.parse(datas);
-    
-    const imagesString: string[] = [];
-    
-    let pathImg = "";
-    let buffer: Buffer<ArrayBuffer> | string = "";
+    const productObj = imagesIsString
+      ? editProductSchema.parse(datas)
+      : insertProductSchema.parse(datas);
 
-    if(!imagesIsString){
+    const imagesString: string[] = [];
+
+    let pathImg = '';
+    let buffer: Buffer<ArrayBuffer> | string = '';
+
+    if (!imagesIsString) {
       // Adding path of images instead the File
-      try { 
+      try {
         await Promise.all(
           product?.images?.map(async (img) => {
             const contentImage = await saveImage(img, productObj.slug);
-            pathImg = contentImage.pathImg
-            buffer = contentImage.buffer
-  
+            pathImg = contentImage.pathImg;
+            buffer = contentImage.buffer;
+
             imagesString.push('/images/sample-products/' + contentImage.nameImg);
           }),
         );
@@ -190,44 +199,47 @@ export async function editProduct(id: string, product: productType) {
         throw new Error('Não foi possível salvar as imagens do produto');
       }
     }
-    
+
     const productObjWithoutImages = omitFields(productObj, ['images', 'category']);
-    
-    const insertedCategory = await prisma.category.findFirst({ where: {category: productObj.category}});
-    
-    if(!insertedCategory) return {
-      success: false,
-      message: `Categoria não encontrada`,
-    }
-    
+
+    const insertedCategory = await prisma.category.findFirst({
+      where: { category: productObj.category },
+    });
+
+    if (!insertedCategory)
+      return {
+        success: false,
+        message: `Categoria não encontrada`,
+      };
+
     const productObjFinal = {
       ...productObjWithoutImages,
       ...(!imagesIsString && { images: imagesString }),
-      categoryId: insertedCategory.id
+      categoryId: insertedCategory.id,
     };
 
     // Update in database
     const updatedProduct = await prisma.product.update({
       where: { id },
-      data: {...productObjFinal},
+      data: { ...productObjFinal },
     });
 
     if (!updatedProduct) throw new Error('Erro ao editar o produto');
 
-    if(!imagesIsString) {
+    if (!imagesIsString) {
       const responseRemoveImage = await removeImages(oldImages || []);
 
-      if(!responseRemoveImage.success){
+      if (!responseRemoveImage.success) {
         return responseRemoveImage;
       }
 
-      try{
+      try {
         await writeFile(pathImg, buffer);
-      }catch{
+      } catch {
         return {
           success: false,
           message: 'Não foi possível salvar as imagens dos produtos',
-        };    
+        };
       }
     }
 
@@ -235,7 +247,7 @@ export async function editProduct(id: string, product: productType) {
       success: true,
       message: 'Produto editado com sucesso',
     };
-  }catch (error) {
+  } catch (error) {
     return {
       success: false,
       message: formatError(error),
@@ -256,14 +268,15 @@ export async function removeProduct(id: string) {
 
     const oldImages = selectedProduct?.images;
 
-    if(!selectedProduct) return {
-      success: false,
-      message: 'Produto não encontrado',
-    }
+    if (!selectedProduct)
+      return {
+        success: false,
+        message: 'Produto não encontrado',
+      };
 
     const responseRemoveImage = await removeImages(oldImages || []);
 
-    if(!responseRemoveImage.success){
+    if (!responseRemoveImage.success) {
       return responseRemoveImage;
     }
 
@@ -271,7 +284,7 @@ export async function removeProduct(id: string) {
       success: true,
       message: 'Produto editado com sucesso',
     };
-  }catch (error) {
+  } catch (error) {
     return {
       success: false,
       message: formatError(error),

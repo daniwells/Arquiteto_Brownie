@@ -1,3 +1,5 @@
+import { ZodSchema } from "zod";
+
 // Convert prisma object into a regular JS object
 export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
@@ -38,11 +40,9 @@ export function formatCurrency(amount: number | string | null) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function formatError(error: any) {
+export async function formatError(error: any, action?: string) {
   if (error.name === 'ZodError') {
-    const fieldErrors = Object.keys(error.errors).map(
-      (field) => error.errors[field].message
-    );
+    const fieldErrors = Object.keys(error.errors).map((field) => error.errors[field].message);
     return fieldErrors.join('. ');
   }
 
@@ -52,15 +52,17 @@ export async function formatError(error: any) {
       return `${field.charAt(0).toUpperCase() + field.slice(1)} já existe`;
     }
 
-    if (error.code === 'P2003') {
+    if (error.code === 'P2003' && action === 'category') {
       return 'Não é possível excluir esta categoria pois existem produtos associados a ela';
+    }
+
+    if (error.code === 'P2003' && action === 'order') {
+      return 'Não foi possível criar o seu pedido! Produtos não encontrados';
     }
   }
 
   // Default fallback
-  return typeof error.message === 'string'
-    ? error.message
-    : 'Ocorreu um erro inesperado.';
+  return typeof error.message === 'string' ? error.message : 'Ocorreu um erro inesperado.';
 }
 
 export const normalizeString = (str: string): string => {
@@ -87,14 +89,27 @@ export const formatMessagesZod = (zodError: any) => {
   return finalErrorMessage;
 };
 
-export const omitFields = <T extends object, K extends keyof T>(obj: T, fields: K[]): Omit<T, K> => {
+export const omitFields = <T extends object, K extends keyof T>(
+  obj: T,
+  fields: K[],
+): Omit<T, K> => {
   const newObj = { ...obj };
   for (const field of fields) {
     delete newObj[field];
   }
   return newObj;
-}
+};
 
 export const getNameImageFromPath = (image: string) => {
-  return image.split("/")[image.split("/").length - 1].split(")").slice(1).join("-");
+  return image.split('/')[image.split('/').length - 1].split(')').slice(1).join('-');
+};
+
+export const validateForm = <T>(schema: ZodSchema<T>, data: any) => {
+    const result = schema.safeParse(data);
+
+    if (result.success) {
+        return {status: true};  
+    } else {
+        return {status: false, message: result.error.errors};
+    }
 }

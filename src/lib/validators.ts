@@ -30,8 +30,8 @@ export const insertProductSchema = z.object({
 });
 
 export const editProductSchema = insertProductSchema.extend({
-  images: z.array(z.string())
-})
+  images: z.array(z.string()),
+});
 
 export const cartItemSchema = z.object({
   productId: z.string().min(1, 'Id do produto é necessário'),
@@ -68,8 +68,32 @@ export const insertOrderSchema = z.object({
 });
 
 export const insertCustomerSchema = z.object({
-  name: z.string().min(3, 'Nome do produto deve ter pelo menos 3 caracteres'),
-  cep:  z.string({required_error: "CEP é obrigatório", invalid_type_error: "CEP deve ser um valor válido",}).regex(/^\d+$/, {message: "CEP deve conter apenas valores numéricos",}).min(8, "Cep deve ter pelo menos 8 caracteres").max(8, "Cep deve ter no máximo 8 caracteres"),
-  phone: z.string({required_error: "Telefone é obrigatório", invalid_type_error: "Telefone deve ser um valor válido",}).regex(/^\d+$/, {message: "Telefone deve conter apenas valores numéricos",}).min(11, "Telefone deve ter pelo menos 11 caracteres").max(11, "Telefone deve ter no máximo 13 caracteres"),
-  number: z.string({required_error: "Número da residência é obrigatório", invalid_type_error: "Número da residência deve ser um valor válido",}).regex(/^\d+$/, {message: "Número da residência deve conter apenas valores numéricos",}).min(2, "Número da residência deve ter pelo menos 2 caracteres"),
-})
+  name: z.string({
+      required_error: 'Nome do cliente é obrigatório',
+      invalid_type_error: 'Nome do cliente deve ser um valor válido',
+    })
+    .min(3, 'Nome do cliente deve ter pelo menos 3 caracteres'),
+  cep: z
+    .string({
+      required_error: 'CEP é obrigatório',
+      invalid_type_error: 'CEP deve ser um valor válido',
+    })
+    .regex(/^\d+$/, { message: 'CEP deve conter apenas valores numéricos' })
+    .min(8, 'Cep deve ter pelo menos 8 caracteres')
+    .max(8, 'Cep deve ter no máximo 8 caracteres'),
+  phone: z
+    .string({
+      required_error: 'Telefone é obrigatório',
+      invalid_type_error: 'Telefone deve ser um valor válido',
+    })
+    .regex(/^\d+$/, { message: 'Telefone deve conter apenas valores numéricos' })
+    .min(11, 'Telefone deve ter pelo menos 11 caracteres')
+    .max(11, 'Telefone deve ter no máximo 13 caracteres'),
+  number: z
+    .string({
+      required_error: 'Número da residência é obrigatório',
+      invalid_type_error: 'Número da residência deve ser um valor válido',
+    })
+    .regex(/^\d+$/, { message: 'Número da residência deve conter apenas valores numéricos' })
+    .min(2, 'Número da residência deve ter pelo menos 2 caracteres'),
+});

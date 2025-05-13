@@ -19,4 +19,4 @@ export type cartType = {
 
 export type customerType = z.infer<typeof insertCustomerSchema> & {
   id?: string;
-}
+};

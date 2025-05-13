@@ -6,7 +6,7 @@ interface cardContainerProps {
 }
 
 const CardContainer: React.FC<cardContainerProps> = ({ children, height }) => {
-  return <S.BackgroundCardContainer $height={height} >{children}</S.BackgroundCardContainer>;
+  return <S.BackgroundCardContainer $height={height}>{children}</S.BackgroundCardContainer>;
 };
 
 export default CardContainer;

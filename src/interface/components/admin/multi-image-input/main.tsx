@@ -34,20 +34,11 @@ const MultiImageInput: React.FC<MultiImageInputProps> = ({ handleChange, id, val
         onChange={handleFileChange}
         id={id}
       />
-      {value && value.length > 0  ? (
+      {value && value.length > 0 ? (
         <div>
           {value.map((image, index) => (
             <span key={index}>
-              {
-                <>
-                  {
-                    image instanceof File ? 
-                      image.name
-                    : 
-                      getNameImageFromPath(image)
-                  };
-                </>
-              }
+              {<>{image instanceof File ? image.name : getNameImageFromPath(image)};</>}
             </span>
           ))}
         </div>

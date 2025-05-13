@@ -5,7 +5,7 @@ export const metadata = {
 };
 
 const EditOrder = async () => {
-  return <EditOrderContent/>;
+  return <EditOrderContent />;
 };
 
 export default EditOrder;

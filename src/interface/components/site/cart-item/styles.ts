@@ -9,7 +9,7 @@ export const Container = styled(motion.div)`
   cursor: pointer;
 `;
 
-export const Image = styled.div<{$url: string;}>`
+export const Image = styled.div<{ $url: string }>`
   max-width: 200px;
   width: 45%;
   height: 150px;

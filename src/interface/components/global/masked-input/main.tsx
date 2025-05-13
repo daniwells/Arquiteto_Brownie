@@ -27,7 +27,7 @@ const MaskedInput: React.FC<PhoneInputProps> = ({
   radix,
   min,
   max,
-  scale
+  scale,
 }) => {
   return (
     <S.InputContainer htmlFor={id}>

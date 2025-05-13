@@ -11,13 +11,13 @@ import { auth } from '../../../auth';
 import { formatError } from '../utils';
 
 export async function getAllCategories() {
-  try{
+  try {
     const data = await prisma.category.findMany();
     return {
       success: true,
       content: convertToPlainObject(data),
     };
-  }catch(error){
+  } catch (error) {
     return {
       success: false,
       message: formatError(error),
@@ -34,7 +34,7 @@ export async function insertCategory(category: string) {
     if (!session) throw new Error('Usuário não autenticado');
 
     // Save category in database
-    const insertedCategory = await prisma.category.create({ data: {category: category}});
+    const insertedCategory = await prisma.category.create({ data: { category: category } });
 
     if (!insertedCategory) throw new Error('Erro ao criar a categoria');
 
@@ -71,7 +71,7 @@ export async function removeCategory(categoryId: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: formatError(error, 'category'),
     };
   }
 }

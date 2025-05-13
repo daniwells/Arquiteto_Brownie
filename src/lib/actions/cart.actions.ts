@@ -32,7 +32,7 @@ export async function getCart(mockCookies?: RequestCookies) {
   });
 }
 
-export async function addItemToCart(product: cartItemType,mockCookies?: RequestCookies){
+export async function addItemToCart(product: cartItemType, mockCookies?: RequestCookies) {
   try {
     if (!product) return { success: false, message: 'Produto não encontrado' };
 
@@ -40,10 +40,13 @@ export async function addItemToCart(product: cartItemType,mockCookies?: RequestC
     const sessionCart = cookieStore.get('sessionCart') || null;
 
     if (!sessionCart || sessionCart.value == undefined) {
-      cookieStore.set('sessionCart', JSON.stringify({ 
-        items: [product], 
-        ...calcPrice([product]),
-      }));
+      cookieStore.set(
+        'sessionCart',
+        JSON.stringify({
+          items: [product],
+          ...calcPrice([product]),
+        }),
+      );
 
       return {
         success: true,
@@ -114,6 +117,28 @@ export async function removeItemFromCart(productId: string, mockCookies?: Reques
     return {
       success: true,
       message: `${itemExist.name} foi removido do carrinho`,
+    };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
+export async function deleteCart(mockCookies?: RequestCookies) {
+  try {
+    const cookieStore = mockCookies ?? (await cookies());
+
+    const sessionCart = cookieStore.get('sessionCart') || null;
+    if (!sessionCart) return { success: false, message: 'Carrinho não encontrado' };
+
+    // Delete cart
+    cookieStore.set('sessionCart', '', {
+      path: '/',
+      maxAge: 0,
+    });
+
+    return {
+      success: true,
+      message: "Carrinho foi removido do carrinho com sucesso",
     };
   } catch (error) {
     return { success: false, message: formatError(error) };

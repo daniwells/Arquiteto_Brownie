@@ -1,21 +1,19 @@
-import React from "react";
-import ContentManage from "./manage-content";
-import { auth } from "../../../../auth";
-import { redirect } from "next/navigation";
-import { getLatestProducts } from "@/lib/actions/product.actions";
+import React from 'react';
+import ContentManage from './manage-content';
+import { auth } from '../../../../auth';
+import { redirect } from 'next/navigation';
+import { getLatestProducts } from '@/lib/actions/product.actions';
 
-const AdminProducts = async () =>{
-    const session = await auth();
-    
-    if (!session) {
+const AdminProducts = async () => {
+  const session = await auth();
+
+  if (!session) {
     return redirect('/sign-in');
-    }
+  }
 
-    const latestProducts = await getLatestProducts();
+  const latestProducts = await getLatestProducts();
 
-    return(
-        <ContentManage data={latestProducts} />
-    )
-}
+  return <ContentManage data={latestProducts} />;
+};
 
-export default AdminProducts
+export default AdminProducts;

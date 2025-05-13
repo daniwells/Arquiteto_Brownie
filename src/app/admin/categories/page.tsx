@@ -13,7 +13,7 @@ const Forms = async () => {
     return redirect('/sign-in');
   }
 
-  return <CategoryContent/>;
+  return <CategoryContent />;
 };
 
 export default Forms;

@@ -42,7 +42,7 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
       setLoading(false);
 
       if (!response?.success) {
-        const message = response.message instanceof Promise ? await response.message : "";
+        const message = response.message instanceof Promise ? await response.message : '';
         openPopup(message, 'error');
       }
     }
@@ -95,10 +95,10 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
             </S.Row>
           </S.Product>
 
-          <PrimaryButton 
+          <PrimaryButton
             loading={loading}
             value="Adicionar ao carrinho"
-            handleClick={handleAddItemsCart} 
+            handleClick={handleAddItemsCart}
           />
         </S.ContentAboutProduct>
       </Drawer>

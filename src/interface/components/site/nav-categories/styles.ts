@@ -10,7 +10,7 @@ export const BackgroundNav = styled.div`
   gap: 20px;
 `;
 
-export const NavBar = styled(Swiper)`  
+export const NavBar = styled(Swiper)`
   width: 100%;
   overflow: hidden;
   .swiper-slide {
@@ -20,12 +20,12 @@ export const NavBar = styled(Swiper)`
 
 export const NavItem = styled.div`
   position: relative;
-  
+
   z-index: 1;
 
   a {
     font-size: 16px;
-    color: ${colors.brown}; 
+    color: ${colors.brown};
     display: inline-block;
     white-space: nowrap;
   }

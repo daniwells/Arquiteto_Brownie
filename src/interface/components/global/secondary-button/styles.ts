@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 
-
 export const SecondaryButtonStyle = styled.button`
   font-family: 'Comfortaa Bold';
   background-color: white;

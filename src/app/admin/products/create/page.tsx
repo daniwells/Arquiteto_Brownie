@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 const CreateProduct = async () => {
   const session = await auth();
-  
+
   if (!session) {
     return redirect('/sign-in');
   }

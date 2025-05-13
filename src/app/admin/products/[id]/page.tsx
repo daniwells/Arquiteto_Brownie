@@ -4,27 +4,26 @@ import { notFound } from 'next/navigation';
 import { auth } from '../../../../../auth';
 import { redirect } from 'next/navigation';
 
-const EditProduct = async (props: {params: Promise<{id: string;}>}) => {
+const EditProduct = async (props: { params: Promise<{ id: string }> }) => {
   const session = await auth();
-  
+
   if (!session) {
     return redirect('/sign-in');
   }
 
   const { id } = await props.params;
 
-  const product = await getProdutById(String(id) || "");
+  const product = await getProdutById(String(id) || '');
 
   if (!product || !product.content) return notFound();
 
   const productContent = JSON.parse(JSON.stringify(product.content));
 
   const formatedProduct = {
-    ...productContent, 
-  }
+    ...productContent,
+  };
 
   return <FormsProduct selectedProduct={formatedProduct} />;
 };
-
 
 export default EditProduct;

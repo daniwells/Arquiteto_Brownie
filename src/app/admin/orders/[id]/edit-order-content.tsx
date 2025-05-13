@@ -14,7 +14,7 @@ interface editOrderContentProps {
 }
 
 const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
-  console.log(order)
+  console.log(order);
   return (
     <>
       <MainContainer>
@@ -24,18 +24,15 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           <></>
           {/* {cart?.items.map((item) => <CartItem product={item} key={item.slug} />)} */}
         </CardContainer>
-        <TotalPriceInfo totalPrice={"0"} date={new Date()} />
-        <PrimaryButton
-          value="Finalizar pedido"
-          handleClick={() => {}}
-        />
+        <TotalPriceInfo totalPrice={'0'} date={new Date()} />
+        <PrimaryButton value="Finalizar pedido" handleClick={() => {}} />
         <PrimaryButton
           category="delete"
           type="button"
           value="Cancelar produto"
           handleClick={() => {}}
         />
-        <MenuAdmin/>
+        <MenuAdmin />
       </MainContainer>
     </>
   );

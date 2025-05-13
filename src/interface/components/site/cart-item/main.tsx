@@ -17,31 +17,30 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
   const { openPopup } = usePopup();
 
   const handleQuantity = async (newQty: number) => {
-      setLoading(true);
-      if(newQty < qty){
-        const response = await removeItemFromCart(String(product.id));
+    setLoading(true);
+    if (newQty < qty) {
+      const response = await removeItemFromCart(String(product.id));
 
-        if (!response?.success) {
-          const message =
-          response.message instanceof Promise ? await response.message : "";
-          
-          openPopup(message, 'error');
-          return
-        }
-      }
+      if (!response?.success) {
+        const message = response.message instanceof Promise ? await response.message : '';
 
-      if(newQty > qty){
-        const response = await addItemToCart(product);
-        console.log(response)
-        if (!response?.success) {
-          const message = response.message instanceof Promise ? await response.message : "";
-          
-          openPopup(message, 'error');
-          return
-        }
+        openPopup(message, 'error');
+        return;
       }
-      setQty(newQty);
-      setLoading(false);
+    }
+
+    if (newQty > qty) {
+      const response = await addItemToCart(product);
+      console.log(response);
+      if (!response?.success) {
+        const message = response.message instanceof Promise ? await response.message : '';
+
+        openPopup(message, 'error');
+        return;
+      }
+    }
+    setQty(newQty);
+    setLoading(false);
   };
 
   return (
@@ -61,7 +60,12 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
           </div>
           <S.RowCard>
             <ProductPrice value={String(Number(product.price) * qty)} />
-            <AddOrRemove minQuantity={-1} loading={loading} quantity={qty} handleQuantity={handleQuantity} />
+            <AddOrRemove
+              minQuantity={-1}
+              loading={loading}
+              quantity={qty}
+              handleQuantity={handleQuantity}
+            />
           </S.RowCard>
         </S.Content>
       </S.Container>
