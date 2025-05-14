@@ -54,6 +54,7 @@ const getProduct = async (key: string, value: string) => {
 
   return {
     success: true,
+    message: "",
     content: newProduct,
   };
 };

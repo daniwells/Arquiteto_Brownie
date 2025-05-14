@@ -1,8 +1,11 @@
 import FormsProduct from '@/app/admin/products/forms-product';
 import { getProdutById } from '@/lib/actions/product.actions';
-import { notFound } from 'next/navigation';
 import { auth } from '../../../../../auth';
-import { redirect } from 'next/navigation';
+import { redirect, notFound } from 'next/navigation';
+
+export const metadata = {
+  title: 'Editar Produto',
+};
 
 const EditProduct = async (props: { params: Promise<{ id: string }> }) => {
   const session = await auth();

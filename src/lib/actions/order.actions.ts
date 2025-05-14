@@ -19,6 +19,27 @@ export async function getOrders() {
   return convertToPlainObject(data);
 }
 
+export const getOrderById = async (value: string) => {
+  const order = await prisma.order.findFirst({
+    where: { "id": value },
+    include: {
+      OrderItem: true,
+    },
+  });
+
+  if (!order){
+    return {
+      success: false,
+      message: `Produto não encontrado, id incorreto`,
+    };
+  }
+
+  return {
+    success: true,
+    content: order,
+  };
+};
+
 export const createOrder = async (cart: cartType, customerId: string) => {
   try {
     if (!cart) return { success: false, message: 'Carrinho não adicionado' };
