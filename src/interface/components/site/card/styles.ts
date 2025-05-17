@@ -48,3 +48,8 @@ export const Content = styled.div`
     font-family: 'Comfortaa Bold';
   }
 `;
+
+export const PriceAmountContainer = styled.div`
+  display: flex;
+  gap: 20px;
+`

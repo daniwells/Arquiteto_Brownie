@@ -47,10 +47,10 @@ const getProduct = async (key: string, value: string) => {
 
   const { category, ...rest } = product;
 
-  const newProduct = {
+  const newProduct = convertToPlainObject({
     ...rest,
     category: category.category,
-  };
+  });
 
   return {
     success: true,

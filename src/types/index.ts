@@ -1,3 +1,5 @@
+import { OrderStatus } from '@prisma/client';
+
 import { z } from 'zod';
 import {
   insertProductSchema,
@@ -32,5 +34,6 @@ export type orderItemType = z.infer<typeof insertOrderItemSchema> & {
 
 export type orderType = z.infer<typeof insertOrderSchema> & {
   id?: string;
+  status: OrderStatus;
   OrderItem?: orderItemType[];
 };

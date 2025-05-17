@@ -31,7 +31,6 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
 
     if (newQty > qty) {
       const response = await addItemToCart(product);
-      console.log(response);
       if (!response?.success) {
         const message = response.message instanceof Promise ? await response.message : '';
 

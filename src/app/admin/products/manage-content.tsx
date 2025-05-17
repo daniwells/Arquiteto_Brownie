@@ -25,7 +25,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data }) => {
   const [filteredData, setFilteredData] = useState(data);
 
   const [searchText, setSearchText] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory] = useState('');
 
   const handleFilterProduct = () => {
     setFilteredData(

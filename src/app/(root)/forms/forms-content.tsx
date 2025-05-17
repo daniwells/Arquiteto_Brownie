@@ -44,7 +44,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup } = usePopup();
   const [loading, setLoading] = useState(false);
 
-  const { handleSubmit, setValue, watch } = useForm<formData>({
+  const { handleSubmit, setValue, watch, reset } = useForm<formData>({
     defaultValues: {
       name: '',
       phone: '',
@@ -131,6 +131,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
         const responseOrder = await handleCreateOrder(idCustomer, cart);
         if (responseOrder) {
           openPopup('Pedido criado com sucesso', 'success');
+          reset();
         }
       }
     }

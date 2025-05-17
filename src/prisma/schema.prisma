@@ -20,21 +20,28 @@ model Product {
   active      Boolean
   orderItem   OrderItem[]
 
-  category    Category    @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
 }
 
 model Customer {
-  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name    String  @default("NO_NAME")
-  cep     String
-  phone   String  @unique(map: "customer_phone_idx")
-  number  String
-  order   Order[]
+  id     String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name   String  @default("NO_NAME")
+  cep    String
+  phone  String  @unique(map: "customer_phone_idx")
+  number String
+  order  Order[]
+}
+
+enum OrderStatus {
+  PENDENTE
+  PRONTO
+  ENTREGUE
 }
 
 model Order {
   id            String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   customerId    String      @db.Uuid
+  status        OrderStatus @default(PENDENTE)
   itemsPrice    Decimal     @db.Decimal(12, 2)
   shippingPrice Decimal     @db.Decimal(12, 2)
   totalPrice    Decimal     @db.Decimal(12, 2)
