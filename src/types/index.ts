@@ -5,10 +5,16 @@ import {
   insertProductSchema,
   insertCustomerSchema,
   insertOrderSchema,
-  insertOrderItemSchema
+  insertOrderItemSchema,
+  editProductSchema
 } from '../lib/validators';
 
 export type productType = z.infer<typeof insertProductSchema> & {
+  id?: string;
+  createdAt?: Date;
+};
+
+export type editProductType = z.infer<typeof editProductSchema> & {
   id?: string;
   createdAt?: Date;
 };

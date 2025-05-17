@@ -100,8 +100,15 @@ export const omitFields = <T extends object, K extends keyof T>(
   return newObj;
 };
 
-export const getNameImageFromPath = (image: string) => {
-  return image.split('/')[image.split('/').length - 1].split(')').slice(1).join('-');
+export const getNameImageFromPath = (image: string) => { 
+  if(!image){
+    return ''
+  }
+  const parts = image.split('__SEP__');
+  console.log("PARTS: "+parts)
+  console.log("IMAGE: "+image)
+  console.log("FORMATED: "+parts.slice(2).join(' '))
+  return String(parts.slice(2).join(' '));
 };
 
 export const validateForm = <T>(schema: ZodSchema<T>, data: any) => {

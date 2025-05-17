@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 
+export const FileNameList = styled.div`
+  word-break: break-word;
+  white-space: normal;
+  display: block;
+  max-width: 100%;
+  overflow-y: auto;
+`;
+
 export const InputImage = styled.input`
   display: none;
 `;

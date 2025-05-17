@@ -33,6 +33,7 @@
     "bcrypt": "^5.1.1",
     "bcrypt-ts-edge": "^3.0.1",
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.6.1",
     "cz-emoji-conventional": "^1.2.1",
     "dotenv": "^16.4.7",
     "form-data": "^4.0.2",

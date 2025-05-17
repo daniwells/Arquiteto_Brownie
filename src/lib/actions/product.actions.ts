@@ -2,11 +2,11 @@
 
 // Libs
 import { prisma } from '../../db/prisma';
-import { writeFile } from 'fs/promises';
+import cloudinary from '@/lib/cloudinary';
 
 // Utils
 import { convertToPlainObject, omitFields, formatError } from '../utils';
-import { saveImage, removeImages } from '../server-utils';
+import { removeImages, saveImages } from '../server-utils';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { productType } from '@/types';
 import { insertProductSchema, editProductSchema } from '../validators';
@@ -87,18 +87,18 @@ export async function insertProduct(product: productType) {
 
     // Adding path of images instead the File
     const imagesString: string[] = [];
-
-    let pathImg = '';
-    let buffer: Buffer<ArrayBuffer> | string = '';
+    const uploadedPublicIds: string[] = [];
 
     try {
       await Promise.all(
         product?.images?.map(async (img) => {
-          const contentImage = await saveImage(img, productObj.slug);
-          pathImg = contentImage.pathImg;
-          buffer = contentImage.buffer;
+          const arrayBuffer = await img.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
 
-          imagesString.push('/images/sample-products/' + contentImage.nameImg);
+          const uploadResult = await saveImages(buffer, img, productObj);
+
+          imagesString.push(uploadResult.secure_url);
+          uploadedPublicIds.push(uploadResult.public_id);
         }),
       );
     } catch {
@@ -113,7 +113,7 @@ export async function insertProduct(product: productType) {
       return {
         success: false,
         message: `Categoria não encontrada`,
-      };
+    };
 
     const productObjFinal = {
       ...productObj,
@@ -126,9 +126,22 @@ export async function insertProduct(product: productType) {
       data: omitFields(productObjFinal, ['category']),
     });
 
-    if (!insertedProduct) throw new Error('Erro ao criar o produto');
-
-    await writeFile(pathImg, buffer);
+    if (!insertedProduct){
+      // Remove saved images
+      await Promise.all(
+        uploadedPublicIds.map(async (id) => {
+          try {
+            await cloudinary.uploader.destroy(id);
+          } catch{
+            return {
+              success: false,
+              message: "Produto não pode ser criado! Erro de conexão pelo lado do servidor",
+            }
+          }
+        })
+      );
+      throw new Error('Erro ao criar o produto');
+    } 
 
     return {
       success: true,
@@ -179,21 +192,22 @@ export async function editProduct(id: string, product: productType) {
       ? editProductSchema.parse(datas)
       : insertProductSchema.parse(datas);
 
+    // Adding path of images instead the File
     const imagesString: string[] = [];
-
-    let pathImg = '';
-    let buffer: Buffer<ArrayBuffer> | string = '';
+    const uploadedPublicIds: string[] = [];
 
     if (!imagesIsString) {
       // Adding path of images instead the File
       try {
         await Promise.all(
           product?.images?.map(async (img) => {
-            const contentImage = await saveImage(img, productObj.slug);
-            pathImg = contentImage.pathImg;
-            buffer = contentImage.buffer;
+            const arrayBuffer = await img.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
 
-            imagesString.push('/images/sample-products/' + contentImage.nameImg);
+            const uploadResult = await saveImages(buffer, img, productObj);
+
+            imagesString.push(uploadResult.secure_url);
+            uploadedPublicIds.push(uploadResult.public_id);
           }),
         );
       } catch {
@@ -225,22 +239,27 @@ export async function editProduct(id: string, product: productType) {
       data: { ...productObjFinal },
     });
 
-    if (!updatedProduct) throw new Error('Erro ao editar o produto');
+    if (!updatedProduct) {
+      await Promise.all(
+        uploadedPublicIds.map(async (id) => {
+          try {
+            await cloudinary.uploader.destroy(id);
+          } catch{
+            return {
+              success: false,
+              message: 'Produto não pode ser criado! Erro de conexão pelo lado do servidor',
+            }
+          }
+        })
+      );
+      throw new Error('Erro ao editar o produto');
+    }
 
     if (!imagesIsString) {
       const responseRemoveImage = await removeImages(oldImages || []);
 
       if (!responseRemoveImage.success) {
         return responseRemoveImage;
-      }
-
-      try {
-        await writeFile(pathImg, buffer);
-      } catch {
-        return {
-          success: false,
-          message: 'Não foi possível salvar as imagens dos produtos',
-        };
       }
     }
 
