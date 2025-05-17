@@ -210,8 +210,9 @@ export async function editProduct(id: string, product: productType) {
             uploadedPublicIds.push(uploadResult.public_id);
           }),
         );
-      } catch {
-        throw new Error('Não foi possível salvar as imagens do produto');
+      } catch(error){
+        console.error(error)
+        throw new Error('Não foi possível salvar as imagens do produto'+{error});
       }
     }
 
@@ -268,6 +269,7 @@ export async function editProduct(id: string, product: productType) {
       message: 'Produto editado com sucesso',
     };
   } catch (error) {
+    console.error(error)
     return {
       success: false,
       message: formatError(error),
