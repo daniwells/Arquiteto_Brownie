@@ -120,3 +120,7 @@ export const validateForm = <T>(schema: ZodSchema<T>, data: any) => {
         return {status: false, message: result.error.errors};
     }
 }
+
+export const capitalizeFirstLetter = (text: string): string => {
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}

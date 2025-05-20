@@ -1,5 +1,8 @@
 'use client';
 
+// Styles
+import { colors } from '@/styles/themes';
+
 // Libs
 import React, { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
@@ -13,25 +16,32 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
 import CardContainer from '@/interface/containers/site/card-container/main';
+import Dropdown from '@/interface/components/global/dropdown/main';
 
 // Utils
 import { productTypeImageString } from '@/types';
 
 interface contentManageProps {
   data: productTypeImageString[];
+  categories: string[];
 }
 
-const ContentManage: React.FC<contentManageProps> = ({ data }) => {
+const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
   const [filteredData, setFilteredData] = useState(data);
+  
 
-  const [searchText, setSearchText] = useState('');
-  const [selectedCategory] = useState('');
+  const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState("Todos");
 
   const handleFilterProduct = () => {
     setFilteredData(
       data
         .filter((product) => {
           if (searchText === '') return true;
+          let active = "Ativo";
+          if(!product.active){
+            active = "Desativado";
+          }
 
           return (
             !searchText.trim() ||
@@ -40,26 +50,34 @@ const ContentManage: React.FC<contentManageProps> = ({ data }) => {
               product.category?.toLowerCase(),
               product.description?.toString(),
               product.price?.toString(),
+              active,
             ].some((field) => field?.toLowerCase().includes(searchText.toLowerCase()))
           );
         })
         .filter((product) => {
-          if (selectedCategory === '') return true;
+          if (category === "" || category === "Todos") return true;
 
-          return product.category?.toLowerCase() === selectedCategory.toLowerCase();
-        }),
+          return product.category?.toLowerCase() === category.toLowerCase();
+        })
     );
   };
 
   useEffect(() => {
     handleFilterProduct();
-  }, [searchText, selectedCategory]);
+  }, [searchText, category]);
 
   return (
     <MainContainer>
       <HeaderAdmin />
       <Title text="Gerenciar produtos" />
       <Search value={searchText} handleChange={setSearchText} placeholder="Pesquisar por produto" />
+      <Dropdown
+        colorBall={colors.mediumGray}
+        options={[{value: "Todos", label: "Todos"}, ...categories.map((value: string) => ({ value, label: value }))]}
+        selectedOption={category}
+        setSelectedOption={(value: string) => setCategory(value)}
+        width={`${category.length + 200}px`}
+      />
       <PrimaryButton
         category="normal"
         type="submit"

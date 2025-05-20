@@ -1,5 +1,8 @@
 'use client';
 
+// Styles
+import { colors } from '@/styles/themes';
+
 // Libs
 import { useState, useEffect } from 'react';
 import { redirect } from 'next/navigation';
@@ -13,9 +16,11 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';
 import Card from '@/interface/components/site/card/main';
+import Dropdown from '@/interface/components/global/dropdown/main';
 
 // Utils
 import { orderType, productTypeImageString } from '@/types';
+import { capitalizeFirstLetter } from '@/lib/utils';
 
 // Actions
 import { getProdutById } from '@/lib/actions/product.actions';
@@ -24,7 +29,6 @@ import { editOrder, removeOrder } from '@/lib/actions/order.actions';
 // Contexts
 import { usePopup } from '@/contexts/PopupContext';
 
-
 interface editOrderContentProps {
   order: orderType;
 }
@@ -32,6 +36,7 @@ interface editOrderContentProps {
 const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   const { openPopup } = usePopup();
   const [ products, setProducts ] = useState<{product: productTypeImageString, qty: number}[] | null>(null);
+  const [status, setStatus] = useState<string>(capitalizeFirstLetter(order.status));
   const [loading, setLoading] = useState(false);
 
   const handleGetAllProducts = async () => {
@@ -71,7 +76,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   //   }
   // }
 
-  const handleEditOrder = async (order: orderType, isFinished?: boolean) => {
+  const handleEditOrder = async (order: orderType) => {
     setLoading(true);
     const editOrderResponse = await editOrder(order);
     
@@ -80,20 +85,18 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
       openPopup(message, 'error');
     } else {
       setLoading(false);
-      if(isFinished){
+      if(order.status === "ENTREGUE"){
         openPopup('Pedido finalizado', 'success');
-      }else{
-        openPopup('Produto editado com sucesso', 'success');
+        redirect("/admin/orders");
       }
-      redirect("/admin/orders");
-    }
+    } 
   }
 
-  const handleFinishOrder = () => {
+  const handleEditStatus = (status: "ENTREGUE" | "PRONTO" | "PENDENTE") => {
     const newOrder = order;
-    newOrder.status = "ENTREGUE";
+    newOrder.status = status;
 
-    handleEditOrder(newOrder, true);
+    handleEditOrder(newOrder);
   }
 
   const handleRemoveOrder = async () => {
@@ -118,7 +121,25 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
     <>
       <MainContainer>
         <HeaderAdmin redirect="/admin/orders" />
-        <Title text={`Pedido #${order.id?.slice(0, 6)}`} />
+        <Title text={`Pedido #${order.id?.slice(0, 6)}`} /> 
+        <Dropdown
+          colorBall={status === 'Entregue' ? colors.green : status === 'Pronto' ? colors.red : colors.baseYellow}
+          options={[
+            { value: 'ENTREGUE', label: 'Entregue' },
+            { value: 'PRONTO', label: 'Pronto' },
+            { value: 'PENDENTE', label: 'Pendente' },
+          ]}
+          selectedOption={status}
+          setSelectedOption={(value: string) => {
+            const allowedStatus = ["ENTREGUE", "PRONTO", "PENDENTE"] as const;
+            if(allowedStatus.includes(value.toUpperCase() as any)){
+              handleEditStatus(value.toUpperCase() as typeof allowedStatus[number]);
+              setStatus(value);
+            }
+          }}
+          width={'175px'}
+        />
+        
         <CardContainer>
           <></>
           {
@@ -131,7 +152,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
         <PrimaryButton 
           loading={loading}
           value="Finalizar pedido"
-          handleClick={() => handleFinishOrder()}
+          handleClick={() => handleEditStatus("ENTREGUE")}
         />
         <PrimaryButton
           loading={loading}
