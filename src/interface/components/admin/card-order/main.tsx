@@ -41,7 +41,7 @@ const CardOrder: React.FC<cardManageProps> = ({ order }) => {
         
             <S.AboutOrder>
                 <p>Data: {formatDate(order.createdAt)}</p>
-                <div>Preço total: <ProductPrice value={order.totalPrice}/></div>
+                <div>Preço: <ProductPrice value={order.totalPrice}/></div>
                 <p>Cliente: {
                     order.customer?.name && 
                         order.customer?.name?.length > 65 ? 
