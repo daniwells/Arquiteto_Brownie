@@ -18,7 +18,6 @@ interface MultiImageInputProps {
 }
 
 const MultiImageInput: React.FC<MultiImageInputProps> = ({ handleChange, id, value }) => {
-  console.log("VALUE: "+value)
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     const filtered = files.filter((file) => ['image/png', 'image/jpeg'].includes(file.type));

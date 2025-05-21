@@ -43,9 +43,8 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
             />
           </>
         ) : (
-          <BackToMenu />
+          <BackToMenu text="O carrinho está vazio..." link="Voltar as compras." />
         )}
-
         <Menu />
       </MainContainer>
     </>

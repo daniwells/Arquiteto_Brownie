@@ -4,11 +4,16 @@ import * as S from './styles';
 // Libs
 import Link from 'next/link';
 
-const BackToMenu = () => {
+interface backToMenu {
+  text: string, 
+  link?: string,
+}
+
+const BackToMenu: React.FC<backToMenu> = ({ text, link }) => {
   return (
     <S.BackToMenuStyle>
       <p>
-        O carrinho está vazio... <Link href="/">Voltar as compras.</Link>
+        {text} {link && <Link href="/">{link}</Link>}
       </p>
     </S.BackToMenuStyle>
   );

@@ -42,4 +42,5 @@ export type orderType = z.infer<typeof insertOrderSchema> & {
   id?: string;
   status: OrderStatus;
   OrderItem?: orderItemType[];
+  customer?: customerType;
 };

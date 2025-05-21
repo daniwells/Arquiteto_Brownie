@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+// Libs
+import { useState, useEffect } from 'react';
+
+// Components
 import MainContainer from '@/interface/containers/global/main-container/main';
 import DescriptionContainer from '@/interface/containers/global/description-container/main';
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
@@ -10,11 +13,16 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import { LineStyle } from '@/interface/components/admin/line/styles';
 import CardContainer from '@/interface/containers/site/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';
-import categoryIcon from '../../../../public/svg/category.svg';
-import { useEffect } from 'react';
-import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
+
+// Images
+import categoryIcon from '../../../../public/svg/category.svg';
+
+// Contexts
 import { usePopup } from '@/contexts/PopupContext';
+
+// Actions
+import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
 
 const CategoryContent = () => {
   const [loading, setLoading] = useState(false);

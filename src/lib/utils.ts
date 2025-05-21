@@ -105,9 +105,6 @@ export const getNameImageFromPath = (image: string) => {
     return ''
   }
   const parts = image.split('__SEP__');
-  console.log("PARTS: "+parts)
-  console.log("IMAGE: "+image)
-  console.log("FORMATED: "+parts.slice(2).join(' '))
   return String(parts.slice(2).join(' '));
 };
 
@@ -124,3 +121,22 @@ export const validateForm = <T>(schema: ZodSchema<T>, data: any) => {
 export const capitalizeFirstLetter = (text: string): string => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 }
+
+export const formatDate = (date: Date) => {
+  const formatedDate = new Date(date);
+  return formatedDate.toLocaleDateString();
+}
+
+export const formatDocumentValue = (label: string, value: string): string => {
+  if (!value) return "";
+
+  if (label.toLowerCase().includes("phone")) {
+    return value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  }
+
+  if (label.toLowerCase().includes("cep")) {
+    return value.replace(/^(\d{5})(\d{3})$/, "$1-$2");
+  }
+
+  return value;
+};

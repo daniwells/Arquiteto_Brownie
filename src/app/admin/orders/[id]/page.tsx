@@ -8,8 +8,8 @@ export const metadata = {
 };
 
 const EditOrder = async (props: { params: Promise<{ id: string }> }) => {
-
   const session = await auth();
+  
   if (!session) {
     return redirect('/sign-in');
   }
@@ -21,7 +21,7 @@ const EditOrder = async (props: { params: Promise<{ id: string }> }) => {
   if (!order || !order.content) return notFound();
 
   const orderContent = JSON.parse(JSON.stringify(order.content));
-
+  
   return <EditOrderContent order={orderContent} />;
 };
 

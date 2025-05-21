@@ -14,6 +14,9 @@ import { auth } from '../../../auth';
 export async function getOrders() {
   const data = await prisma.order.findMany({
     orderBy: { createdAt: 'desc' },
+    include: {
+      customer: true,
+    }
   });
 
   return convertToPlainObject(data);
@@ -23,6 +26,7 @@ export const getOrderById = async (value: string) => {
   const order = await prisma.order.findFirst({
     where: { "id": value },
     include: {
+      customer: true,
       OrderItem: true,
     },
   });
@@ -129,7 +133,7 @@ export const editOrder = async (order: orderType) => {
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
     
-    const orderNoItems = omitFields(order, ['OrderItem']);
+    const orderNoItems = omitFields(order, ['OrderItem', 'customer']);
 
     // Edit order
     const responseOrder = await prisma.order.update({

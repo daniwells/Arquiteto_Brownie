@@ -17,6 +17,8 @@ import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';
 import Card from '@/interface/components/site/card/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
+import { LineStyle } from '@/interface/components/admin/line/styles';
+import AboutCustomerOrder from '@/interface/containers/admin/about-customer-order/main';
 
 // Utils
 import { orderType, productTypeImageString } from '@/types';
@@ -148,6 +150,11 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
             )) : <></>
           }
         </CardContainer>
+        {
+          order?.customer &&
+          <AboutCustomerOrder customer={order.customer} />
+        }
+        <LineStyle/>
         <TotalPriceInfo totalPrice={order.totalPrice} date={new Date()} />
         <PrimaryButton 
           loading={loading}
