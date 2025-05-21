@@ -112,20 +112,20 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
       return false;
     }
 
-    if(cart?.content){
-      if(cart.content.items.length <= 0){
-        openPopup("Nenhum produto no carrinho", 'error');
-        return false
+    if (cart?.content) {
+      if (cart.content.items.length <= 0) {
+        openPopup('Nenhum produto no carrinho', 'error');
+        return false;
       }
       return cart.content;
     }
     return false;
-  }
+  };
 
   const onSubmit = async (data: formData) => {
     const cart = await handleGetCart();
 
-    if(cart){
+    if (cart) {
       const idCustomer = await handleCreateCustomer(data);
       if (idCustomer) {
         const responseOrder = await handleCreateOrder(idCustomer, cart);

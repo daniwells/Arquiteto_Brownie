@@ -28,19 +28,18 @@ interface contentManageProps {
 
 const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
   const [filteredData, setFilteredData] = useState(data);
-  
 
-  const [searchText, setSearchText] = useState("");
-  const [category, setCategory] = useState("Todos");
+  const [searchText, setSearchText] = useState('');
+  const [category, setCategory] = useState('Todos');
 
   const handleFilterProduct = () => {
     setFilteredData(
       data
         .filter((product) => {
           if (searchText === '') return true;
-          let active = "Ativo";
-          if(!product.active){
-            active = "Desativado";
+          let active = 'Ativo';
+          if (!product.active) {
+            active = 'Desativado';
           }
 
           return (
@@ -55,10 +54,10 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
           );
         })
         .filter((product) => {
-          if (category === "" || category === "Todos") return true;
+          if (category === '' || category === 'Todos') return true;
 
           return product.category?.toLowerCase() === category.toLowerCase();
-        })
+        }),
     );
   };
 
@@ -73,7 +72,10 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
       <Search value={searchText} handleChange={setSearchText} placeholder="Pesquisar por produto" />
       <Dropdown
         colorBall={colors.mediumGray}
-        options={[{value: "Todos", label: "Todos"}, ...categories.map((value: string) => ({ value, label: value }))]}
+        options={[
+          { value: 'Todos', label: 'Todos' },
+          ...categories.map((value: string) => ({ value, label: value })),
+        ]}
         selectedOption={category}
         setSelectedOption={(value: string) => setCategory(value)}
         width={`${category.length + 200}px`}

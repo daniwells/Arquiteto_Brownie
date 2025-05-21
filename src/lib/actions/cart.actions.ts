@@ -138,7 +138,7 @@ export async function deleteCart(mockCookies?: RequestCookies) {
 
     return {
       success: true,
-      message: "Carrinho foi removido do carrinho com sucesso",
+      message: 'Carrinho foi removido do carrinho com sucesso',
     };
   } catch (error) {
     return { success: false, message: formatError(error) };

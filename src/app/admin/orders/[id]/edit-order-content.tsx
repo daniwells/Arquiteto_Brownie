@@ -37,31 +37,34 @@ interface editOrderContentProps {
 
 const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   const { openPopup } = usePopup();
-  const [ products, setProducts ] = useState<{product: productTypeImageString, qty: number}[] | null>(null);
+  const [products, setProducts] = useState<
+    { product: productTypeImageString; qty: number }[] | null
+  >(null);
   const [status, setStatus] = useState<string>(capitalizeFirstLetter(order.status));
   const [loading, setLoading] = useState(false);
 
   const handleGetAllProducts = async () => {
     if (!order?.OrderItem) return;
 
-    const productsResult: {product: productTypeImageString, qty: number}[] = [];
+    const productsResult: { product: productTypeImageString; qty: number }[] = [];
 
     await Promise.all(
       order.OrderItem.map(async (item) => {
-
         if (!item.productId) return;
 
         const responseProduct = await getProdutById(String(item.productId));
         if (!responseProduct?.success) {
-          openPopup(responseProduct.message, "error");
+          openPopup(responseProduct.message, 'error');
           return;
         }
 
         if (responseProduct.content) {
-          const serializedProduct: productTypeImageString = JSON.parse(JSON.stringify(responseProduct.content));
-          productsResult.push({product: serializedProduct, qty: item.qty});
+          const serializedProduct: productTypeImageString = JSON.parse(
+            JSON.stringify(responseProduct.content),
+          );
+          productsResult.push({ product: serializedProduct, qty: item.qty });
         }
-      })
+      }),
     );
 
     setProducts(productsResult);
@@ -69,7 +72,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
 
   // const handleEditOrderItem = async (orderItem: orderItemType, productId: string) => {
   //   const editOrderItemResponse = await editOrderItem(String(order?.id || ""), productId, orderItem);
-    
+
   //   if (!editOrderItemResponse?.success) {
   //     const message = editOrderItemResponse.message instanceof Promise ? await editOrderItemResponse.message : '';
   //     openPopup(message, 'error');
@@ -81,51 +84,59 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   const handleEditOrder = async (order: orderType) => {
     setLoading(true);
     const editOrderResponse = await editOrder(order);
-    
+
     if (!editOrderResponse?.success) {
-      const message = editOrderResponse.message instanceof Promise ? await editOrderResponse.message : '';
+      const message =
+        editOrderResponse.message instanceof Promise ? await editOrderResponse.message : '';
       openPopup(message, 'error');
     } else {
       setLoading(false);
-      if(order.status === "ENTREGUE"){
+      if (order.status === 'ENTREGUE') {
         openPopup('Pedido finalizado', 'success');
-        redirect("/admin/orders");
+        redirect('/admin/orders');
       }
-    } 
-  }
+    }
+  };
 
-  const handleEditStatus = (status: "ENTREGUE" | "PRONTO" | "PENDENTE") => {
+  const handleEditStatus = (status: 'ENTREGUE' | 'PRONTO' | 'PENDENTE') => {
     const newOrder = order;
     newOrder.status = status;
 
     handleEditOrder(newOrder);
-  }
+  };
 
   const handleRemoveOrder = async () => {
     setLoading(true);
-    const removeOrderResponse = await removeOrder(order.id || "");
+    const removeOrderResponse = await removeOrder(order.id || '');
     setLoading(false);
-    
+
     if (!removeOrderResponse?.success) {
-      const message = removeOrderResponse.message instanceof Promise ? await removeOrderResponse.message : '';
+      const message =
+        removeOrderResponse.message instanceof Promise ? await removeOrderResponse.message : '';
       openPopup(message, 'error');
     } else {
-      openPopup('Pedido cencelado', 'success');  
+      openPopup('Pedido cencelado', 'success');
     }
-    redirect("/admin/orders");
-  }
+    redirect('/admin/orders');
+  };
 
   useEffect(() => {
     handleGetAllProducts();
-  }, [])
+  }, []);
 
   return (
     <>
       <MainContainer>
         <HeaderAdmin redirect="/admin/orders" />
-        <Title text={`Pedido #${order.id?.slice(0, 6)}`} /> 
+        <Title text={`Pedido #${order.id?.slice(0, 6)}`} />
         <Dropdown
-          colorBall={status === 'Entregue' ? colors.green : status === 'Pronto' ? colors.red : colors.baseYellow}
+          colorBall={
+            status === 'Entregue'
+              ? colors.green
+              : status === 'Pronto'
+                ? colors.red
+                : colors.baseYellow
+          }
           options={[
             { value: 'ENTREGUE', label: 'Entregue' },
             { value: 'PRONTO', label: 'Pronto' },
@@ -133,33 +144,32 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           ]}
           selectedOption={status}
           setSelectedOption={(value: string) => {
-            const allowedStatus = ["ENTREGUE", "PRONTO", "PENDENTE"] as const;
-            if(allowedStatus.includes(value.toUpperCase() as any)){
-              handleEditStatus(value.toUpperCase() as typeof allowedStatus[number]);
+            const allowedStatus = ['ENTREGUE', 'PRONTO', 'PENDENTE'] as const;
+            if (allowedStatus.includes(value.toUpperCase() as any)) {
+              handleEditStatus(value.toUpperCase() as (typeof allowedStatus)[number]);
               setStatus(value);
             }
           }}
           width={'175px'}
         />
-        
+
         <CardContainer>
           <></>
-          {
-            products ? products.map((product, key) => (
-              <Card key={key} product={product.product} qty={product.qty} handleClick={() => {}}  />
-            )) : <></>
-          }
+          {products ? (
+            products.map((product, key) => (
+              <Card key={key} product={product.product} qty={product.qty} handleClick={() => {}} />
+            ))
+          ) : (
+            <></>
+          )}
         </CardContainer>
-        {
-          order?.customer &&
-          <AboutCustomerOrder customer={order.customer} />
-        }
-        <LineStyle/>
+        {order?.customer && <AboutCustomerOrder customer={order.customer} />}
+        <LineStyle />
         <TotalPriceInfo totalPrice={order.totalPrice} date={new Date()} />
-        <PrimaryButton 
+        <PrimaryButton
           loading={loading}
           value="Finalizar pedido"
-          handleClick={() => handleEditStatus("ENTREGUE")}
+          handleClick={() => handleEditStatus('ENTREGUE')}
         />
         <PrimaryButton
           loading={loading}

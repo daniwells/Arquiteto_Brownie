@@ -22,17 +22,17 @@ import CardOrder from '@/interface/components/admin/card-order/main';
 import { orderType } from '@/types';
 
 interface ordersContentProps {
-  orders:  orderType[];
+  orders: orderType[];
 }
 
 const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
   const [filteredData, setFilteredData] = useState(orders);
 
-  const [searchText, setSearchText] = useState("");
-  const [status, setStatus] = useState("Todos");
+  const [searchText, setSearchText] = useState('');
+  const [status, setStatus] = useState('Todos');
 
   const handleFilterProduct = () => {
-    if(orders){
+    if (orders) {
       setFilteredData(
         orders
           .filter((order) => {
@@ -49,13 +49,12 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
             );
           })
           .filter((product) => {
-            if (status === "" || status === "Todos") return true;
+            if (status === '' || status === 'Todos') return true;
 
             return product.status?.toLowerCase() === status.toLowerCase();
-          })
+          }),
       );
     }
-    
   };
 
   useEffect(() => {
@@ -63,43 +62,45 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
   }, [searchText, status]);
 
   return (
-    <MainContainer minHeight={orders ? (orders.length > 0 ? undefined : '100vh') : '100vh'} >
+    <MainContainer minHeight={orders ? (orders.length > 0 ? undefined : '100vh') : '100vh'}>
       <HeaderAdmin />
       <Title text="Gerenciar pedidos" />
-      {
-        orders ? 
-          <>
-            <Search value={searchText} handleChange={setSearchText} placeholder="Pesquisar por produto" />
-            <Dropdown
-              colorBall={
-                status === 'Entregue' ? 
-                  colors.green : status === 'Pronto' ? 
-                    colors.red : status === 'Pendente' ? 
-                      colors.baseYellow : colors.mediumGray
-              }
-              options={
-                [
-                  { value: 'TODOS', label: 'Todos' },
-                  { value: 'PENDENTE', label: 'Pendente' },
-                  { value: 'PRONTO', label: 'Pronto' },
-                  { value: 'ENTREGUE', label: 'Entregue' },
-                ]
-              }
-              selectedOption={status}
-              setSelectedOption={(value: string) => setStatus(value)}
-              width={`175px`}
-            />
-            <CardContainer height="18rem">
-              <></>
-              {
-                filteredData.length > 0 && 
-                filteredData.map((order) => <CardOrder key={order.id} order={order}/>)
-              }
-              
-            </CardContainer>
-          </>
-        : <BackToMenu text="Nenhum pedido feito até o momento..."/>
-      }
+      {orders && orders.length > 0 ? (
+        <>
+          <Search
+            value={searchText}
+            handleChange={setSearchText}
+            placeholder="Pesquisar por produto"
+          />
+          <Dropdown
+            colorBall={
+              status === 'Entregue'
+                ? colors.green
+                : status === 'Pronto'
+                  ? colors.red
+                  : status === 'Pendente'
+                    ? colors.baseYellow
+                    : colors.mediumGray
+            }
+            options={[
+              { value: 'TODOS', label: 'Todos' },
+              { value: 'PENDENTE', label: 'Pendente' },
+              { value: 'PRONTO', label: 'Pronto' },
+              { value: 'ENTREGUE', label: 'Entregue' },
+            ]}
+            selectedOption={status}
+            setSelectedOption={(value: string) => setStatus(value)}
+            width={`175px`}
+          />
+          <CardContainer height="18rem">
+            <></>
+            {filteredData.length > 0 &&
+              filteredData.map((order) => <CardOrder key={order.id} order={order} />)}
+          </CardContainer>
+        </>
+      ) : (
+        <BackToMenu text="Nenhum pedido feito até o momento..." />
+      )}
       <MenuAdmin />
     </MainContainer>
   );

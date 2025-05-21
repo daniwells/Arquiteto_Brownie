@@ -21,10 +21,12 @@ const AdminProducts = async () => {
   const allCategories = await getAllCategories();
   const latestProducts = await getLatestProducts();
 
-  return <ContentManage 
-    data={latestProducts} categories={
-    allCategories.content.map((cat: { category: string }) => cat.category)} 
-  />;
+  return (
+    <ContentManage
+      data={latestProducts}
+      categories={allCategories.content.map((cat: { category: string }) => cat.category)}
+    />
+  );
 };
 
 export default AdminProducts;

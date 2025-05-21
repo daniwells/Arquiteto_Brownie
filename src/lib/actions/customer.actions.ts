@@ -15,9 +15,9 @@ export const createCustomer = async (customer: customerType) => {
     const searchCustomer = await prisma.customer.findFirst({ where: { phone: customer.phone } });
 
     if (!searchCustomer) {
-      const customerValidated = insertCustomerSchema.parse(customer)
+      const customerValidated = insertCustomerSchema.parse(customer);
       // Create Customer
-      const response = await prisma.customer.create({ data: customerValidated  });
+      const response = await prisma.customer.create({ data: customerValidated });
 
       if (!response) throw new Error('Erro ao cadastrar os dados do cliente');
 

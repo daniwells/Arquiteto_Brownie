@@ -5,8 +5,8 @@ import * as S from './styles';
 import Link from 'next/link';
 
 interface backToMenu {
-  text: string, 
-  link?: string,
+  text: string;
+  link?: string;
 }
 
 const BackToMenu: React.FC<backToMenu> = ({ text, link }) => {

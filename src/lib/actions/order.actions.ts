@@ -16,7 +16,7 @@ export async function getOrders() {
     orderBy: { createdAt: 'desc' },
     include: {
       customer: true,
-    }
+    },
   });
 
   return convertToPlainObject(data);
@@ -24,14 +24,14 @@ export async function getOrders() {
 
 export const getOrderById = async (value: string) => {
   const order = await prisma.order.findFirst({
-    where: { "id": value },
+    where: { id: value },
     include: {
       customer: true,
       OrderItem: true,
     },
   });
 
-  if (!order){
+  if (!order) {
     return {
       success: false,
       message: `Produto não encontrado, id incorreto`,
@@ -96,20 +96,27 @@ export const createOrder = async (cart: cartType, customerId: string) => {
   }
 };
 
-export const editOrderItem = async (orderId: string, productId: string, orderItem: orderItemType) => {
+export const editOrderItem = async (
+  orderId: string,
+  productId: string,
+  orderItem: orderItemType,
+) => {
   try {
-    if (!orderItem || !orderId || !productId) return { success: false, message: 'Item do pedido não encontrado' };
+    if (!orderItem || !orderId || !productId)
+      return { success: false, message: 'Item do pedido não encontrado' };
 
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
-    
+
     // Edit order
     const responseOrderItem = await prisma.orderItem.update({
-      where: {orderId_productId: {
-        orderId: orderId,
-        productId: productId,
-      }},
-      data: orderItem
+      where: {
+        orderId_productId: {
+          orderId: orderId,
+          productId: productId,
+        },
+      },
+      data: orderItem,
     });
 
     if (!responseOrderItem) throw new Error('Erro ao editar o item do pedido');
@@ -118,13 +125,13 @@ export const editOrderItem = async (orderId: string, productId: string, orderIte
       success: true,
       message: 'Item do pedido editado com sucesso',
     };
-  }catch (error) {
+  } catch (error) {
     return {
       success: false,
       message: formatError(error, 'order'),
     };
   }
-}
+};
 
 export const editOrder = async (order: orderType) => {
   try {
@@ -132,12 +139,12 @@ export const editOrder = async (order: orderType) => {
 
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
-    
+
     const orderNoItems = omitFields(order, ['OrderItem', 'customer']);
 
     // Edit order
     const responseOrder = await prisma.order.update({
-      where: {id: order.id},
+      where: { id: order.id },
       data: orderNoItems,
     });
 
@@ -147,13 +154,13 @@ export const editOrder = async (order: orderType) => {
       success: true,
       message: 'Pedido editado com sucesso',
     };
-  }catch (error) {
+  } catch (error) {
     return {
       success: false,
       message: formatError(error, 'order'),
     };
   }
-}
+};
 
 export async function removeOrder(id: string) {
   try {

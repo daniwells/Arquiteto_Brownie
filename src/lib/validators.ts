@@ -68,7 +68,8 @@ export const insertOrderSchema = z.object({
 });
 
 export const insertCustomerSchema = z.object({
-  name: z.string({
+  name: z
+    .string({
       required_error: 'Nome do cliente é obrigatório',
       invalid_type_error: 'Nome do cliente deve ser um valor válido',
     })

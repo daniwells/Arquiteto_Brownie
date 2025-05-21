@@ -54,7 +54,7 @@ const getProduct = async (key: string, value: string) => {
 
   return {
     success: true,
-    message: "",
+    message: '',
     content: newProduct,
   };
 };
@@ -113,7 +113,7 @@ export async function insertProduct(product: productType) {
       return {
         success: false,
         message: `Categoria não encontrada`,
-    };
+      };
 
     const productObjFinal = {
       ...productObj,
@@ -126,22 +126,22 @@ export async function insertProduct(product: productType) {
       data: omitFields(productObjFinal, ['category']),
     });
 
-    if (!insertedProduct){
+    if (!insertedProduct) {
       // Remove saved images
       await Promise.all(
         uploadedPublicIds.map(async (id) => {
           try {
             await cloudinary.uploader.destroy(id);
-          } catch{
+          } catch {
             return {
               success: false,
-              message: "Produto não pode ser criado! Erro de conexão pelo lado do servidor",
-            }
+              message: 'Produto não pode ser criado! Erro de conexão pelo lado do servidor',
+            };
           }
-        })
+        }),
       );
       throw new Error('Erro ao criar o produto');
-    } 
+    }
 
     return {
       success: true,
@@ -210,9 +210,9 @@ export async function editProduct(id: string, product: productType) {
             uploadedPublicIds.push(uploadResult.public_id);
           }),
         );
-      } catch(error){
-        console.error(error)
-        throw new Error('Não foi possível salvar as imagens do produto'+{error});
+      } catch (error) {
+        console.error(error);
+        throw new Error('Não foi possível salvar as imagens do produto' + { error });
       }
     }
 
@@ -245,13 +245,13 @@ export async function editProduct(id: string, product: productType) {
         uploadedPublicIds.map(async (id) => {
           try {
             await cloudinary.uploader.destroy(id);
-          } catch{
+          } catch {
             return {
               success: false,
               message: 'Produto não pode ser criado! Erro de conexão pelo lado do servidor',
-            }
+            };
           }
-        })
+        }),
       );
       throw new Error('Erro ao editar o produto');
     }
@@ -269,7 +269,7 @@ export async function editProduct(id: string, product: productType) {
       message: 'Produto editado com sucesso',
     };
   } catch (error) {
-    console.error(error)
+    console.error(error);
     return {
       success: false,
       message: formatError(error),

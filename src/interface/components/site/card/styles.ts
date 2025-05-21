@@ -52,4 +52,4 @@ export const Content = styled.div`
 export const PriceAmountContainer = styled.div`
   display: flex;
   gap: 20px;
-`
+`;

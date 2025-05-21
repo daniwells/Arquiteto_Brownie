@@ -9,7 +9,7 @@ interface cardProps {
 }
 
 const Card: React.FC<cardProps> = ({ product, handleClick, qty }) => {
-  return ( 
+  return (
     <S.Container
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 1 }}
@@ -24,7 +24,7 @@ const Card: React.FC<cardProps> = ({ product, handleClick, qty }) => {
         </div>
         <S.PriceAmountContainer>
           <ProductPrice value={product.price.toString()} />
-          { qty && <p>Quant: {qty}</p>}
+          {qty && <p>Quant: {qty}</p>}
         </S.PriceAmountContainer>
       </S.Content>
     </S.Container>

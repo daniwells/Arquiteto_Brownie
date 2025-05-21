@@ -9,7 +9,7 @@ export const metadata = {
 
 const Orders = async () => {
   const session = await auth();
-    
+
   if (!session) {
     return redirect('/sign-in');
   }

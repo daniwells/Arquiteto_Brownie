@@ -1,4 +1,4 @@
-import { ZodSchema } from "zod";
+import { ZodSchema } from 'zod';
 
 // Convert prisma object into a regular JS object
 export function convertToPlainObject<T>(value: T): T {
@@ -100,42 +100,42 @@ export const omitFields = <T extends object, K extends keyof T>(
   return newObj;
 };
 
-export const getNameImageFromPath = (image: string) => { 
-  if(!image){
-    return ''
+export const getNameImageFromPath = (image: string) => {
+  if (!image) {
+    return '';
   }
   const parts = image.split('__SEP__');
   return String(parts.slice(2).join(' '));
 };
 
 export const validateForm = <T>(schema: ZodSchema<T>, data: any) => {
-    const result = schema.safeParse(data);
+  const result = schema.safeParse(data);
 
-    if (result.success) {
-        return {status: true};  
-    } else {
-        return {status: false, message: result.error.errors};
-    }
-}
+  if (result.success) {
+    return { status: true };
+  } else {
+    return { status: false, message: result.error.errors };
+  }
+};
 
 export const capitalizeFirstLetter = (text: string): string => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-}
+};
 
 export const formatDate = (date: Date) => {
   const formatedDate = new Date(date);
   return formatedDate.toLocaleDateString();
-}
+};
 
 export const formatDocumentValue = (label: string, value: string): string => {
-  if (!value) return "";
+  if (!value) return '';
 
-  if (label.toLowerCase().includes("phone")) {
-    return value.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  if (label.toLowerCase().includes('phone')) {
+    return value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
   }
 
-  if (label.toLowerCase().includes("cep")) {
-    return value.replace(/^(\d{5})(\d{3})$/, "$1-$2");
+  if (label.toLowerCase().includes('cep')) {
+    return value.replace(/^(\d{5})(\d{3})$/, '$1-$2');
   }
 
   return value;
