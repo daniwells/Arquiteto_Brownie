@@ -11,7 +11,7 @@ import { redirect } from 'next/navigation';
 import MainContainer from '@/interface/containers/global/main-container/main';
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
-import CardContainer from '@/interface/containers/site/card-container/main';
+import CardContainer from '@/interface/containers/global/card-container/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';

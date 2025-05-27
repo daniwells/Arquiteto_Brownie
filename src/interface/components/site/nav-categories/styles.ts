@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 import { motion } from 'framer-motion';
 import { Swiper } from 'swiper/react';
+import breakpoints from '@/styles/breakpoints';
 
 export const BackgroundNav = styled.div`
   display: flex;
@@ -32,6 +33,13 @@ export const NavItem = styled.div`
 
   &:hover {
     opacity: 0.7;
+  }
+
+  @media ${breakpoints.md} {
+    
+    a {
+      font-size: 18px;
+    }
   }
 `;
 

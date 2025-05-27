@@ -7,7 +7,7 @@ import { redirect } from 'next/navigation';
 import MainContainer from '@/interface/containers/global/main-container/main';
 import Logo from '@/interface/components/global/logo/main';
 import Menu from '@/interface/components/site/menu/main';
-import CardContainer from '@/interface/containers/site/card-container/main';
+import CardContainer from '@/interface/containers/global/card-container/main';
 import CartItem from '@/interface/components/site/cart-item/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import Title from '@/interface/components/global/title/main';

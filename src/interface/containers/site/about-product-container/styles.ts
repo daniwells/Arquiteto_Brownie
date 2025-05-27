@@ -1,10 +1,20 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 import { Swiper } from 'swiper/react';
+import breakpoints from '@/styles/breakpoints';
 
-export const ContentAboutProduct = styled.div`
-  padding: 20px;
+
+export const MainAboutProduct = styled.div`
+  width: 100%;
+  max-width: 70rem; 
+`
+
+export const AboutProductContainerStyle = styled.div`
+  padding: 10px;
   border-radius: 20px;
+  width: 100%;
+  background-color: white;
+  
 
   h3 {
     font-family: 'Pacifico Regular';
@@ -25,6 +35,31 @@ export const ContentAboutProduct = styled.div`
       object-fit: cover;
     }
   }
+
+  @media ${breakpoints.xs}{
+    padding: 20px;
+  }
+
+  @media ${breakpoints.sm} {
+    padding: 25px;
+  }
+
+  @media ${breakpoints.bs} {
+    padding: 35px 50px;
+    min-height: 100vh;
+  }
+
+
+  @media ${breakpoints.md} {
+    background-color: ${colors.gray};
+    display: flex;
+    justify-content: center;
+    padding: 40px; 
+  }
+
+  @media ${breakpoints.lg} {
+    padding-inline: 80px;
+  }
 `;
 
 export const CustomSwiper = styled(Swiper)`
@@ -34,7 +69,7 @@ export const CustomSwiper = styled(Swiper)`
   }
 `;
 
-export const Row = styled.div`
+export const AboutProductContent = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -49,3 +84,14 @@ export const Product = styled.div`
   grid-gap: 15px;
   margin-bottom: 20px;
 `;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+export const AboutColumn = styled.div<{size_630: boolean}>`
+  width: ${props => props.size_630 ? "50%" : "100%"};
+
+  
+`

@@ -11,7 +11,7 @@ import FormContainer from '@/interface/containers/global/form-container/main';
 import BaseInput from '@/interface/components/global/base-input/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import { LineStyle } from '@/interface/components/admin/line/styles';
-import CardContainer from '@/interface/containers/site/card-container/main';
+import CardContainer from '@/interface/containers/global/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 

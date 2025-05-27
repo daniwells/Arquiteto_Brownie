@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import arrowLeft from '../../../../public/svg/arrow-left.svg';
+import arrowLeft from '../../../../../public/svg/arrow-left.svg';
 import * as S from './styles';
 import React from 'react';
 

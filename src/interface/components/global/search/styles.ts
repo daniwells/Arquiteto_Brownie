@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
     transform 0.3s ease-out;
 
   &:hover {
-    border: solid 1px ${colors.darkerGray};
+    border: solid 1px ${colors.darkGray};
     transform: scale(1.01);
   }
 `;

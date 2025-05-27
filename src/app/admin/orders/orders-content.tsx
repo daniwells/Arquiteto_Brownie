@@ -13,7 +13,7 @@ import Title from '@/interface/components/global/title/main';
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
-import CardContainer from '@/interface/containers/site/card-container/main';
+import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
 import CardOrder from '@/interface/components/admin/card-order/main';

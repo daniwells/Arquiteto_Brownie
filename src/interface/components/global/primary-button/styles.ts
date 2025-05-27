@@ -7,7 +7,7 @@ interface primaryButtonStyleProps {
 }
 
 export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
-  /* margin-block: 20px; */
+  max-width: 450px;
   background-color: ${(props) =>
     props.$category == 'dark'
       ? colors.lightBrown

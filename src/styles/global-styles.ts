@@ -1,6 +1,7 @@
 'use client';
 
 import { createGlobalStyle } from 'styled-components';
+import { colors } from './themes';
 
 export const GlobalStyles = createGlobalStyle`  
   * {
@@ -28,6 +29,10 @@ export const GlobalStyles = createGlobalStyle`
   body{
     overflow-x: hidden;
     font-family: 'Comfortaa Regular', Arial, Helvetica, sans-serif;
+    background-color: ${colors.gray};
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   a {

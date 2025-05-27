@@ -4,8 +4,8 @@ import * as S from './styles';
 const Menu = () => {
   return (
     <S.Container>
-      <S.HomeIcon href="/" />
-      <S.CartIcon href="/cart" />
+      <S.HomeIconStyle href="/" />
+      <S.CartIconStyle href="/cart" />
     </S.Container>
   );
 };

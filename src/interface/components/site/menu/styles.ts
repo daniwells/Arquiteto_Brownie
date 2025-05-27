@@ -11,7 +11,7 @@ export const Container = styled.div`
   height: 50px;
 `;
 
-export const HomeIcon = styled(Link)`
+export const HomeIconStyle = styled(Link)`
   background-image: url('/svg/home.svg');
   background-size: 100%;
   width: 24px;
@@ -29,7 +29,7 @@ export const HomeIcon = styled(Link)`
   }
 `;
 
-export const CartIcon = styled(Link)`
+export const CartIconStyle = styled(Link)`
   background-image: url('/svg/cart.svg');
   background-size: 100%;
   width: 24px;

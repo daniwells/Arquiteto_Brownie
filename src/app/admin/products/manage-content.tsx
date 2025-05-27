@@ -15,7 +15,7 @@ import CardManage from '@/interface/components/admin/card-manage/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
-import CardContainer from '@/interface/containers/site/card-container/main';
+import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 
 // Utils

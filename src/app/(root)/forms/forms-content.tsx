@@ -12,7 +12,7 @@ import BaseInput from '@/interface/components/global/base-input/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import MaskedInput from '@/interface/components/global/masked-input/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
-import Return from '@/interface/containers/return/main';
+import Return from '@/interface/containers/global/return/main';
 
 // Images
 import Logo from '@/interface/components/global/logo/main';
