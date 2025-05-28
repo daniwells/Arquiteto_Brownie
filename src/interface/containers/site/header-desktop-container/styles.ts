@@ -39,3 +39,9 @@ export const IconStyleContainer = styled.div`
         transform: scale(1.05);
     }
 `
+
+export const DescAndReturn = styled.div`
+    display: flex;
+    gap: 40px;
+    align-items: center;
+`

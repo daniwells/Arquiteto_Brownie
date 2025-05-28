@@ -102,8 +102,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
               {filteredData.length > 0 &&
                 filteredData.map((product) => (
                   <SwiperSlide key={product.slug}>
-                    <CardProductDesktop 
-                      key={product.slug}
+                    <CardProductDesktop
                       product={product}
                       handleClick={() => {
                         toggleDrawer(true);

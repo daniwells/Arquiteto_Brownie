@@ -56,7 +56,9 @@ export const Content = styled.div`
 `
 
 export const ButtonCardContainer = styled.div`
-    padding-block: 20px;
+  padding-block: 20px;
+  display: flex;
+  justify-content: center;
 `
 
 export const TitleAndPriceContainer = styled.div`

@@ -2,6 +2,8 @@ import MenuPage from './menuPage';
 import { getLatestProducts } from '../../lib/actions/product.actions';
 import { getAllCategories } from '@/lib/actions/category.actions';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Menu',
 };

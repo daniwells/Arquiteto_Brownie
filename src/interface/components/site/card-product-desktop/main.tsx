@@ -1,15 +1,18 @@
 import * as S from './styles';
-import { productTypeImageString } from '@/types';
+import { productTypeImageString, cartItemType } from '@/types';
 import ProductPrice from '../../global/product-price/main';
 import PrimaryButton from '../../global/primary-button/main';
+import AddOrRemove from '../../global/add-or-remove/main';
 
 interface cardProductDesktopProps {
-  product: productTypeImageString;
+  product: cartItemType | productTypeImageString;
   handleClick: () => void;
+  hasAddQuant?: boolean;
+  hasQuant?: boolean;
 }
 
 const CardProductDesktop: React.FC<cardProductDesktopProps> = ({ 
-    product, handleClick 
+    product, handleClick, hasAddQuant, hasQuant
 }) => {
   return (
     <S.ContainerCardProductDesktop>
@@ -23,7 +26,15 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
                 <p>{product.description}</p>
             </div>
             <S.ButtonCardContainer>
-                <PrimaryButton handleClick={handleClick} value="Info Produto" />
+                {
+                  (hasAddQuant && 'qty' in product) ?
+                    <AddOrRemove handleQuantity={handleClick} quantity={product.qty} />
+                  :
+                    hasQuant ?
+                      <></>
+                    :
+                      <PrimaryButton handleClick={handleClick} value="Info Produto" />    
+                }
             </S.ButtonCardContainer>
         </S.Content>
     </S.ContainerCardProductDesktop>

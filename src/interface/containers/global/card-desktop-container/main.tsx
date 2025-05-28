@@ -14,7 +14,7 @@ interface cardDesktopContainerProps {
 }
 
 const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) => {
-    const size_1024 = useMediaQuery('(min-width:1024px)');
+    const size_1200 = useMediaQuery('(min-width:1200px)');
 
     const prevRef = useRef<HTMLButtonElement>(null);
     const nextRef = useRef<HTMLButtonElement>(null);
@@ -35,7 +35,7 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) =
                     <Swiper
                         modules={[Navigation]}
                         spaceBetween={30}
-                        slidesPerView={size_1024 ? 3 : 2}
+                        slidesPerView={size_1200 ? 3 : 2}
                         navigation={{
                             prevEl: prevRef.current,
                             nextEl: nextRef.current,
