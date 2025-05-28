@@ -16,6 +16,7 @@ import AddOrRemove from '@/interface/components/global/add-or-remove/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
 import ProductPrice from '@/interface/components/global/product-price/main';
 import HeaderDesktopContainer from '../header-desktop-container/main';
+import ProductGallery from '@/interface/components/global/product-gallery/main';
 
 // Utils
 import { productTypeImageString } from '@/types';
@@ -76,25 +77,27 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
         }}
       > 
         <S.AboutProductContainerStyle>
-          <S.MainAboutProduct>
             {
               size_630 && <HeaderDesktopContainer handleReturn={handleToggle} hasReturn/>
             }
+          <S.MainAboutProduct>
             {
-              !size_630 &&
-              <S.CustomSwiper
-                className="my-swiper"
-                spaceBetween={5}
-                slidesPerView={product?.images?.length && product?.images?.length > 2 ? 2.5 : 2}
-              >
-                {product?.images.map((imagePath, key) => (
-                  <SwiperSlide key={key}>
-                    <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80} />
-                  </SwiperSlide>
-                )) || false}
-              </S.CustomSwiper>
+              size_630 ?
+                <ProductGallery images={product?.images || []}/>
+              :
+                <S.CustomSwiper
+                  className="my-swiper"
+                  spaceBetween={5}
+                  slidesPerView={product?.images?.length && product?.images?.length > 2 ? 2.5 : 2}
+                >
+                  {product?.images.map((imagePath, key) => (
+                    <SwiperSlide key={key}>
+                      <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80} />
+                    </SwiperSlide>
+                  )) || false}
+                </S.CustomSwiper>
             }
-            <S.AboutColumn size_630={size_630} >
+            <S.AboutColumn>
               <S.Product>
                 <S.ContainerDesc>
                   <h3>{product?.name}</h3>
@@ -105,15 +108,17 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
                   <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
                   <ProductPrice value={String(Number(product?.price) * qty || 0)} />
                 </S.AboutProductContent>
+
+                <S.ButtonContainer>
+                  <PrimaryButton
+                    loading={loading}
+                    value="Adicionar ao carrinho"
+                    handleClick={handleAddItemsCart}
+                  />
+                </S.ButtonContainer>
               </S.Product>
               
-              <S.ButtonContainer>
-                <PrimaryButton
-                  loading={loading}
-                  value="Adicionar ao carrinho"
-                  handleClick={handleAddItemsCart}
-                />
-              </S.ButtonContainer>
+              
             </S.AboutColumn>
           </S.MainAboutProduct>
         </S.AboutProductContainerStyle>

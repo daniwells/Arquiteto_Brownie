@@ -6,7 +6,28 @@ import breakpoints from '@/styles/breakpoints';
 
 export const MainAboutProduct = styled.div`
   width: 100%;
-  max-width: 70rem; 
+  max-width: 60rem;
+
+  @media ${breakpoints.sm} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media ${breakpoints.bs} {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 230px;
+  }
+
+  @media ${breakpoints.md} {
+    height: 280px;
+  }
+
+  @media ${breakpoints.lg} {
+    height: 320px;
+  }
 `
 
 export const AboutProductContainerStyle = styled.div`
@@ -14,7 +35,6 @@ export const AboutProductContainerStyle = styled.div`
   border-radius: 20px;
   width: 100%;
   background-color: white;
-  
 
   h3 {
     font-family: 'Pacifico Regular';
@@ -45,16 +65,21 @@ export const AboutProductContainerStyle = styled.div`
   }
 
   @media ${breakpoints.bs} {
-    padding: 35px 50px;
     min-height: 100vh;
   }
 
-
+  
   @media ${breakpoints.md} {
-    background-color: ${colors.gray};
     display: flex;
-    justify-content: center;
-    padding: 40px; 
+    flex-direction: column;
+    align-items: center;
+
+    background-color: ${colors.gray};
+    padding: 40px;
+
+    h3 {
+      font-size: 32px;
+    }
   }
 
   @media ${breakpoints.lg} {
@@ -67,6 +92,7 @@ export const CustomSwiper = styled(Swiper)`
     display: flex;
     justify-content: space-between;
   }
+  max-width: 450px;
 `;
 
 export const AboutProductContent = styled.div`
@@ -82,7 +108,7 @@ export const Product = styled.div`
   display: flex;
   flex-direction: column;
   grid-gap: 15px;
-  margin-bottom: 20px;
+  justify-content: space-between;
 `;
 
 export const ButtonContainer = styled.div`
@@ -90,8 +116,12 @@ export const ButtonContainer = styled.div`
   justify-content: center;
 `
 
-export const AboutColumn = styled.div<{size_630: boolean}>`
-  width: ${props => props.size_630 ? "50%" : "100%"};
+export const AboutColumn = styled.div`
+  width: 100%;
+  max-width: 450px;
+  height: 100%;
 
-  
+  @media ${breakpoints.bs} {
+    width: 45%;
+  }
 `
