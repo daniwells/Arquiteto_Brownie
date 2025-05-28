@@ -41,9 +41,9 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) =
                             nextEl: nextRef.current,
                         }}
                         onBeforeInit={(swiper) => {
-                            // @ts-ignore
+                            // @ts-expect-error — imcompatibility type
                             swiper.params.navigation.prevEl = prevRef.current;
-                            // @ts-ignore
+                            // @ts-expect-error — imcompatibility type
                             swiper.params.navigation.nextEl = nextRef.current;
                         }}
                     >
