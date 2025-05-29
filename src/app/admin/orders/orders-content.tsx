@@ -68,6 +68,7 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
       {orders && orders.length > 0 ? (
         <>
           <Search
+            id="ordersSearch"
             value={searchText}
             handleChange={setSearchText}
             placeholder="Pesquisar por produto"

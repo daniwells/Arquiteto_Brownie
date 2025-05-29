@@ -3,6 +3,8 @@
 // Libs
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { redirect } from 'next/navigation';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -13,6 +15,7 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import MaskedInput from '@/interface/components/global/masked-input/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
 import Return from '@/interface/containers/global/return/main';
+import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
 
 // Images
 import Logo from '@/interface/components/global/logo/main';
@@ -43,6 +46,7 @@ interface formsContentProps {
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup } = usePopup();
   const [loading, setLoading] = useState(false);
+  const size_768 = useMediaQuery('(min-width:768px)');
 
   const { handleSubmit, setValue, watch, reset } = useForm<formData>({
     defaultValues: {
@@ -139,12 +143,24 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
   return (
     <MainContainer>
-      <Return redirect="/" />
-      <Logo />
-      <DescriptionContainer
-        title="Preencha seus dados"
-        desc="Para prosseguir com sua compra, preencha o formulário abaixo"
-      />
+      {
+        size_768 ?
+          <HeaderDesktopContainer
+            handleReturn={() => redirect("/")}
+            title="Preencha seus dados"
+            description="Para prosseguir com a sua compra, por favor preencha os campos abaixo"
+          />
+        :
+          <>
+            <Return redirect="/" />
+            <Logo />
+            <DescriptionContainer
+              title="Preencha seus dados"
+              desc="Para prosseguir com a sua compra, por favor preencha os campos abaixo"
+            />    
+          </>
+      }
+      
       <FormContainer handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           value={watchFields.name}

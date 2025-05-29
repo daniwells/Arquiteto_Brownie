@@ -59,7 +59,8 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
       <S.IconStyle src={logoIcon} alt="Logo do site"/>
       {
         hasSearch &&
-          <Search 
+          <Search
+            id="headerSearch"
             handleChange={handleChange || (() => {})} 
             value={value || ""} 
             placeholder={placeholder || ""} 

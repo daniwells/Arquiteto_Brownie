@@ -89,6 +89,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
             <>
               <Logo/>
               <Search
+                id="menuSearch"
                 value={searchText}
                 handleChange={setSearchText}
                 placeholder="Pesquisar por produto"

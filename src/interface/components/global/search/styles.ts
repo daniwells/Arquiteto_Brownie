@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.label`
   display: flex;
   align-items: center;
   background-color: white;
@@ -11,6 +11,7 @@ export const Wrapper = styled.div`
   border: solid 1px transparent;
   padding-block: 10px;
   padding-inline: 20px;
+  cursor: text;
   transition:
     border 0.3s ease-out,
     transform 0.3s ease-out;

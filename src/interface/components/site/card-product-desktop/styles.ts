@@ -6,7 +6,7 @@ export const ContainerCardProductDesktop = styled.div`
   border-radius: 10px;
   height: 400px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
 
   h3 {
     margin: 0;
@@ -59,9 +59,10 @@ export const ButtonCardContainer = styled.div`
   padding-block: 20px;
   display: flex;
   justify-content: center;
+  align-items: end;
 `
 
 export const TitleAndPriceContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `

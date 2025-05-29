@@ -7,4 +7,5 @@ export const Form = styled.form`
   gap: 20px;
   padding-block: 30px;
   align-items: center;
+  max-width: 700px;
 `;

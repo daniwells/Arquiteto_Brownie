@@ -3,44 +3,20 @@ import ProductPrice from '../../global/product-price/main';
 import AddOrRemove from '../../global/add-or-remove/main';
 import { cartItemType } from '@/types';
 import React, { useState } from 'react';
-import { removeItemFromCart, addItemToCart } from '@/lib/actions/cart.actions';
-import { usePopup } from '@/contexts/PopupContext';
 
 interface cartItemProps {
   product: cartItemType;
+  handleQuantity: (product: cartItemType, newQty: number, qty: number) => void;
+  loading: boolean;
 }
 
-const CartItem: React.FC<cartItemProps> = ({ product }) => {
+const CartItem: React.FC<cartItemProps> = ({ product, handleQuantity, loading }) => {
   const [qty, setQty] = useState<number>(product.qty);
-  const [loading, setLoading] = useState(false);
 
-  const { openPopup } = usePopup();
-
-  const handleQuantity = async (newQty: number) => {
-    setLoading(true);
-    if (newQty < qty) {
-      const response = await removeItemFromCart(String(product.id));
-
-      if (!response?.success) {
-        const message = response.message instanceof Promise ? await response.message : '';
-
-        openPopup(message, 'error');
-        return;
-      }
-    }
-
-    if (newQty > qty) {
-      const response = await addItemToCart(product);
-      if (!response?.success) {
-        const message = response.message instanceof Promise ? await response.message : '';
-
-        openPopup(message, 'error');
-        return;
-      }
-    }
+  const updateQuantity = (newQty: number) => {
+    handleQuantity(product, newQty, qty);
     setQty(newQty);
-    setLoading(false);
-  };
+  }
 
   return (
     <>
@@ -63,7 +39,7 @@ const CartItem: React.FC<cartItemProps> = ({ product }) => {
               minQuantity={-1}
               loading={loading}
               quantity={qty}
-              handleQuantity={handleQuantity}
+              handleQuantity={updateQuantity}
             />
           </S.RowCard>
         </S.Content>

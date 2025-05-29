@@ -49,7 +49,10 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
       if (!response?.success) {
         const message = response.message instanceof Promise ? await response.message : '';
         openPopup(message, 'error');
+      }else{
+        openPopup("Produto adicionado ao carrinho", 'success');
       }
+
     }
   };
 

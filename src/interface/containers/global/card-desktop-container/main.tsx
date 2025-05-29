@@ -11,9 +11,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface cardDesktopContainerProps {
     children: React.ReactNode;
+    amountCards: number;
 }
 
-const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) => {
+const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children, amountCards}) => {
     const size_1200 = useMediaQuery('(min-width:1200px)');
 
     const prevRef = useRef<HTMLButtonElement>(null);
@@ -26,9 +27,20 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) =
 
     return (
         <S.Wrapper>
-            <S.NavButton ref={prevRef}>
-                <Image src={arrowLeftIcon} alt="Flecha apontada para a esquerda" width={10}/>
-            </S.NavButton>
+            {
+                size_1200 ? 
+                    amountCards > 3 &&
+                        <S.NavButton ref={prevRef}>
+                            <Image src={arrowLeftIcon} alt="Flecha apontada para a esquerda" width={10}/>
+                        </S.NavButton>
+                :
+                    amountCards > 2 &&
+                        <S.NavButton ref={prevRef}>
+                            <Image src={arrowLeftIcon} alt="Flecha apontada para a esquerda" width={10}/>
+                        </S.NavButton>
+
+            }
+            
 
             <S.SliderContainer>
                 {swiperReady && (
@@ -51,7 +63,7 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children}) =
                     </Swiper>
                 )}
             </S.SliderContainer>
-
+            
             <S.NavButton ref={nextRef}>
                 <Image src={arrowRightIcon} alt="Flecha apontada para a direita" width={10}/>
             </S.NavButton>

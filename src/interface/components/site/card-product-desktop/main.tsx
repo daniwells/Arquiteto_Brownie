@@ -3,17 +3,34 @@ import { productTypeImageString, cartItemType } from '@/types';
 import ProductPrice from '../../global/product-price/main';
 import PrimaryButton from '../../global/primary-button/main';
 import AddOrRemove from '../../global/add-or-remove/main';
+import { useState } from 'react';
 
 interface cardProductDesktopProps {
   product: cartItemType | productTypeImageString;
-  handleClick: () => void;
+  handleClick?: () => void;
   hasAddQuant?: boolean;
   hasQuant?: boolean;
+  handleQuantity?: (product: cartItemType, newQty: number, qty: number) => void;
+  loading?: boolean;
 }
 
 const CardProductDesktop: React.FC<cardProductDesktopProps> = ({ 
-    product, handleClick, hasAddQuant, hasQuant
+    product,
+    handleClick,
+    hasAddQuant,
+    hasQuant,
+    handleQuantity,
+    loading
 }) => {
+  const [qty, setQty] = useState<number>('qty' in product ? product.qty : 1);
+  
+  const updateQuantity = (newQty: number) => {
+    if('qty' in product){
+      handleQuantity?.(product, newQty, qty);
+      setQty(newQty);
+    }
+  }
+
   return (
     <S.ContainerCardProductDesktop>
         <S.Image $url={product.images[0]} />
@@ -28,12 +45,17 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
             <S.ButtonCardContainer>
                 {
                   (hasAddQuant && 'qty' in product) ?
-                    <AddOrRemove handleQuantity={handleClick} quantity={product.qty} />
+                    <AddOrRemove 
+                      minQuantity={-1}
+                      loading={loading}
+                      handleQuantity={updateQuantity}
+                      quantity={qty}
+                    />
                   :
                     hasQuant ?
                       <></>
                     :
-                      <PrimaryButton handleClick={handleClick} value="Info Produto" />    
+                      <PrimaryButton handleClick={handleClick} value="Comprar" />    
                 }
             </S.ButtonCardContainer>
         </S.Content>
