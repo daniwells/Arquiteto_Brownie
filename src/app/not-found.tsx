@@ -1,28 +1,38 @@
 'use client';
 
-// import Image from "next/image";
+import Image from "next/image";
+import { APP_NAME } from "@/lib/constants";
+import logoIcon from "../../public/svg/logo.svg";
+import PrimaryButton from "@/interface/components/global/primary-button/main";
+import { redirect } from "next/navigation";
 
 const NotFoundPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
-      {/* <Image
-                src="/images/logo.svg"
-                width={48}
-                height={48}
-                // alt={`${APP_NAME} logo`}
-                priority={true}
-            /> */}
-      <div className="p-6 w-1/3 rounded-lg shadow-md text-center">
-        <h1 className="text-3xl font-bold mb-4">Not Found</h1>
-        <p className="text-destructive">Could not find requested page</p>
-        {/* <Button variant="outline" className="mt-4 ml-2" onClick={
-                    () => (
-                        window.location.href = "/"
-                    )
-                }>
-                    Back To Home
-                </Button> */}
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      minHeight: "100vh",
+      gap: "20px",
+      flexDirection: "column"
+    }}>
+      <div style={{display: "flex", gap: "20px", alignItems: "center"}}>
+        <Image
+            src={logoIcon}
+            width={68}
+            height={68}
+            alt={`${APP_NAME} logo`}
+            priority={true}
+        />
+        <div>
+          <h1>Not Found</h1>
+          <p>Essa página não foi encontrada</p>
+        </div>
       </div>
+      <PrimaryButton
+        value="Voltar para o site"
+        handleClick={() => redirect("/")}
+      />
     </div>
   );
 };
