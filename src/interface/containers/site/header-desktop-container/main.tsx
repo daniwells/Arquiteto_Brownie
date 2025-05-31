@@ -57,7 +57,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
               <S.IconStyle src={arrowLeft} alt="Ícone de carrinho"/>
             </S.IconStyleContainer>
           }
-          <DescriptionContainer title={title} desc={description}/>
+          <DescriptionContainer title={title || ""} desc={description}/>
         </S.DescAndReturn>
       }
 

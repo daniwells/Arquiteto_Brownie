@@ -21,6 +21,7 @@ import Dropdown from '@/interface/components/global/dropdown/main';
 import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
 import RowContainer from '@/interface/containers/global/row-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
+import BackToMenu from '@/interface/components/site/back-to-menu/main';
 
 // Utils
 import { productTypeImageString } from '@/types';
@@ -76,6 +77,8 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
         size_768 ?
           <>
             <HeaderDesktopContainer
+              value={searchText}
+              handleChange={setSearchText}
               hasSearch
               placeholder="Pesquisar por produto"
               filter={
@@ -102,11 +105,14 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
                 value="Criar novo produto"
               />
             </RowContainer>
-            <CardGridContainer>
-              {filteredData.length > 0 &&
-                filteredData.map((product) => <CardManage key={product.slug} product={product} />)
+              {
+                filteredData.length > 0 ?
+                  <CardGridContainer>
+                    {filteredData.map((product) => <CardManage key={product.slug} product={product} />)}
+                  </CardGridContainer>
+                :
+                  <BackToMenu text="Nenhum produto encontrado..."/>
               }
-            </CardGridContainer>
           </>    
         :
           <>
@@ -136,11 +142,16 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
               }}
               value="Criar novo produto"
             />
-            <CardContainer height="18rem">
-              {filteredData.length > 0 &&
-                filteredData.map((product) => <CardManage key={product.slug} product={product} />)
-              }
-            </CardContainer>
+            { 
+              filteredData.length > 0 ?
+                <CardContainer height="18rem">
+                  {
+                    filteredData.map((product) => <CardManage key={product.slug} product={product} />)
+                  }
+                </CardContainer>
+              :
+                <BackToMenu text="Nenhum produto encontrado..."/>
+            }
           </>
       }
       <MenuAdmin />

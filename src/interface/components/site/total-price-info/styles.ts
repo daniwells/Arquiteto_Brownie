@@ -23,10 +23,14 @@ export const TotalPriceContainer = styled.div<{background?: string}>`
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 250px;
+  min-width: 200px;
   font-size: 18px;
   >Button{
     margin-top: 20px;
+  }
+
+  @media ${breakpoints.bg} {
+    width: 250px;
   }
 `;
 

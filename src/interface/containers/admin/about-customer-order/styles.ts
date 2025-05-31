@@ -1,17 +1,22 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
+import breakpoints from '@/styles/breakpoints';
 
 export const Column = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   align-items: start;
+  min-width: 150px;
 `;
 
 export const AboutCustomerOrderContainer = styled.div`
   display: flex;
   justify-content: center;
+  font-family: 'Comfortaa Regular';
+  color: ${colors.darkGray};
   width: 100%;
+
   > div {
     display: flex;
     width: 100%;
@@ -27,8 +32,11 @@ export const AboutCustomerOrderContainer = styled.div`
     position: relative;
   }
 
-  font-family: 'Comfortaa Regular';
-  color: ${colors.darkGray};
+  @media ${breakpoints.md} {
+    p {
+      font-size: 16px;
+    }
+  }
 `;
 
 export const ToolTip = styled.span`

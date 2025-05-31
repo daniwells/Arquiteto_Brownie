@@ -7,10 +7,11 @@ import { redirect } from 'next/navigation';
 interface TotalPriceInfoProps {
   date: Date;
   totalPrice: string;
-  isCart?: boolean
+  isCart?: boolean;
+  hasBackground?: boolean;
 }
 
-const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCart }) => {
+const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCart, hasBackground }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const formatedDate = (date: Date) => {
@@ -18,7 +19,7 @@ const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCar
   };
 
   return (
-    <S.TotalPriceContainer background={isCart ? "true" : undefined}>
+    <S.TotalPriceContainer background={hasBackground ? "true" : undefined}>
       <S.Row>
         <S.Span>Data:</S.Span> {String(formatedDate(date))}
       </S.Row>

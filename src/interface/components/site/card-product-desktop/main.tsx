@@ -12,6 +12,7 @@ interface cardProductDesktopProps {
   hasQuant?: boolean;
   handleQuantity?: (product: cartItemType, newQty: number, qty: number) => void;
   loading?: boolean;
+  qty?: number;
 }
 
 const CardProductDesktop: React.FC<cardProductDesktopProps> = ({ 
@@ -53,7 +54,7 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
                     />
                   :
                     hasQuant ?
-                      <></>
+                      <S.QtyContainer>Quantidade: <span>{qty}</span></S.QtyContainer>
                     :
                       <PrimaryButton handleClick={handleClick} value="Comprar" />    
                 }

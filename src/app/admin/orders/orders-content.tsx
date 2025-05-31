@@ -53,11 +53,12 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
           })
           .filter((product) => {
             if (status === '' || status === 'Todos') return true;
-
+            
             return product.status?.toLowerCase() === status.toLowerCase();
           }),
       );
     }
+    
   };
 
   const returnFilterStatus = () => {
@@ -85,6 +86,7 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
 
   useEffect(() => {
     handleFilterProduct();
+    console.log()
   }, [searchText, status]);
 
   return (
@@ -93,6 +95,8 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
         size_768 ? 
           <>
             <HeaderDesktopContainer
+              value={searchText}
+              handleChange={setSearchText}
               hasSearch
               placeholder="Pesquisar por produto"
               filter={returnFilterStatus()}
@@ -105,33 +109,35 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
           </>
       }
       {orders && orders.length > 0 ? (
-        <>
-          {
-            size_768 ?
-              <CardGridContainer>
-                {filteredData.length > 0 &&
-                  filteredData.map((order) => <CardOrder key={order.id} order={order} />)
-                }
-              </CardGridContainer>
-            :
-            <>
-              <Search
-                id="ordersSearch"
-                value={searchText}
-                handleChange={setSearchText}
-                placeholder="Pesquisar por produto"
-              />
-              {returnFilterStatus()}
-              <CardContainer height="18rem">
-                {filteredData.length > 0 &&
-                  filteredData.map((order) => <CardOrder key={order.id} order={order} />)
-                }
-              </CardContainer>
-            </>
-          }
+        filteredData && filteredData.length > 0 ? 
+          <>
+            {
+              size_768 ?
+                <CardGridContainer>
+                  {filteredData.length > 0 &&
+                    filteredData.map((order) => <CardOrder key={order.id} order={order} />)
+                  }
+                </CardGridContainer>
+              :
+              <>
+                <Search
+                  id="ordersSearch"
+                  value={searchText}
+                  handleChange={setSearchText}
+                  placeholder="Pesquisar por produto"
+                />
+                {returnFilterStatus()}
+                <CardContainer height="18rem">
+                  {filteredData.length > 0 &&
+                    filteredData.map((order) => <CardOrder key={order.id} order={order} />)
+                  }
+                </CardContainer>
+              </>
+            }  
+          </>
+        :
           
-            
-        </>
+          <BackToMenu text="Nenhum pedido encontrado..." />
       ) : (
         <BackToMenu text="Nenhum pedido feito até o momento..." />
       )}

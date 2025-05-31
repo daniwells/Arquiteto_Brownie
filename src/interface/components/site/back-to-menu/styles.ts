@@ -21,7 +21,5 @@ export const BackToMenuStyle = styled.div`
         font-size: 18px;
       }
     }
-
-    
   }
 `;

@@ -34,6 +34,7 @@ export const DropdownList = styled.ul`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   overflow: hidden;
+  z-index: 1000;
 `;
 
 export const DropdownItem = styled.li`

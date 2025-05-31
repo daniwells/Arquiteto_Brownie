@@ -5,7 +5,7 @@ import ProductPrice from '../../global/product-price/main';
 interface cardProps {
   product: productTypeImageString;
   qty?: number;
-  handleClick: () => void;
+  handleClick?: () => void;
 }
 
 const Card: React.FC<cardProps> = ({ product, handleClick, qty }) => {

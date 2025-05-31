@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 
 export const ContainerCardProductDesktop = styled.div`
-  background-color: #fff;
+  background-color: white;
   border-radius: 10px;
   height: 400px;
   display: flex;
@@ -10,11 +10,11 @@ export const ContainerCardProductDesktop = styled.div`
 
   h3 {
     margin: 0;
-    color: #333;
+    color: ${colors.darkGray};
   }
 
   p {
-    color: #666;
+    color: ${colors.darkGray};
     margin: 5px 0 0 0;
   }
 
@@ -65,4 +65,14 @@ export const ButtonCardContainer = styled.div`
 export const TitleAndPriceContainer = styled.div`
   display: flex;
   justify-content: space-between;
+`
+
+export const QtyContainer = styled.p`
+  color: ${colors.blackGray};
+
+  >span {
+    font-size: 16px;
+    color: black;
+    font-weight: 600;
+  }
 `

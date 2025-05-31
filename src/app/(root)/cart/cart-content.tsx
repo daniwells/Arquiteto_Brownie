@@ -113,7 +113,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
                   )}
                 </CardContainer>
             }  
-            <TotalPriceInfo isCart totalPrice={cart.itemsPrice} date={new Date()} />
+            <TotalPriceInfo hasBackground isCart totalPrice={cart.itemsPrice} date={new Date()} />
             {
               !size_768 &&
               <PrimaryButton
