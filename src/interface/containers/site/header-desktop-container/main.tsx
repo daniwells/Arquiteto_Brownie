@@ -24,6 +24,7 @@ interface headerDesktopContainer {
   handleReturn?: () => void;
   title?: string;
   description?: string;
+  filter?: React.ReactNode
 }
 
 const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
@@ -35,7 +36,8 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
   hasSearch,
   handleReturn,
   title,
-  description
+  description,
+  filter
 }) => {
   return (
     <S.HeaderDesktopContainerStyle>
@@ -55,7 +57,6 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
               <S.IconStyle src={arrowLeft} alt="Ícone de carrinho"/>
             </S.IconStyleContainer>
           }
-          
           <DescriptionContainer title={title} desc={description}/>
         </S.DescAndReturn>
       }
@@ -76,6 +77,10 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
         <S.IconStyleContainer onClick={() => {redirect("/cart")}} >
           <S.IconStyle src={cartIcon} alt="Ícone de carrinho"/>
         </S.IconStyleContainer>
+      }
+
+      {
+        filter && filter
       }
     </S.HeaderDesktopContainerStyle>
   );

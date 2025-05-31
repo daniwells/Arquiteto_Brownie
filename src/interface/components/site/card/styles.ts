@@ -8,6 +8,7 @@ export const Container = styled(motion.div)`
   flex-direction: row;
   height: 150px;
   cursor: pointer;
+  width: 100%;
 `;
 
 interface imageProps {

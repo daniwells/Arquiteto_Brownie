@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
+import breakpoints from '@/styles/breakpoints';
 import { motion } from 'framer-motion';
 
 export const BackgroundCardManage = styled(motion.div)`
@@ -9,11 +10,21 @@ export const BackgroundCardManage = styled(motion.div)`
   border-radius: 20px;
   background-color: white;
   padding: 20px;
+  width: 100%;
+  max-width: 450px;
 `;
 
 export const HeaderCardOrder = styled.div`
   display: flex;
   justify-content: space-between;
+  >h2{
+    font-size: 18px;
+  }
+  @media ${breakpoints.xs}{
+    >h2{
+      font-size: 20px;
+    }
+  }
 `;
 
 export const StatusContainer = styled.div`
@@ -26,29 +37,7 @@ export const StatusContainer = styled.div`
 `;
 
 export const AboutOrder = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto auto;
-  row-gap: 10px;
-  column-gap: 20px;
-  margin-inline: 10px;
-
-  & > :nth-child(2n + 1) {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    gap: 10px;
-    justify-self: start;
-  }
-
-  & > :nth-child(2n) {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    gap: 10px;
-    justify-self: end;
-  }
-
+  width: 100%;
   font-family: 'Comfortaa Regular';
   color: ${colors.darkGray};
   margin-block: 20px;
@@ -62,3 +51,32 @@ export const SpanColor = styled.span<{ status: string }>`
         ? colors.green
         : colors.baseYellow};
 `;
+
+export const Row = styled.div`
+  width: 100%;
+  justify-content: space-between;
+
+  >div{
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    width: 45%;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  >p{
+    font-size: 16px;
+    width: 50%;
+    margin-bottom: 10px;
+  }
+
+  @media ${breakpoints.xs} {
+    display: flex;
+
+    >p{
+      
+      margin-bottom: 0px;
+    }
+  }
+`

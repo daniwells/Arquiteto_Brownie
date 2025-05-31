@@ -6,6 +6,7 @@ import { colors } from '@/styles/themes';
 // Libs
 import React, { useEffect, useState } from 'react';
 import { redirect } from 'next/navigation';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -17,6 +18,9 @@ import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
+import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import RowContainer from '@/interface/containers/global/row-container/main';
+import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
 
 // Utils
 import { productTypeImageString } from '@/types';
@@ -27,8 +31,9 @@ interface contentManageProps {
 }
 
 const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
-  const [filteredData, setFilteredData] = useState(data);
+  const size_768 = useMediaQuery('(min-width:768px)');
 
+  const [filteredData, setFilteredData] = useState(data);
   const [searchText, setSearchText] = useState('');
   const [category, setCategory] = useState('Todos');
 
@@ -67,31 +72,77 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
 
   return (
     <MainContainer>
-      <HeaderAdmin />
-      <Title text="Gerenciar produtos" />
-      <Search value={searchText} handleChange={setSearchText} placeholder="Pesquisar por produto" />
-      <Dropdown
-        colorBall={colors.mediumGray}
-        options={[
-          { value: 'Todos', label: 'Todos' },
-          ...categories.map((value: string) => ({ value, label: value })),
-        ]}
-        selectedOption={category}
-        setSelectedOption={(value: string) => setCategory(value)}
-        width={`${category.length + 200}px`}
-      />
-      <PrimaryButton
-        category="normal"
-        type="submit"
-        handleClick={() => {
-          redirect('/admin/products/create');
-        }}
-        value="Criar novo produto"
-      />
-      <CardContainer height="18rem">
-        {filteredData.length > 0 &&
-          filteredData.map((product) => <CardManage key={product.slug} product={product} />)}
-      </CardContainer>
+      {
+        size_768 ?
+          <>
+            <HeaderDesktopContainer
+              hasSearch
+              placeholder="Pesquisar por produto"
+              filter={
+                <Dropdown
+                  colorBall={colors.mediumGray}
+                  options={[
+                    { value: 'Todos', label: 'Todos' },
+                    ...categories.map((value: string) => ({ value, label: value })),
+                  ]}
+                  selectedOption={category}
+                  setSelectedOption={(value: string) => setCategory(value)}
+                  width={`${category.length + 400}px`}
+                />
+              }
+            />
+            <RowContainer>
+              <Title text="Gerenciar produtos" />
+              <PrimaryButton
+                category="normal"
+                type="submit"
+                handleClick={() => {
+                  redirect('/admin/products/create');
+                }}
+                value="Criar novo produto"
+              />
+            </RowContainer>
+            <CardGridContainer>
+              {filteredData.length > 0 &&
+                filteredData.map((product) => <CardManage key={product.slug} product={product} />)
+              }
+            </CardGridContainer>
+          </>    
+        :
+          <>
+            <HeaderAdmin />
+            <Title text="Gerenciar produtos" />
+            <Search 
+              id="search-products"
+              value={searchText}
+              handleChange={setSearchText}
+              placeholder="Pesquisar por produto"
+            />
+            <Dropdown
+              colorBall={colors.mediumGray}
+              options={[
+                { value: 'Todos', label: 'Todos' },
+                ...categories.map((value: string) => ({ value, label: value })),
+              ]}
+              selectedOption={category}
+              setSelectedOption={(value: string) => setCategory(value)}
+              width={`${category.length + 200}px`}
+            />
+            <PrimaryButton
+              category="normal"
+              type="submit"
+              handleClick={() => {
+                redirect('/admin/products/create');
+              }}
+              value="Criar novo produto"
+            />
+            <CardContainer height="18rem">
+              {filteredData.length > 0 &&
+                filteredData.map((product) => <CardManage key={product.slug} product={product} />)
+              }
+            </CardContainer>
+          </>
+      }
       <MenuAdmin />
     </MainContainer>
   );

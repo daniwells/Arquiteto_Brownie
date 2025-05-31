@@ -1,6 +1,7 @@
 // Libs
 import React from 'react';
 import { redirect } from 'next/navigation';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Styles
 import * as S from './styles';
@@ -17,13 +18,18 @@ interface cardManageProps {
 }
 
 const CardManage: React.FC<cardManageProps> = ({ product }) => {
+  const size_385 = useMediaQuery('(min-width:385px)');
+
   return (
     <S.BackgroundCardManage
       whileHover={{ scale: 1.01 }}
       whileTap={{ scale: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >
-      <S.Column>
+      <S.RowOrColumn>
+        {
+          !size_385 && <S.ImageProductManageCard $url={product.images[0]} />
+        }
         <S.AboutProduct>
           <h3>{product.name}</h3>
           <p>{product.description}</p>
@@ -42,8 +48,10 @@ const CardManage: React.FC<cardManageProps> = ({ product }) => {
             </p>
           </div>
         </S.AboutProduct>
-        <S.ImageProductManageCard $url={product.images[0]} />
-      </S.Column>
+        {
+          size_385 && <S.ImageProductManageCard $url={product.images[0]} />
+        }
+      </S.RowOrColumn>
       <PrimaryButton
         fontSize="14px"
         value="Editar produto"

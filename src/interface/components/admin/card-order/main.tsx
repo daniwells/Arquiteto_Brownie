@@ -38,10 +38,12 @@ const CardOrder: React.FC<cardManageProps> = ({ order }) => {
       </S.HeaderCardOrder>
 
       <S.AboutOrder>
-        <p>Data: {formatDate(order.createdAt)}</p>
-        <div>
-          Preço: <ProductPrice value={order.totalPrice} />
-        </div>
+        <S.Row>
+          <p>Data: {formatDate(order.createdAt)}</p>
+          <div>
+            Preço: <ProductPrice value={order.totalPrice} />
+          </div>
+        </S.Row>
         <p>
           Cliente:{' '}
           {order.customer?.name && order.customer?.name?.length > 65
