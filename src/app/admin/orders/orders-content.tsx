@@ -115,7 +115,10 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
               size_768 ?
                 <CardGridContainer>
                   {filteredData.length > 0 &&
-                    filteredData.map((order) => <CardOrder key={order.id} order={order} />)
+                    filteredData.map((order) => (
+                      order.status != "FINALIZADO" &&
+                      <CardOrder key={order.id} order={order} />                      
+                    ))
                   }
                 </CardGridContainer>
               :
@@ -129,7 +132,10 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
                 {returnFilterStatus()}
                 <CardContainer height="18rem">
                   {filteredData.length > 0 &&
-                    filteredData.map((order) => <CardOrder key={order.id} order={order} />)
+                    filteredData.map((order) => 
+                      order.status != "FINALIZADO" &&
+                      <CardOrder  key={order.id} order={order} />                      
+                    )
                   }
                 </CardContainer>
               </>
