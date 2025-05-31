@@ -9,6 +9,5 @@ export const BackgroundCardContainer = styled.div<{ $height?: string }>`
   gap: 15px;
   overflow-y: auto;
   overflow-x: hidden;
-
   margin-block: 10px;
 `;

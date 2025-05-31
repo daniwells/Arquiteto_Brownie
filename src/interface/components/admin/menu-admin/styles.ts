@@ -1,14 +1,20 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import breakpoints from '@/styles/breakpoints';
+import { colors } from '@/styles/themes';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  grid-gap: 40px;
+  gap: 40px;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 50px;
+
+  @media ${breakpoints.md}{
+    gap: 100px;
+  }
 `;
 
 export const PhoneIcon = styled(Link)`
@@ -17,15 +23,25 @@ export const PhoneIcon = styled(Link)`
   width: 24px;
   height: 24px;
   cursor: pointer;
-  transition:
-    width 0.3s ease-out,
-    height 0.3s ease-out,
-    opacity 0.3s ease-out;
-
+  transition: all 0.3s ease-out;
+  
   &:hover {
     width: 26px;
     height: 26px;
     opacity: 0.8;
+  }
+  
+  @media ${breakpoints.md}{
+    width: auto;
+    background-image: None;
+    background-size: None;
+    font-size: 18px;
+
+    &:hover {
+      width: auto;
+      height: 24px;
+      color: ${colors.baseYellow};
+    }
   }
 `;
 
@@ -35,15 +51,25 @@ export const CutleryIcon = styled(Link)`
   width: 24px;
   height: 24px;
   cursor: pointer;
-  transition:
-    width 0.3s ease-out,
-    height 0.3s ease-out,
-    opacity 0.3s ease-out;
+  transition: all 0.3s ease-out;
 
   &:hover {
     width: 26px;
     height: 26px;
     opacity: 0.8;
+  }
+
+  @media ${breakpoints.md}{
+    width: auto;
+    background-image: None;
+    background-size: None;
+    font-size: 18px;
+
+    &:hover {
+      width: auto;
+      height: 24px;
+      color: ${colors.baseYellow};
+    }
   }
 `;
 
@@ -53,14 +79,24 @@ export const CategoryIcon = styled(Link)`
   width: 24px;
   height: 24px;
   cursor: pointer;
-  transition:
-    width 0.3s ease-out,
-    height 0.3s ease-out,
-    opacity 0.3s ease-out;
+  transition: all 0.3s ease-out;
 
   &:hover {
     width: 26px;
     height: 26px;
     opacity: 0.8;
+  }
+
+  @media ${breakpoints.md}{
+    width: auto;
+    background-image: None;
+    background-size: None;
+    font-size: 18px;
+
+    &:hover {
+      width: auto;
+      height: 24px;
+      color: ${colors.baseYellow};
+    }
   }
 `;

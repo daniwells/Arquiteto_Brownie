@@ -149,6 +149,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
             handleReturn={() => redirect("/")}
             title="Preencha seus dados"
             description="Para prosseguir com a sua compra, por favor preencha os campos abaixo"
+            hasReturn
           />
         :
           <>

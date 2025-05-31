@@ -99,7 +99,9 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
         <NavCategories navItems={categories} handleChange={setSelectedCategory} />
         {
           size_768 ?
-            <CardDesktopContainer>
+            <CardDesktopContainer
+              amountCards={filteredData.length}
+            >
               {filteredData.length > 0 &&
                 filteredData.map((product) => (
                   <SwiperSlide key={product.slug}>

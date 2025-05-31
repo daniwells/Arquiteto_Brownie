@@ -7,6 +7,7 @@ import { colors } from '@/styles/themes';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { redirect } from 'next/navigation';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -20,6 +21,7 @@ import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import MultiImageInput from '@/interface/components/admin/multi-image-input/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
+import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
 
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';
@@ -52,6 +54,8 @@ interface formsProduct {
 }
 
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
+  const size_768 = useMediaQuery('(min-width:768px)');
+
   const { openPopup } = usePopup();
   const [categories, setCategories] = useState(['']);
   const [loading, setLoading] = useState(false);
@@ -135,18 +139,29 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
 
   return (
     <MainContainer>
-      <HeaderAdmin redirect="/admin/products" />
-      {selectedProduct ? (
-        <DescriptionContainer
-          title="Editar produto"
-          desc="Altere qualquer informação deste produto"
-        />
-      ) : (
-        <DescriptionContainer
-          title="Criar produto"
-          desc="Preencha os campos abaixo para criar um novo produto"
-        />
-      )}
+      {
+        size_768 ?
+          <HeaderDesktopContainer
+            handleReturn={() => redirect("/admin/products")}
+            title={selectedProduct ? "Editar produto" : "Criar produto"}
+            description={
+              selectedProduct ? "Altere qualquer informação deste produto" : 
+              "Preencha os campos abaixo para criar um novo produto"
+            }
+            hasReturn
+          />
+        :
+        <>
+          <HeaderAdmin redirect="/admin/products" />
+          <DescriptionContainer
+            title={selectedProduct ? "Editar produto" : "Criar produto"}
+            desc={
+              selectedProduct ? "Altere qualquer informação deste produto" : 
+              "Preencha os campos abaixo para criar um novo produto"
+            }
+          />
+        </>
+      }
 
       <FormContainer handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput

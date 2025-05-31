@@ -2,6 +2,7 @@
 
 // Libs
 import { useState, useEffect } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -14,6 +15,7 @@ import { LineStyle } from '@/interface/components/admin/line/styles';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
+import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
 
 // Images
 import categoryIcon from '../../../../public/svg/category.svg';
@@ -25,6 +27,8 @@ import { usePopup } from '@/contexts/PopupContext';
 import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
 
 const CategoryContent = () => {
+  const size_768 = useMediaQuery('(min-width:768px)');
+
   const [loading, setLoading] = useState(false);
   const { openPopup } = usePopup();
   const [createdCategory, setCreatedCategory] = useState('');
@@ -88,11 +92,22 @@ const CategoryContent = () => {
 
   return (
     <MainContainer>
-      <HeaderAdmin />
-      <DescriptionContainer
-        title="Categorias"
-        desc="Crie ou edite uma categoria para os seus produtos"
-      />
+      {
+        size_768 ?
+          <HeaderDesktopContainer
+            title="Categorias"
+            description="Crie ou edite uma categoria para os seus produtos"
+          />
+        :
+          <>
+            <HeaderAdmin />
+            <DescriptionContainer
+              title="Categorias"
+              desc="Crie ou edite uma categoria para os seus produtos"
+            />
+          </>
+      }
+      
       <FormContainer handleSubmit={handleSubmit}>
         <BaseInput
           value={createdCategory}

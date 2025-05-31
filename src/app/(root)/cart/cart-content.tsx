@@ -76,6 +76,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
               handleReturn={() => redirect("/")}
               title="Carrinho"
               description="Brownies adicionados ao carrinho"
+              hasReturn
             />
           :
             <>
@@ -90,7 +91,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
                 <CardDesktopContainer amountCards={cart?.items.length}>
                   {cart?.items.map((item) => 
 
-                    <SwiperSlide key={item.slug}>
+                    <SwiperSlide key={item.id}>
                       <CardProductDesktop 
                         hasAddQuant
                         product={item}
@@ -105,7 +106,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
                   {cart?.items.map((item) => 
                     <CartItem 
                       product={item} 
-                      key={item.slug}
+                      key={item.id}
                       handleQuantity={handleQuantity}
                       loading={loading}
                     />
