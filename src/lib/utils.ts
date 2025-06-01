@@ -49,7 +49,11 @@ export async function formatError(error: any, action?: string) {
   if (error.name === 'PrismaClientKnownRequestError') {
     if (error.code === 'P2002') {
       const field = error.meta?.target ? error.meta.target[0] : 'Campo';
-      return `${field.charAt(0).toUpperCase() + field.slice(1)} já existe`;
+      const formatedFiled = field.charAt(0).toUpperCase() + field.slice(1);
+      if(formatedFiled === "Slug") {
+        return `Produto já existe`;
+      }
+      return `${formatedFiled} já existe`;
     }
 
     if (error.code === 'P2003' && action === 'category') {

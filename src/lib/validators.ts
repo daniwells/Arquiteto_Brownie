@@ -10,9 +10,9 @@ export const currency = z
 
 export const insertProductSchema = z.object({
   name: z.string().min(3, 'Nome do produto deve ter pelo menos 3 caracteres'),
-  slug: z.string().min(3, 'Slug deve ter pelo menos 3 caracteres'),
-  category: z.string().min(3, 'Category deve ter pelo menos 3 caracteres'),
-  description: z.string().min(3, 'Description deve ter pelo menos 3 caracteres'),
+  slug: z.string().min(3, 'Nome ou categoria inválidos'),
+  category: z.string().min(3, 'Selecione uma categoria válida'),
+  description: z.string().min(3, 'Descrição do produto deve ter pelo menos 3 caracteres'),
   images: z
     .array(
       z

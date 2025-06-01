@@ -57,7 +57,6 @@ export const createOrder = async (cart: cartType, customerId: string) => {
         data: {
           customerId: customerId,
           itemsPrice: cart.itemsPrice,
-          shippingPrice: 0,
           totalPrice: cart.itemsPrice,
           createdAt: new Date(),
         },
