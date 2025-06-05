@@ -36,7 +36,6 @@ enum OrderStatus {
   PENDENTE
   PRONTO
   ENTREGUE
-  FINALIZADO
 }
 
 model Order {
@@ -45,7 +44,7 @@ model Order {
   status        OrderStatus @default(PENDENTE)
   itemsPrice    Decimal     @db.Decimal(12, 2)
   totalPrice    Decimal     @db.Decimal(12, 2)
-  createdAt     DateTime    @default(now()) @db.Timestamp(6)
+  createdAt   DateTime    @default(now()) @db.Timestamp(6)
   customer      Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
   OrderItem     OrderItem[]
 }

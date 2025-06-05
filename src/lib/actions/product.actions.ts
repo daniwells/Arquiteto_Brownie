@@ -309,7 +309,7 @@ export async function removeProduct(id: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: formatError(error, "product"),
     };
   }
 }

@@ -89,25 +89,25 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
       openPopup(message, 'error');
     } else {
       setLoading(false);
-
-      if (order.status === 'FINALIZADO') {
-        openPopup('Pedido finalizado', 'success');
-        redirect('/admin/orders');
-      }
     }
   };
 
-  const handleEditStatus = (status: 'ENTREGUE' | 'PRONTO' | 'PENDENTE' | 'FINALIZADO') => {
+  const handleEditStatus = (status: 'ENTREGUE' | 'PRONTO' | 'PENDENTE') => {
     const newOrder = order;
     newOrder.status = status;
 
     handleEditOrderStatus(newOrder);
   };
 
-  const handleRemoveOrder = async () => {
+  const handleRemoveOrder = async (finalized?: boolean) => {
     setLoading(true);
     const removeOrderResponse = await removeOrder(order.id || '');
     setLoading(false);
+
+    if(finalized){
+      openPopup('Pedido finalizado', 'success');
+      redirect('/admin/orders');
+    }
 
     if (!removeOrderResponse?.success) {
       const message =
@@ -124,7 +124,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
         <PrimaryButton
           loading={loading}
           value="Finalizar pedido"
-          handleClick={() => handleEditStatus('FINALIZADO')}
+          handleClick={() => handleRemoveOrder(true)}
         />
         <PrimaryButton
           loading={loading}

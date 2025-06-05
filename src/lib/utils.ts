@@ -50,6 +50,7 @@ export async function formatError(error: any, action?: string) {
     if (error.code === 'P2002') {
       const field = error.meta?.target ? error.meta.target[0] : 'Campo';
       const formatedFiled = field.charAt(0).toUpperCase() + field.slice(1);
+
       if(formatedFiled === "Slug") {
         return `Produto já existe`;
       }
@@ -57,16 +58,20 @@ export async function formatError(error: any, action?: string) {
     }
 
     if (error.code === 'P2003' && action === 'category') {
-      return 'Não é possível excluir esta categoria pois existem produtos associados a ela';
+      return 'Não é possível excluir esta categoria, pois existem produtos associados a ela';
     }
 
     if (error.code === 'P2003' && action === 'order') {
       return 'Não foi possível criar o seu pedido! Produtos não encontrados';
     }
+
+    if (error.code === 'P2003' && action === 'product') {
+      return "Não é possível deletar este produto, pois existem pedidos associados a ele";
+    }
   }
 
   // Default fallback
-  return typeof error.message === 'string' ? error.message : 'Ocorreu um erro inesperado.';
+  return typeof "Ocorreu um erro inesperado.";
 }
 
 export const normalizeString = (str: string): string => {
