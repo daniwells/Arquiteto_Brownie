@@ -21,18 +21,18 @@ export const NavBar = styled(Swiper)`
 
 export const NavItem = styled.div`
   position: relative;
-
   z-index: 1;
-
+  transition: all 0.3s ease-out;
+  
+  &:hover {
+    opacity: 0.7;
+  }
+  
   a {
     font-size: 16px;
     color: ${colors.brown};
     display: inline-block;
     white-space: nowrap;
-  }
-
-  &:hover {
-    opacity: 0.7;
   }
 
   @media ${breakpoints.md} {

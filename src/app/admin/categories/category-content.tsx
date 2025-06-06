@@ -49,7 +49,7 @@ const CategoryContent = () => {
       openPopup(
         allCategories.message instanceof Promise
           ? await allCategories.message
-          : allCategories.message,
+          : "Erro ao resgatar as categorias",
         'error',
       );
       return;

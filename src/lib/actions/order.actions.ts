@@ -1,5 +1,8 @@
 'use server';
 
+// Services
+import { validateCart } from '../services/order-services';
+
 // Libs
 import { prisma } from '../../db/prisma';
 import { Prisma } from '@prisma/client';
@@ -51,20 +54,22 @@ export const createOrder = async (cart: cartType, customerId: string) => {
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
 
+    const validatedCart = validateCart(cart.items);
+
     await prisma.$transaction(async (tx) => {
       // Create order
       const responseOrder = await tx.order.create({
         data: {
           customerId: customerId,
-          itemsPrice: cart.itemsPrice,
-          totalPrice: cart.itemsPrice,
+          itemsPrice: (await validatedCart).total,
+          totalPrice: (await validatedCart).total,
           createdAt: new Date(),
         },
       });
 
       // Create the items of the order
       await Promise.all(
-        cart.items.map(async (item) => {
+        (await validatedCart).items.map(async (item) => {
           if (!item.id) throw new Error('Item ID is required');
 
           const responseOrderItem = await tx.orderItem.create({

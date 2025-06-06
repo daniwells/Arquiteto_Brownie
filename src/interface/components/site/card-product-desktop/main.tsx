@@ -12,7 +12,7 @@ interface cardProductDesktopProps {
   hasQuant?: boolean;
   handleQuantity?: (product: cartItemType, newQty: number, qty: number) => void;
   loading?: boolean;
-  qty?: number;
+  defaultQty?: number;
 }
 
 const CardProductDesktop: React.FC<cardProductDesktopProps> = ({ 
@@ -21,9 +21,10 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
     hasAddQuant,
     hasQuant,
     handleQuantity,
-    loading
+    loading,
+    defaultQty
 }) => {
-  const [qty, setQty] = useState<number>('qty' in product ? product.qty : 1);
+  const [qty, setQty] = useState<number>(defaultQty || 1);
   
   const updateQuantity = (newQty: number) => {
     if('qty' in product){
@@ -31,6 +32,8 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
       setQty(newQty);
     }
   }
+
+  console.log(product)
 
   return (
     <S.ContainerCardProductDesktop>

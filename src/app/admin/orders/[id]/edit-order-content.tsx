@@ -188,11 +188,11 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           size_768 ?
             <CardDesktopContainer amountCards={products?.length || 0}>
               {products ? (
-                products.map((product, key) => (
+                products.map((item, key) => (
                   <SwiperSlide key={key}>
                       <CardProductDesktop
-                        product={product.product}
-                        qty={product.qty}
+                        product={item.product}
+                        defaultQty={item.qty}
                         hasQuant
                         loading={loading}
                       />
@@ -205,8 +205,8 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           :
             <CardContainer>
               {products ? (
-                products.map((product, key) => (
-                  <Card key={key} product={product.product} qty={product.qty}/>
+                products.map((item, key) => (
+                  <Card key={key} product={item.product} qty={item.qty}/>
                 ))
               ) : (
                 <></>

@@ -4,7 +4,7 @@ test('response must have the same attributes', async () => {
   const response = await getProdutBySlug('classico_classico');
   expect({
     ...response,
-    price: response?.price.toString(),
+    price: response?.content?.price.toString(),
   }).toMatchObject({
     name: 'Clássico',
     slug: 'classico_classico',

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import breakpoints from '@/styles/breakpoints';
-import { colors } from '@/styles/themes';
 
 export const Container = styled.div`
   display: flex;
@@ -28,7 +27,7 @@ export const PhoneIcon = styled(Link)`
   &:hover {
     width: 26px;
     height: 26px;
-    opacity: 0.8;
+    opacity: 0.7;
   }
   
   @media ${breakpoints.md}{
@@ -40,7 +39,7 @@ export const PhoneIcon = styled(Link)`
     &:hover {
       width: auto;
       height: 24px;
-      color: ${colors.baseYellow};
+      opacity: 0.7;
     }
   }
 `;
@@ -56,7 +55,7 @@ export const CutleryIcon = styled(Link)`
   &:hover {
     width: 26px;
     height: 26px;
-    opacity: 0.8;
+    opacity: 0.7;
   }
 
   @media ${breakpoints.md}{
@@ -68,7 +67,7 @@ export const CutleryIcon = styled(Link)`
     &:hover {
       width: auto;
       height: 24px;
-      color: ${colors.baseYellow};
+      opacity: 0.7;
     }
   }
 `;
@@ -84,7 +83,7 @@ export const CategoryIcon = styled(Link)`
   &:hover {
     width: 26px;
     height: 26px;
-    opacity: 0.8;
+    opacity: 0.7;
   }
 
   @media ${breakpoints.md}{
@@ -96,7 +95,7 @@ export const CategoryIcon = styled(Link)`
     &:hover {
       width: auto;
       height: 24px;
-      color: ${colors.baseYellow};
+      opacity: 0.7;
     }
   }
 `;

@@ -6,7 +6,7 @@ import cloudinary from '@/lib/cloudinary';
 
 // Utils
 import { convertToPlainObject, omitFields, formatError } from '../utils';
-import { removeImages, saveImages } from '../server-utils';
+import { removeImages, saveImages } from '../services/product-services';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { productType } from '@/types';
 import { insertProductSchema, editProductSchema } from '../validators';
