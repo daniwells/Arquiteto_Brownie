@@ -28,7 +28,7 @@ import CardProductDesktop from '@/interface/components/site/card-product-desktop
 
 // Utils
 import { orderType, productTypeImageString } from '@/types';
-import { capitalizeFirstLetter } from '@/lib/utils';
+import { capitalizeFirstLetter } from '@/lib/utils/utils';
 
 // Actions
 import { getProdutById } from '@/lib/actions/product.actions';

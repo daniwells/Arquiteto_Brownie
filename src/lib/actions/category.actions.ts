@@ -2,13 +2,13 @@
 
 // Libs
 import { prisma } from '../../db/prisma';
-import { convertToPlainObject } from '../utils';
+import { convertToPlainObject } from '../utils/utils';
 
 // Auth
 import { auth } from '../../../auth';
 
 // Utils
-import { formatError } from '../utils';
+import { formatError } from '../utils/utils';
 
 export async function getAllCategories() {
   try {

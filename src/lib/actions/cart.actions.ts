@@ -1,7 +1,7 @@
 'use server';
 
 import { cartType, cartItemType } from '@/types';
-import { convertToPlainObject, formatError, round2 } from '../utils';
+import { convertToPlainObject, formatError, round2 } from '../utils/utils';
 import { cookies } from 'next/headers';
 import { RequestCookies } from 'next/dist/compiled/@edge-runtime/cookies';
 

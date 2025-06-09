@@ -86,7 +86,6 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
 
   useEffect(() => {
     handleFilterProduct();
-    console.log()
   }, [searchText, status]);
 
   return (

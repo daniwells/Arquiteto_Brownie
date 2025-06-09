@@ -9,7 +9,7 @@ import React, { ChangeEvent } from 'react';
 import imagesIcon from '../../../../../public/svg/images.svg';
 
 // Utils
-import { getNameImageFromPath } from '@/lib/utils';
+import { getNameImageFromPath } from '@/lib/utils/utils';
 
 interface MultiImageInputProps {
   handleChange: (files: File[]) => void;

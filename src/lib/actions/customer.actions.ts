@@ -5,7 +5,7 @@ import { prisma } from '../../db/prisma';
 
 // Utils
 import { customerType } from '@/types';
-import { formatError } from '../utils';
+import { formatError } from '../utils/utils';
 import { insertCustomerSchema } from '../validators';
 
 export const createCustomer = async (customer: customerType) => {

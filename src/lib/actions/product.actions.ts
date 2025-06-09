@@ -5,11 +5,11 @@ import { prisma } from '../../db/prisma';
 import cloudinary from '../cloudinary';
 
 // Utils
-import { convertToPlainObject, omitFields, formatError } from '../utils';
+import { convertToPlainObject, omitFields, formatError } from '../utils/utils';
 import { removeImages, saveImages } from '../services/product-services';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { productType } from '@/types';
-import { insertProductSchema, editProductSchema } from '../validators';
+import { insertProductSchema, editProductSchema } from '../utils/validators';
 
 // Auth
 import { auth } from '../../../auth';
@@ -91,7 +91,7 @@ export async function insertProduct(product: productType) {
 
     try {
       await Promise.all(
-        product?.images?.map(async (img) => {
+        product?.images?.map(async (img: File) => {
           const arrayBuffer = await img.arrayBuffer();
           const buffer = Buffer.from(arrayBuffer);
 
@@ -187,20 +187,17 @@ export async function editProduct(id: string, product: productType) {
       active: product.active,
     };
 
-    // Create product object
     const productObj = imagesIsString
       ? editProductSchema.parse(datas)
       : insertProductSchema.parse(datas);
 
-    // Adding path of images instead the File
     const imagesString: string[] = [];
     const uploadedPublicIds: string[] = [];
 
     if (!imagesIsString) {
-      // Adding path of images instead the File
       try {
         await Promise.all(
-          product?.images?.map(async (img) => {
+          product?.images?.map(async (img: File) => {
             const arrayBuffer = await img.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
 

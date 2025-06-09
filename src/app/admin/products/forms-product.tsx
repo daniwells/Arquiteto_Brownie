@@ -34,7 +34,7 @@ import { insertProduct, editProduct, removeProduct } from '@/lib/actions/product
 import { getAllCategories } from '@/lib/actions/category.actions';
 
 // Utils
-import { normalizeString } from '@/lib/utils';
+import { normalizeString } from '@/lib/utils/utils';
 import { productType } from '@/types';
 
 // Context

@@ -9,7 +9,7 @@ import { Prisma } from '@prisma/client';
 
 // Utils
 import { cartType, orderItemType, orderType } from '@/types';
-import { convertToPlainObject, formatError, omitFields } from '../utils';
+import { convertToPlainObject, formatError, omitFields } from '../utils/utils';
 
 // Auth
 import { auth } from '../../../auth';

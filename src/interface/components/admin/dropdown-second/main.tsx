@@ -44,6 +44,7 @@ const DropdownSecond: React.FC<dropdownSecondProps> = ({ icon, options, value, o
                 gap: '28px',
                 fontSize: '18px',
                 color: 'black',
+                paddingBlock: '15px',
               }}
             >
               <Image src={icon} alt="Ícone" width={20} height={20} />
@@ -56,7 +57,6 @@ const DropdownSecond: React.FC<dropdownSecondProps> = ({ icon, options, value, o
         sx={{
           border: 'none',
           backgroundColor: 'transparent',
-          paddingBlock: '15px',
           fontSize: '18px',
           color: colors.blackGray,
           width: '100%',
@@ -88,6 +88,7 @@ const DropdownSecond: React.FC<dropdownSecondProps> = ({ icon, options, value, o
               padding: '10px 16px',
               cursor: 'pointer',
               transition: 'background 0.3s',
+              
 
               '&:hover': {
                 backgroundColor: colors.mediumGray,

@@ -1,6 +1,6 @@
 import { prisma } from '../../db/prisma';
 import { cartItemType } from '@/types';
-import { CustomError } from '../exceptions';
+import { CustomError } from '../utils/exceptions';
 
 export const validateCart = async (cartItems: cartItemType[]) => {
     const ids = cartItems.map((item) => item.id || "");

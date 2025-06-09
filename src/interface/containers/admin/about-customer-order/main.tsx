@@ -1,7 +1,7 @@
 import React from 'react';
 import { customerType } from '@/types';
 import * as S from './styles';
-import { formatDocumentValue } from '@/lib/utils';
+import { formatDocumentValue } from '@/lib/utils/utils';
 
 interface aboutCustomerOrder {
   customer: customerType;

@@ -11,7 +11,7 @@ import ProductPrice from '../../global/product-price/main';
 
 // Utils
 import { orderType } from '@/types';
-import { formatDate } from '@/lib/utils';
+import { formatDate } from '@/lib/utils/utils';
 
 interface cardManageProps {
   order: orderType;

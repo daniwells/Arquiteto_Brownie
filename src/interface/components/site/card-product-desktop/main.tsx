@@ -28,12 +28,10 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
   
   const updateQuantity = (newQty: number) => {
     if('qty' in product){
-      handleQuantity?.(product, newQty, qty);
+      handleQuantity?.(product as cartItemType, newQty, qty);
       setQty(newQty);
     }
   }
-
-  console.log(product)
 
   return (
     <S.ContainerCardProductDesktop>
