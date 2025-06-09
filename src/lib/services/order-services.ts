@@ -1,7 +1,8 @@
 import { prisma } from '../../db/prisma';
 import { cartItemType } from '@/types';
+import { CustomError } from '../exceptions';
 
-export async function validateCart(cartItems: cartItemType[]) {
+export const validateCart = async (cartItems: cartItemType[]) => {
     const ids = cartItems.map((item) => item.id || "");
 
     const products = await prisma.product.findMany({
@@ -17,13 +18,13 @@ export async function validateCart(cartItems: cartItemType[]) {
     });
 
     if (products.length !== cartItems.length) {
-        throw new Error("Alguns produtos são inválidos ou inativos.");
+        throw new CustomError("Alguns produtos são inválidos ou inativos");
     }
 
     const itemsWithPrice = cartItems.map((item) => {
         const product = products.find((p) => p.id === item.id);
         if (!product) {
-            throw new Error(`Produto ${item.category} - ${item.name} não encontrado.`);
+            throw new CustomError(`Produto ${item.category} - ${item.name} não encontrado`);
         }
         const subtotal = Number(product.price) * item.qty;
         return {

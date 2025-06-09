@@ -5,6 +5,8 @@
 
 import type { Config } from 'jest';
 import WebSocket from 'ws';
+import { pathsToModuleNameMapper } from 'ts-jest';
+import { compilerOptions } from './tsconfig.json';
 
 const config: Config = {
   globals: {
@@ -202,6 +204,9 @@ const config: Config = {
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'node',
   transform: {},
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
+    prefix: '<rootDir>/',
+  }),
 };
 
 export default config;

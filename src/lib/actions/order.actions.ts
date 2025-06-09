@@ -51,10 +51,7 @@ export const createOrder = async (cart: cartType, customerId: string) => {
   try {
     if (!cart) return { success: false, message: 'Carrinho não adicionado' };
 
-    const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
-
-    const validatedCart = validateCart(cart.items);
+    const validatedCart = await validateCart(cart.items);
 
     await prisma.$transaction(async (tx) => {
       // Create order
@@ -68,9 +65,10 @@ export const createOrder = async (cart: cartType, customerId: string) => {
       });
 
       // Create the items of the order
+      
       await Promise.all(
         (await validatedCart).items.map(async (item) => {
-          if (!item.id) throw new Error('Item ID is required');
+          if (!item.id) throw new Error('Alguns produtos são inválidos ou inativos');
 
           const responseOrderItem = await tx.orderItem.create({
             data: {

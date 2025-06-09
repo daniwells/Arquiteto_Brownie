@@ -1,4 +1,5 @@
 import { ZodSchema } from 'zod';
+import { CustomError } from './exceptions';
 
 // Convert prisma object into a regular JS object
 export function convertToPlainObject<T>(value: T): T {
@@ -41,6 +42,10 @@ export function formatCurrency(amount: number | string | null) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function formatError(error: any, action?: string) {
+  if (error instanceof CustomError){
+    return error.message;
+  }
+
   if (error.name === 'ZodError') {
     const fieldErrors = Object.keys(error.errors).map((field) => error.errors[field].message);
     return fieldErrors.join('. ');
@@ -54,6 +59,7 @@ export async function formatError(error: any, action?: string) {
       if(formatedFiled === "Slug") {
         return `Produto já existe`;
       }
+
       return `${formatedFiled} já existe`;
     }
 
@@ -71,7 +77,7 @@ export async function formatError(error: any, action?: string) {
   }
 
   // Default fallback
-  return typeof "Ocorreu um erro inesperado.";
+  return "Ocorreu um erro inesperado";
 }
 
 export const normalizeString = (str: string): string => {

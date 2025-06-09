@@ -41,7 +41,7 @@ const CardProductDesktop: React.FC<cardProductDesktopProps> = ({
         <S.Content>
             <div>
                 <S.TitleAndPriceContainer>
-                    <h1>{product.name}</h1>
+                    <h3>{product.name}</h3>
                     <ProductPrice value={product.price.toString()} />
                 </S.TitleAndPriceContainer>
                 <p>{product.description}</p>

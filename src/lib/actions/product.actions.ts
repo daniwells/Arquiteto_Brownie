@@ -2,7 +2,7 @@
 
 // Libs
 import { prisma } from '../../db/prisma';
-import cloudinary from '@/lib/cloudinary';
+import cloudinary from '../cloudinary';
 
 // Utils
 import { convertToPlainObject, omitFields, formatError } from '../utils';

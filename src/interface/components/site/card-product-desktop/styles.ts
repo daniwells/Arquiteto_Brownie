@@ -6,19 +6,13 @@ export const ContainerCardProductDesktop = styled.div`
   border-radius: 10px;
   height: 400px;
   display: flex;
-  flex-direction: column;  
-
-  h3 {
-    margin: 0;
-    color: ${colors.darkGray};
-  }
+  flex-direction: column;
 
   p {
     color: ${colors.darkGray};
     margin: 5px 0 0 0;
   }
 
-  
   transition: border 0.3s ease-out, transform 0.3s ease-out;
   
   &:hover {
@@ -46,13 +40,13 @@ export const Image = styled.div<{$url: string;}>`
 `;
 
 export const Content = styled.div`
-    height: 50%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: space-between;
-
+  height: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: space-between;
+  
 `
 
 export const ButtonCardContainer = styled.div`
@@ -65,6 +59,10 @@ export const ButtonCardContainer = styled.div`
 export const TitleAndPriceContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  
+  >h3{
+    font-size: 18px;
+  }
 `
 
 export const QtyContainer = styled.p`

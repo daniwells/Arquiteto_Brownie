@@ -92,7 +92,8 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
                   {cart?.items.map((item) => 
 
                     <SwiperSlide key={item.id}>
-                      <CardProductDesktop 
+                      <CardProductDesktop
+                        defaultQty={item.qty}
                         hasAddQuant
                         product={item}
                         handleQuantity={handleQuantity}
