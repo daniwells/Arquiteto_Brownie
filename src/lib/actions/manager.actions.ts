@@ -1,6 +1,6 @@
 import { signIn } from '../../../auth';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
-import { signInFormSchema } from '../validators';
+import { signInFormSchema } from '../utils/validators';
 
 export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
