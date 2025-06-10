@@ -30,7 +30,7 @@ const mockCookies = (cart: mockCartType = mockCart) => {
 test('response must be equal', async () => {
   const response = await getCart(mockCookies());
 
-  expect(response).toEqual({ items: [], itemsPrice: '0' });
+  expect(response?.content).toEqual({ items: [], itemsPrice: '0' });
 });
 
 // Test get item cart with undefined values
@@ -43,7 +43,7 @@ test('response must fail', async () => {
 
   const response = await getCart(newMockCookies);
 
-  expect(response).toEqual({ message: 'Carrinho não encontrado', success: false });
+  expect(response).toEqual({ content: null, message: 'Carrinho não encontrado', success: false });
 });
 
 // Test add item to cart
