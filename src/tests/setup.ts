@@ -31,3 +31,7 @@ beforeEach(() => {
   jest.clearAllMocks();
   (auth as jest.Mock).mockResolvedValue(fakeSession);
 });
+
+jest.mock('next/headers', () => ({
+  cookies: jest.fn(),
+}));
