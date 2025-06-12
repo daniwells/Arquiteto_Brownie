@@ -2,21 +2,27 @@ import { z } from 'zod';
 import { formatNumberWithDecimal } from './utils';
 
 export const currency = z
-  .string()
+  .string({ invalid_type_error: 'Preço incorreto' })
   .refine(
     (value) => /^\d+(\.\d{2})?$/.test(formatNumberWithDecimal(Number(value))),
     'Preço deve ter pelo menos duas casas decimais',
   );
 
 export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Nome do produto deve ter pelo menos 3 caracteres'),
-  slug: z.string().min(3, 'Nome ou categoria inválidos'),
-  category: z.string().min(3, 'Selecione uma categoria válida'),
+  name: z
+    .string({ invalid_type_error: 'Nome com valor incorreto' })
+    .min(3, 'Nome do produto deve ter pelo menos 3 caracteres'),
+  slug: z
+    .string({invalid_type_error: 'Slug com valor incorreto'})
+    .min(3, 'Nome ou categoria inválidos'),
+  category: z
+    .string({ invalid_type_error: 'Categoria com valor incorreto' })
+    .min(3, 'Selecione uma categoria válida'),
   description: z.string().min(3, 'Descrição do produto deve ter pelo menos 3 caracteres'),
   images: z
     .array(
       z
-        .instanceof(File)
+        .instanceof(File, { message: 'Arquivo inválido' })
         .refine((file) => file.size <= 5 * 1024 * 1024, {
           message: 'O arquivo deve ter no máximo 5MB',
         })

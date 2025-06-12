@@ -1,6 +1,32 @@
 import cloudinary from '@/lib/cloudinary';
 import { productType, editProductType } from '@/types';
 import { Readable } from 'stream';
+import { CustomError } from '../utils/exceptions';
+
+
+export const saveAllImages = async (
+  product: productType, 
+  productObj: productType | editProductType, 
+  imagesString: string[], 
+  uploadedPublicIds: string[]
+) => {
+  try {
+      await Promise.all(
+        product?.images?.map(async (img: File) => {
+          const arrayBuffer = await img.arrayBuffer();
+          const buffer = Buffer.from(arrayBuffer);
+
+          const uploadResult = await saveImages(buffer, img, productObj);
+
+          imagesString.push(uploadResult.secure_url);
+          uploadedPublicIds.push(uploadResult.public_id);
+        }),
+      );
+    } catch(error){
+      console.log(`error: ${error}`)
+      throw new CustomError('Não foi possível salvar as imagens do produto' + error);
+    }
+}
 
 // Save images from product
 export const saveImages = async (

@@ -4,59 +4,76 @@
 import { prisma } from '../../db/prisma';
 import cloudinary from '../cloudinary';
 
+// Services
+import { removeImages, saveAllImages } from '../services/product-services';
+
 // Utils
 import { convertToPlainObject, omitFields, formatError } from '../utils/utils';
-import { removeImages, saveImages } from '../services/product-services';
 import { LATEST_PRODUCTS_LIMIT } from '../constants';
 import { productType } from '@/types';
 import { insertProductSchema, editProductSchema } from '../utils/validators';
+import { CustomError } from '../utils/exceptions';
 
 // Auth
 import { auth } from '../../../auth';
 
 export async function getLatestProducts() {
-  const data = await prisma.product.findMany({
-    take: LATEST_PRODUCTS_LIMIT,
-    orderBy: { createdAt: 'desc' },
-    include: {
-      category: true,
-    },
-  });
+  try{
+    const data = await prisma.product.findMany({
+      take: LATEST_PRODUCTS_LIMIT,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        category: true,
+      },
+    });
 
-  const newData = data.map(({ category, ...rest }) => ({
-    ...rest,
-    category: category.category,
-  }));
+    const newData = data.map(({ category, ...rest }) => ({
+      ...rest,
+      category: category.category,
+    }));
 
-  return convertToPlainObject(newData);
+    return convertToPlainObject(newData);
+  }catch(error){
+    return {
+      success: false,
+      message: await formatError(error),
+    };
+  }
 }
 
 const getProduct = async (key: string, value: string) => {
-  const product = await prisma.product.findFirst({
-    where: { [key]: value },
-    include: {
-      category: true,
-    },
-  });
+  try{
+    const product = await prisma.product.findFirst({
+      where: { [key]: value },
+      include: {
+        category: true,
+      },
+    });
 
-  if (!product)
+    if (!product)
+      return {
+        success: false,
+        message: `Produto não encontrado, ${key} incorreto`,
+      };
+
+    const { category, ...rest } = product;
+
+    const newProduct = convertToPlainObject({
+      ...rest,
+      category: category.category,
+    });
+
+    return {
+      success: true,
+      message: '',
+      content: newProduct,
+    };
+  }catch(error){
     return {
       success: false,
-      message: `Produto não encontrado, ${key} incorreto`,
+      message: await formatError(error),
     };
-
-  const { category, ...rest } = product;
-
-  const newProduct = convertToPlainObject({
-    ...rest,
-    category: category.category,
-  });
-
-  return {
-    success: true,
-    message: '',
-    content: newProduct,
-  };
+  }
 };
 
 export async function getProdutBySlug(slug: string) {
@@ -72,9 +89,8 @@ export async function insertProduct(product: productType) {
     if (!product) return { success: false, message: 'Produto não encontrado' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
-    // Create product object
     const productObj = insertProductSchema.parse({
       name: product.name,
       slug: product.slug,
@@ -85,25 +101,15 @@ export async function insertProduct(product: productType) {
       active: product.active,
     });
 
-    // Adding path of images instead the File
     const imagesString: string[] = [];
     const uploadedPublicIds: string[] = [];
 
-    try {
-      await Promise.all(
-        product?.images?.map(async (img: File) => {
-          const arrayBuffer = await img.arrayBuffer();
-          const buffer = Buffer.from(arrayBuffer);
-
-          const uploadResult = await saveImages(buffer, img, productObj);
-
-          imagesString.push(uploadResult.secure_url);
-          uploadedPublicIds.push(uploadResult.public_id);
-        }),
-      );
-    } catch {
-      throw new Error('Não foi possível salvar as imagens do produto');
-    }
+    await saveAllImages(
+      product, 
+      productObj, 
+      imagesString, 
+      uploadedPublicIds
+    );
 
     const insertedCategory = await prisma.category.findFirst({
       where: { category: productObj.category },
@@ -121,7 +127,6 @@ export async function insertProduct(product: productType) {
       images: imagesString,
     };
 
-    // Save product in database
     const insertedProduct = await prisma.product.create({
       data: omitFields(productObjFinal, ['category']),
     });
@@ -140,7 +145,7 @@ export async function insertProduct(product: productType) {
           }
         }),
       );
-      throw new Error('Erro ao criar o produto');
+      throw new CustomError('Erro ao criar o produto');
     }
 
     return {
@@ -150,10 +155,12 @@ export async function insertProduct(product: productType) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
     };
   }
 }
+
+
 
 export async function editProduct(id: string, product: productType) {
   try {
@@ -161,7 +168,7 @@ export async function editProduct(id: string, product: productType) {
     if (!product) return { success: false, message: 'Novo produto não recebido' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
     const selectedProduct = await prisma.product.findFirst({
       where: { id: id },
@@ -195,22 +202,12 @@ export async function editProduct(id: string, product: productType) {
     const uploadedPublicIds: string[] = [];
 
     if (!imagesIsString) {
-      try {
-        await Promise.all(
-          product?.images?.map(async (img: File) => {
-            const arrayBuffer = await img.arrayBuffer();
-            const buffer = Buffer.from(arrayBuffer);
-
-            const uploadResult = await saveImages(buffer, img, productObj);
-
-            imagesString.push(uploadResult.secure_url);
-            uploadedPublicIds.push(uploadResult.public_id);
-          }),
-        );
-      } catch (error) {
-        console.error(error);
-        throw new Error('Não foi possível salvar as imagens do produto' + { error });
-      }
+      await saveAllImages(
+        product, 
+        productObj, 
+        imagesString, 
+        uploadedPublicIds
+      );
     }
 
     const productObjWithoutImages = omitFields(productObj, ['images', 'category']);
@@ -222,7 +219,7 @@ export async function editProduct(id: string, product: productType) {
     if (!insertedCategory)
       return {
         success: false,
-        message: `Categoria não encontrada`,
+        message: "Categoria não encontrada",
       };
 
     const productObjFinal = {
@@ -231,7 +228,6 @@ export async function editProduct(id: string, product: productType) {
       categoryId: insertedCategory.id,
     };
 
-    // Update in database
     const updatedProduct = await prisma.product.update({
       where: { id },
       data: { ...productObjFinal },
@@ -250,13 +246,13 @@ export async function editProduct(id: string, product: productType) {
           }
         }),
       );
-      throw new Error('Erro ao editar o produto');
+      throw new CustomError('Erro ao editar o produto');
     }
 
     if (!imagesIsString) {
       const responseRemoveImage = await removeImages(oldImages || []);
 
-      if (!responseRemoveImage.success) {
+      if (!responseRemoveImage?.success) {
         return responseRemoveImage;
       }
     }
@@ -266,10 +262,9 @@ export async function editProduct(id: string, product: productType) {
       message: 'Produto editado com sucesso',
     };
   } catch (error) {
-    console.error(error);
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
     };
   }
 }
@@ -279,7 +274,7 @@ export async function removeProduct(id: string) {
     if (!id) return { success: false, message: 'Produto não encontrado' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
     const selectedProduct = await prisma.product.delete({
       where: { id: id },
@@ -306,7 +301,7 @@ export async function removeProduct(id: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error, "product"),
+      message: await formatError(error, "product"),
     };
   }
 }
