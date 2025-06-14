@@ -8,6 +8,7 @@ import { convertToPlainObject } from '../utils/utils';
 import { auth } from '../../../auth';
 
 // Utils
+import { CustomError } from '../utils/exceptions';
 import { formatError } from '../utils/utils';
 
 export async function getAllCategories() {
@@ -20,7 +21,7 @@ export async function getAllCategories() {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
       content: [],
     };
   }
@@ -31,12 +32,12 @@ export async function insertCategory(category: string) {
     if (!category) return { success: false, message: 'Categoria não encontrada' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
     // Save category in database
     const insertedCategory = await prisma.category.create({ data: { category: category } });
 
-    if (!insertedCategory) throw new Error('Erro ao criar a categoria');
+    if (!insertedCategory) throw new CustomError('Erro ao criar a categoria');
 
     return {
       success: true,
@@ -45,7 +46,7 @@ export async function insertCategory(category: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
     };
   }
 }
@@ -57,7 +58,6 @@ export async function removeCategory(categoryId: string) {
     const session = await auth();
     if (!session) throw new Error('Usuário não autenticado');
 
-    // Delete category
     await prisma.category.delete({
       where: {
         id: categoryId,
@@ -71,7 +71,7 @@ export async function removeCategory(categoryId: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error, 'category'),
+      message: await formatError(error, 'category'),
     };
   }
 }

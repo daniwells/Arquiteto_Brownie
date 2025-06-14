@@ -131,4 +131,3 @@ export async function deleteCart() {
     return { success: false, message: await formatError(error) };
   }
 }
-

@@ -12,6 +12,7 @@ jest.mock('../db/prisma', () => ({
     category: {
       findFirst: jest.fn(),
       create: jest.fn(),
+      findMany: jest.fn(),
     }
   },
 }));
@@ -23,6 +24,19 @@ jest.mock('../lib/services/product-services', () => ({
   saveImages: jest.fn(),
   saveAllImages: jest.fn(),
   removeImages: jest.fn(),
+}));
+
+// jest.mock('../lib/utils/validators', () => ({
+//   insertProductSchema: {
+//     parse: jest.fn(),
+//   },
+//   editProductSchema: {
+//     parse: jest.fn(),
+//   },
+// }));
+
+jest.mock('next/dist/client/components/redirect', () => ({
+  getRedirectError: jest.fn(),
 }));
 
 beforeEach(() => {

@@ -132,7 +132,6 @@ export async function insertProduct(product: productType) {
     });
 
     if (!insertedProduct) {
-      // Remove saved images
       await Promise.all(
         uploadedPublicIds.map(async (id) => {
           try {
