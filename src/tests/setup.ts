@@ -13,7 +13,12 @@ jest.mock('../db/prisma', () => ({
       findFirst: jest.fn(),
       create: jest.fn(),
       findMany: jest.fn(),
-    }
+    },
+    customer: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
   },
 }));
 

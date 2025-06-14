@@ -7,6 +7,7 @@ import { prisma } from '../../db/prisma';
 import { customerType } from '@/types';
 import { formatError } from '../utils/utils';
 import { insertCustomerSchema } from '../utils/validators';
+import { CustomError } from '../utils/exceptions';
 
 export const createCustomer = async (customer: customerType) => {
   try {
@@ -16,10 +17,9 @@ export const createCustomer = async (customer: customerType) => {
 
     if (!searchCustomer) {
       const customerValidated = insertCustomerSchema.parse(customer);
-      // Create Customer
       const response = await prisma.customer.create({ data: customerValidated });
 
-      if (!response) throw new Error('Erro ao cadastrar os dados do cliente');
+      if (!response) throw new CustomError('Erro ao cadastrar os dados do cliente');
 
       return {
         success: true,
@@ -28,12 +28,11 @@ export const createCustomer = async (customer: customerType) => {
       };
     }
 
-    // Edit customer
     const response = await prisma.customer.update({
       where: { phone: customer.phone },
       data: customer,
     });
-    if (!response) throw new Error('Erro ao atualizar os dados do cliente');
+    if (!response) throw new CustomError('Erro ao atualizar os dados do cliente');
 
     return {
       success: true,
@@ -41,9 +40,10 @@ export const createCustomer = async (customer: customerType) => {
       content: response.id,
     };
   } catch (error) {
+    
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
     };
   }
 };
