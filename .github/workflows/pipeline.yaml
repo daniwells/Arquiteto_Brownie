@@ -17,7 +17,7 @@ jobs:
       - run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
       - run: npm install
       - run: npx prisma generate
-      - run: npx prisma db seed
+      # - run: npx prisma db seed
       - run: npm test
   # deploy:
   #   needs: test
