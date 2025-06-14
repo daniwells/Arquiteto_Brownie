@@ -1,5 +1,23 @@
 import { auth } from "../../auth";
 
+class File {
+  parts: any[];
+  name: string;
+  size: number;
+  type: string;
+  lastModified: number;
+  
+  constructor(parts: any[], filename: string, properties?: any) {
+    this.parts = parts;
+    this.name = filename;
+    this.lastModified = properties?.lastModified || Date.now();
+    this.size = parts.reduce((acc, part) => acc + (part.length || 0), 0);
+    this.type = properties?.type || '';
+  }
+}
+
+(global as any).File = File;
+
 jest.mock('../db/prisma', () => ({
   prisma: {
     product: {

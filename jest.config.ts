@@ -13,10 +13,10 @@ const config: Config = {
   },
 
   setupFiles: ['<rootDir>/jest.setup.ts'],  
+  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
   preset: "ts-jest/presets/default-esm",
   testEnvironment: "node",
   transform: {},
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setup.ts'],
 };
 
 export default config;

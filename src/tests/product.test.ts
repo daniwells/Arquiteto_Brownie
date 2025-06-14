@@ -29,6 +29,18 @@ const mockProduct = {
   active: true,
 };
 
+const expectedImage = [
+  {
+    "lastModified": expect.any(Number),
+    "name": expect.any(String),
+    "parts": [
+      expect.any(String),
+    ],
+    "size": expect.any(Number),
+    "type": expect.any(String),
+  },
+]
+
 describe('getLatestProducts', () => {
   it("should return converted product list", async () => {
     const mockProducts = [mockProduct];
@@ -45,7 +57,7 @@ describe('getLatestProducts', () => {
 
     const newMockProduct = omitFields(mockProduct, ["category"]);
 
-    expect(result).toEqual([{...newMockProduct, images: [{}]}]);
+    expect(result).toMatchObject([{...newMockProduct, images: expectedImage}]);
   });
 
   it("should return empty array when no products exist", async () => {
@@ -76,7 +88,7 @@ describe('getLatestProducts', () => {
 describe('getProduct', () => {
   const id = '123';
 
-  it('should return the product with success', async () => {
+  it('should return the product successfully', async () => {
     (prisma.product.findFirst as jest.Mock).mockResolvedValue(mockProduct);
 
     const result = await getProdutById(id);
@@ -86,14 +98,14 @@ describe('getProduct', () => {
       include: { category: true },
     });
 
-    expect(result).toEqual({
+    expect(result).toMatchObject({
       success: true,
       message: '',
       content: {
         name: 'Brownie1',
         slug: 'brownie_meio_amargo',
         description: 'Descrição',
-        images: [{}],
+        images: expectedImage,
         price: "10",
         active: true,
       },

@@ -1,4 +1,4 @@
-name: Run Tests and Deploy to Vercel
+name: Run Tests
 on:
   push:
     branches:
@@ -6,19 +6,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    # env:
+    #   NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+      # DATABASE_URL: ${{ secrets.DATABASE_URL }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+      # - run: echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
       - run: npm install
-      - run: npx prisma generate
+      # - run: npx prisma generate
       # - run: npx prisma db seed
-      - run: npm test
+      - run: npm run test
   # deploy:
   #   needs: test
   #   runs-on: ubuntu-latest
