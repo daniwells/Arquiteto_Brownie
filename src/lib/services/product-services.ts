@@ -22,9 +22,8 @@ export const saveAllImages = async (
           uploadedPublicIds.push(uploadResult.public_id);
         }),
       );
-    } catch(error){
-      console.log(`error: ${error}`)
-      throw new CustomError('Não foi possível salvar as imagens do produto' + error);
+    } catch{
+      throw new CustomError('Não foi possível salvar as imagens do produto');
     }
 }
 

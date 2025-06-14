@@ -10,51 +10,70 @@ import { Prisma } from '@prisma/client';
 // Utils
 import { cartType, orderItemType, orderType } from '@/types';
 import { convertToPlainObject, formatError, omitFields } from '../utils/utils';
+import { CustomError } from '../utils/exceptions';
 
 // Auth
 import { auth } from '../../../auth';
 
 export async function getOrders() {
-  const data = await prisma.order.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: {
-      customer: true,
-    },
-  });
+  try{
+    const data = await prisma.order.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        customer: true,
+      },
+    });
 
-  return convertToPlainObject(data);
+    return {
+      success: true,
+      message: "",
+      content: convertToPlainObject(data),
+    };
+    
+  }catch (error) {
+    return {
+      success: false,
+      message: await formatError(error),
+      content: [],
+    };
+  }
 }
 
 export const getOrderById = async (value: string) => {
-  const order = await prisma.order.findFirst({
-    where: { id: value },
-    include: {
-      customer: true,
-      OrderItem: true,
-    },
-  });
+  try{
+    const order = await prisma.order.findFirst({
+      where: { id: value },
+      include: {
+        customer: true,
+        OrderItem: true,
+      },
+    });
 
-  if (!order) {
+    if (!order) {
+      return {
+        success: false,
+        message: `Produto não encontrado`,
+      };
+    }
+
+    return {
+      success: true,
+      content: order,
+    };
+  }catch(error){
     return {
       success: false,
-      message: `Produto não encontrado, id incorreto`,
+      message: await formatError(error),
     };
   }
-
-  return {
-    success: true,
-    content: order,
-  };
 };
 
 export const createOrder = async (cart: cartType, customerId: string) => {
   try {
     if (!cart) return { success: false, message: 'Carrinho não adicionado' };
-
     const validatedCart = await validateCart(cart.items);
 
     await prisma.$transaction(async (tx) => {
-      // Create order
       const responseOrder = await tx.order.create({
         data: {
           customerId: customerId,
@@ -63,12 +82,10 @@ export const createOrder = async (cart: cartType, customerId: string) => {
           createdAt: new Date(),
         },
       });
-
-      // Create the items of the order
       
       await Promise.all(
         (await validatedCart).items.map(async (item) => {
-          if (!item.id) throw new Error('Alguns produtos são inválidos ou inativos');
+          if (!item.id) throw new CustomError('Alguns produtos são inválidos ou inativos');
 
           const responseOrderItem = await tx.orderItem.create({
             data: {
@@ -80,7 +97,7 @@ export const createOrder = async (cart: cartType, customerId: string) => {
             },
           });
           if (!responseOrderItem) {
-            throw new Error('Erro ao criar o item do pedido');
+            throw new CustomError('Erro ao criar o item do pedido');
           }
         }),
       );
@@ -93,7 +110,7 @@ export const createOrder = async (cart: cartType, customerId: string) => {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error, 'order'),
+      message: await formatError(error, 'order'),
     };
   }
 };
@@ -108,9 +125,8 @@ export const editOrderItem = async (
       return { success: false, message: 'Item do pedido não encontrado' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
-    // Edit order
     const responseOrderItem = await prisma.orderItem.update({
       where: {
         orderId_productId: {
@@ -121,7 +137,7 @@ export const editOrderItem = async (
       data: orderItem,
     });
 
-    if (!responseOrderItem) throw new Error('Erro ao editar o item do pedido');
+    if (!responseOrderItem) throw new CustomError('Erro ao editar o item do pedido');
 
     return {
       success: true,
@@ -130,7 +146,7 @@ export const editOrderItem = async (
   } catch (error) {
     return {
       success: false,
-      message: formatError(error, 'order'),
+      message: await formatError(error, 'order'),
     };
   }
 };
@@ -140,17 +156,16 @@ export const editOrder = async (order: orderType) => {
     if (!order) return { success: false, message: 'Pedido não encontrado' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
     const orderNoItems = omitFields(order, ['OrderItem', 'customer']);
 
-    // Edit order
     const responseOrder = await prisma.order.update({
       where: { id: order.id },
       data: orderNoItems,
     });
 
-    if (!responseOrder) throw new Error('Erro ao editar o pedido');
+    if (!responseOrder) throw new CustomError('Erro ao editar o pedido');
 
     return {
       success: true,
@@ -159,7 +174,7 @@ export const editOrder = async (order: orderType) => {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error, 'order'),
+      message: await formatError(error, 'order'),
     };
   }
 };
@@ -169,13 +184,13 @@ export async function removeOrder(id: string) {
     if (!id) return { success: false, message: 'Pedido não encontrado' };
 
     const session = await auth();
-    if (!session) throw new Error('Usuário não autenticado');
+    if (!session) throw new CustomError('Usuário não autenticado');
 
     const responseOrder = await prisma.order.delete({
       where: { id: id },
     });
 
-    if (!responseOrder) throw new Error('Erro ao editar o pedido');
+    if (!responseOrder) throw new CustomError('Erro ao editar o pedido');
 
     return {
       success: true,
@@ -184,7 +199,7 @@ export async function removeOrder(id: string) {
   } catch (error) {
     return {
       success: false,
-      message: formatError(error),
+      message: await formatError(error),
     };
   }
 }

@@ -16,7 +16,7 @@ const Orders = async () => {
 
   const order = await getOrders();
 
-  const orderContent = JSON.parse(JSON.stringify(order));
+  const orderContent = JSON.parse(JSON.stringify(order.content));
 
   return <OrdersContent orders={orderContent} />;
 };
