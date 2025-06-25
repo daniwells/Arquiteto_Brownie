@@ -160,7 +160,7 @@ ${item.qty} - (${item.category}) ${item.name}`).join(" ")}
 Preço: R$${cart.itemsPrice}.
 `;
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    window.location.href = url;
   }
 
   return (
