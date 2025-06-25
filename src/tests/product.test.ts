@@ -57,7 +57,7 @@ describe('getLatestProducts', () => {
 
     const newMockProduct = omitFields(mockProduct, ["category"]);
 
-    expect(result).toMatchObject([{...newMockProduct, images: expectedImage}]);
+    expect(result.content).toMatchObject([{...newMockProduct, images: expectedImage}]);
   });
 
   it("should return empty array when no products exist", async () => {
@@ -65,7 +65,7 @@ describe('getLatestProducts', () => {
 
     const result = await getLatestProducts();
 
-    expect(result).toEqual([]);
+    expect(result.content).toEqual([]);
   });
 
   it("should handle products with no category gracefully", async () => {
@@ -81,7 +81,7 @@ describe('getLatestProducts', () => {
     (prisma.product.findMany as jest.Mock).mockResolvedValue(mockProducts);
 
     const result = await getLatestProducts();
-    expect(result).toMatchObject({"message": {}, "success": false});
+    expect(result).toMatchObject({"message": {}, "success": false, "content": []});
   });
 });
 

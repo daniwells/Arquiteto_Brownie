@@ -130,6 +130,7 @@ describe('createOrder', () => {
     expect(result).toEqual({
       success: true,
       message: 'Pedido criado com sucesso',
+      content: "#order1",
     });
 
 

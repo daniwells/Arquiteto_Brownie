@@ -46,7 +46,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
       const response = await removeItemFromCart(String(product.id));
 
       if (!response?.success) {
-        const message = response.message instanceof Promise ? await response.message : '';
+        const message = response.message ? await response.message : '';
 
         openPopup(message, 'error');
         return;
@@ -56,7 +56,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
     if (newQty > qty) {
       const response = await addItemToCart(product);
       if (!response?.success) {
-        const message = response.message instanceof Promise ? await response.message : '';
+        const message = response.message ? await response.message : '';
 
         openPopup(message, 'error');
         return;

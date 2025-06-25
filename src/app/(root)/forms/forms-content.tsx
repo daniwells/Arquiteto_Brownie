@@ -32,6 +32,9 @@ import { getCart, deleteCart } from '@/lib/actions/cart.actions';
 import { createOrder } from '@/lib/actions/order.actions';
 import { cartType } from '@/types';
 
+// Constants
+import { NEXT_PUBLIC_WHATSAPP_NUMBER } from '@/lib/constants';
+
 interface formData {
   name: string;
   phone: string;
@@ -74,10 +77,11 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
     setLoading(true);
     response = await createCustomer(customer);
+
     setLoading(false);
 
     if (!response?.success) {
-      const message = response.message instanceof Promise ? await response.message : '';
+      const message = response.message ? await response.message : '';
 
       openPopup(message, 'error');
       return false;
@@ -93,15 +97,15 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
       setLoading(false);
 
       if (!order?.success) {
-        const message = order.message instanceof Promise ? await order.message : '';
+        const message = order.message ? await order.message : '';
 
         openPopup(message, 'error');
-        return false;
+        return {status: false, orderId: ""};
       }
       await deleteCart();
-      return true;
+      return {status: true, orderId: order.content};
     }
-    return false;
+    return {status: false, orderId: ""};
   };
 
   const handleGetCart = async () => {
@@ -128,18 +132,36 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
   const onSubmit = async (data: formData) => {
     const cart = await handleGetCart();
-
+    
     if (cart) {
       const idCustomer = await handleCreateCustomer(data);
       if (idCustomer) {
-        const responseOrder = await handleCreateOrder(idCustomer, cart);
-        if (responseOrder) {
+        const { status, orderId } = await handleCreateOrder(idCustomer, cart);
+        if (status) {
           openPopup('Pedido criado com sucesso', 'success');
+          handleSendToWhatsApp(cart, orderId || "");
           reset();
         }
       }
     }
   };
+
+  const handleSendToWhatsApp = (cart: cartType, orderId: string) => {
+    const number = NEXT_PUBLIC_WHATSAPP_NUMBER;
+
+    const message = `
+Olá, me chamo ${watchFields.name}, gostaria de finalizar a minha compra no Arquiteto do Brownie.
+      
+Informações do pedido:
+Código: ${orderId}
+${cart.items.map((item) => `
+${item.qty} - (${item.category}) ${item.name}`).join(" ")}
+
+Preço: R$${cart.itemsPrice}.
+`;
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  }
 
   return (
     <MainContainer>

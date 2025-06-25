@@ -3,7 +3,7 @@ import { auth } from '../../../../auth';
 import { redirect } from 'next/navigation';
 
 export const metadata = {
-  title: 'Categories',
+  title: 'Categorias',
 };
 
 const Forms = async () => {

@@ -4,3 +4,4 @@ export const APP_DESCRIPTION =
 export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000';
 export const LATEST_PRODUCTS_LIMIT = Number(process.env.LATEST_PRODUCTS_LINIT) || 100;
 export const EMAIL_ADMIN = process.env.EMAIL_ADMIN?.split(';') || [];
+export const NEXT_PUBLIC_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";

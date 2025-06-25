@@ -11,6 +11,10 @@ import { auth } from '../../../../auth';
 import { getLatestProducts } from '@/lib/actions/product.actions';
 import { getAllCategories } from '@/lib/actions/category.actions';
 
+export const metadata = {
+  title: 'Produtos',
+};
+
 const AdminProducts = async () => {
   const session = await auth();
 
@@ -23,7 +27,7 @@ const AdminProducts = async () => {
 
   return (
     <ContentManage
-      data={latestProducts}
+      data={latestProducts.content}
       categories={allCategories.content.map((cat: { category: string }) => cat.category)}
     />
   );

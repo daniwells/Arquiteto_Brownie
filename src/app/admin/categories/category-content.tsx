@@ -47,7 +47,7 @@ const CategoryContent = () => {
 
     if (!allCategories.success) {
       openPopup(
-        allCategories.message instanceof Promise
+        allCategories.message
           ? await allCategories.message
           : "Erro ao resgatar as categorias",
         'error',
@@ -56,7 +56,7 @@ const CategoryContent = () => {
     }
 
     const categoriesResponse =
-      allCategories?.content instanceof Promise
+      allCategories?.content
         ? await allCategories.content
         : allCategories.content;
 
@@ -67,7 +67,7 @@ const CategoryContent = () => {
     setLoading(true);
     const response = await insertCategory(createdCategory);
     if (!response?.success) {
-      const message = response.message instanceof Promise ? await response.message : '';
+      const message = response.message ? await response.message : '';
       openPopup(message, 'error');
     }
     setLoading(false);
@@ -79,7 +79,7 @@ const CategoryContent = () => {
     setLoading(false);
 
     if (!response?.success) {
-      const message = response.message instanceof Promise ? await response.message : '';
+      const message = response.message ? await response.message : '';
       openPopup(message, 'error');
     }
 

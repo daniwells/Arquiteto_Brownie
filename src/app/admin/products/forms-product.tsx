@@ -96,7 +96,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
     setLoading(false);
 
     if (!response?.success) {
-      const message = response.message instanceof Promise ? await response.message : '';
+      const message = response.message ? await response.message : '';
 
       openPopup(message, 'error');
     } else {
@@ -107,12 +107,12 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const handleGetAllCategories = async () => {
     const response = await getAllCategories();
     if (!response.success) {
-      openPopup(response.message instanceof Promise ? await response.message : '', 'error');
+      openPopup(response.message ? await response.message : '', 'error');
       return;
     }
 
     const categoriesResponse =
-      response?.content instanceof Promise ? await response.content : response.content;
+      response?.content ? await response.content : response.content;
     const categories = [''];
     categoriesResponse.map((category: { category: string; id: string }) => {
       categories.push(category.category);
@@ -129,7 +129,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
     const response = await removeProduct(selectedProduct?.id || '');
 
     if (!response?.success) {
-      const message = response.message instanceof Promise ? await response.message : '';
+      const message = response.message ? await response.message : '';
       openPopup(message, 'error');
     } else {
       openPopup('Produto removido com sucesso', 'success');

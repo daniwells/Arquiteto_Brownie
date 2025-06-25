@@ -73,6 +73,8 @@ export const createOrder = async (cart: cartType, customerId: string) => {
     if (!cart) return { success: false, message: 'Carrinho não adicionado' };
     const validatedCart = await validateCart(cart.items);
 
+
+    let orderId = "";
     await prisma.$transaction(async (tx) => {
       const responseOrder = await tx.order.create({
         data: {
@@ -83,6 +85,7 @@ export const createOrder = async (cart: cartType, customerId: string) => {
         },
       });
       
+      orderId = responseOrder.id;
       await Promise.all(
         (await validatedCart).items.map(async (item) => {
           if (!item.id) throw new CustomError('Alguns produtos são inválidos ou inativos');
@@ -106,6 +109,7 @@ export const createOrder = async (cart: cartType, customerId: string) => {
     return {
       success: true,
       message: 'Pedido criado com sucesso',
+      content: `#${orderId?.slice(0, 6)}`,
     };
   } catch (error) {
     return {

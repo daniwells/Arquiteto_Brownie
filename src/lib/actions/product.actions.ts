@@ -31,12 +31,17 @@ export async function getLatestProducts() {
       ...rest,
       category: category.category,
     }));
-
-    return convertToPlainObject(newData);
+    
+    return {
+      success: false,
+      message: "",
+      content: convertToPlainObject(newData)
+    };
   }catch(error){
     return {
       success: false,
       message: await formatError(error),
+      content: [],
     };
   }
 }

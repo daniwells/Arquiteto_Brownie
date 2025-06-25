@@ -85,7 +85,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
 
     if (!editOrderResponse?.success) {
       const message =
-        editOrderResponse.message instanceof Promise ? await editOrderResponse.message : '';
+        editOrderResponse.message ? await editOrderResponse.message : '';
       openPopup(message, 'error');
     } else {
       setLoading(false);
@@ -111,7 +111,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
 
     if (!removeOrderResponse?.success) {
       const message =
-        removeOrderResponse.message instanceof Promise ? await removeOrderResponse.message : '';
+        removeOrderResponse.message ? await removeOrderResponse.message : '';
       openPopup(message, 'error');
     } else {
       openPopup('Pedido cencelado', 'success');
@@ -180,7 +180,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           :
             <>
               <HeaderAdmin redirect="/admin/orders" />
-              <Title text={`Pedido #${order.id?.slice(0, 6)}`} />
+              <Title text={`Pedido #${order.id?.slice(0, 6)}`}/>
             </>
         }
         {returnOrderStatus()}

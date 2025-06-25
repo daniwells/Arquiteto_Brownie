@@ -2,6 +2,10 @@ import FormsProduct from '@/app/admin/products/forms-product';
 import { auth } from '../../../../../auth';
 import { redirect } from 'next/navigation';
 
+export const metadata = {
+  title: 'Criar Produtos',
+};
+
 const CreateProduct = async () => {
   const session = await auth();
 

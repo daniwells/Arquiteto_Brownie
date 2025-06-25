@@ -13,7 +13,7 @@ const Home = async () => {
   const categories = await getAllCategories();
 
   const validCategories = [''];
-  latestProducts.map((product) => {
+  latestProducts.content.map((product) => {
     if (product.active) {
       validCategories.push(product.category);
     }
@@ -32,7 +32,7 @@ const Home = async () => {
     });
   }
 
-  return <MenuPage categories={categoriesFormated} data={latestProducts} />;
+  return <MenuPage categories={categoriesFormated} data={latestProducts.content} />;
 };
 
 export default Home;

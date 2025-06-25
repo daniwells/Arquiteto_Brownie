@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { getOrders } from '@/lib/actions/order.actions';
 
 export const metadata = {
-  title: 'Carrinho',
+  title: 'Pedidos',
 };
 
 const Orders = async () => {
