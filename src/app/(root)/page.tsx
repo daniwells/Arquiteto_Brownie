@@ -27,7 +27,7 @@ const Home = async () => {
 
     categories.content.map((category) => {
       if (validCategories.includes(category.category)) {
-        categoriesFormated.push({ name: `Brownie ${category.category}`, value: category.category });
+        categoriesFormated.push({ name: `${category.category}`, value: category.category });
       }
     });
   }
