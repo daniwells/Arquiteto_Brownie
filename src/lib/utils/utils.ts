@@ -1,18 +1,16 @@
 import { ZodSchema } from 'zod';
 import { CustomError } from './exceptions';
+import { cartType } from '@/types';
 
-// Convert prisma object into a regular JS object
 export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-// Format number with decimal places
 export function formatNumberWithDecimal(num: number): string {
   const [int, decimal] = num.toString().split('.');
   return decimal ? `${int}${decimal.padEnd(2, '0')}` : `${int}.00`;
 }
 
-// Round number to 2 decimal places
 export function round2(value: number | string) {
   if (typeof value === 'number') {
     return Math.round((value + Number.EPSILON) * 100) / 100;
@@ -29,7 +27,6 @@ const CURRENCY_FORMATTER = new Intl.NumberFormat('pt-BR', {
   minimumFractionDigits: 2,
 });
 
-// Format currency using the formatter above
 export function formatCurrency(amount: number | string | null) {
   if (typeof amount === 'number') {
     return CURRENCY_FORMATTER.format(amount);
@@ -40,7 +37,6 @@ export function formatCurrency(amount: number | string | null) {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function formatError(error: any, action?: string) {
   if (error instanceof CustomError){
     return error.message;
@@ -76,7 +72,6 @@ export async function formatError(error: any, action?: string) {
     }
   }
 
-  // Default fallback
   return "Ocorreu um erro inesperado";
 }
 
@@ -155,3 +150,18 @@ export const formatDocumentValue = (label: string, value: string): string => {
 
   return value;
 };
+
+export const getMessageToWhatsapp = (name: string, orderId: string, cart: cartType) => {
+  return `
+Olá, me chamo ${name}, gostaria de finalizar a minha compra no Arquiteto do Brownie.
+      
+Informações do pedido:
+Código: ${orderId}
+${cart.items.map((item) => `
+Qnt ${item.qty} - (${item.category}) ${item.name}`).join(" ")}
+
+Preço: R$${cart.itemsPrice}.
+  `;
+
+  
+}

@@ -32,7 +32,8 @@ import { getCart, deleteCart } from '@/lib/actions/cart.actions';
 import { createOrder } from '@/lib/actions/order.actions';
 import { cartType } from '@/types';
 
-// Constants
+// Utils
+import { getMessageToWhatsapp } from '@/lib/utils/utils';
 import { NEXT_PUBLIC_WHATSAPP_NUMBER } from '@/lib/constants';
 
 interface formData {
@@ -149,16 +150,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const handleSendToWhatsApp = (cart: cartType, orderId: string) => {
     const number = NEXT_PUBLIC_WHATSAPP_NUMBER;
 
-    const message = `
-Olá, me chamo ${watchFields.name}, gostaria de finalizar a minha compra no Arquiteto do Brownie.
-      
-Informações do pedido:
-Código: ${orderId}
-${cart.items.map((item) => `
-${item.qty} - (${item.category}) ${item.name}`).join(" ")}
-
-Preço: R$${cart.itemsPrice}.
-`;
+    const message = getMessageToWhatsapp(watchFields.name, orderId, cart);
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
     window.location.href = url;
   }
