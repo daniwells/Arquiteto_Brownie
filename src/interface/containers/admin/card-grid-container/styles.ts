@@ -8,10 +8,14 @@ export const CardGridContainerStyle = styled.div`
     grid-template-columns: 1.5fr 1.5fr;
     max-height: 600px;
     padding-block: 10px;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     padding-inline: 10px;
     
+    @media (min-height: 600px) {
+        min-height: 600px;
+    }
+
     @media ${breakpoints.bg} {
         grid-template-columns: 1.5fr 1.5fr 1.5fr;        
     }

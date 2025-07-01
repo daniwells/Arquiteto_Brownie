@@ -6,12 +6,12 @@ import { motion } from 'framer-motion';
 export const BackgroundCardManage = styled(motion.div)`
   display: flex;
   flex-direction: column;
-
   border-radius: 20px;
   background-color: white;
   padding: 20px;
   width: 100%;
   max-width: 450px;
+  max-height: 205px;
 `;
 
 export const HeaderCardOrder = styled.div`
