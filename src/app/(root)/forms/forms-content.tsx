@@ -36,23 +36,19 @@ import { cartType } from '@/types';
 import { getMessageToWhatsapp } from '@/lib/utils/utils';
 import { NEXT_PUBLIC_WHATSAPP_NUMBER } from '@/lib/constants';
 
-interface formData {
-  name: string;
-  phone: string;
-  cep: string;
-  number: string;
-}
+// Types
+import { formDataType } from '@/types';
 
 interface formsContentProps {
   itemsPrice: string;
 }
 
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
-  const { openPopup } = usePopup();
+  const { openPopup, openConcentTerm } = usePopup();
   const [loading, setLoading] = useState(false);
   const size_768 = useMediaQuery('(min-width:768px)');
 
-  const { handleSubmit, setValue, watch, reset } = useForm<formData>({
+  const { handleSubmit, setValue, watch, reset } = useForm<formDataType>({
     defaultValues: {
       name: '',
       phone: '',
@@ -63,7 +59,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
   const watchFields = watch();
 
-  const handleCreateCustomer = async (data: formData) => {
+  const handleCreateCustomer = async (data: formDataType) => {
     const customer = {
       ...data,
       phone: data.phone.replace(/\D/g, ''),
@@ -131,7 +127,11 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     return false;
   };
 
-  const onSubmit = async (data: formData) => {
+  const interceptSubmit = (data: formDataType) => {
+    openConcentTerm(() => onSubmit(data));
+  }
+  
+  const onSubmit = async (data: formDataType) => {
     const cart = await handleGetCart();
     
     if (cart) {
@@ -146,7 +146,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
       }
     }
   };
-
+  
   const handleSendToWhatsApp = (cart: cartType, orderId: string) => {
     const number = NEXT_PUBLIC_WHATSAPP_NUMBER;
 
@@ -176,7 +176,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
           </>
       }
       
-      <FormContainer handleSubmit={handleSubmit(onSubmit)}>
+      <FormContainer handleSubmit={handleSubmit(interceptSubmit)}>
         <BaseInput
           value={watchFields.name}
           icon={personIcon}

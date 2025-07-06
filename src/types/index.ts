@@ -44,3 +44,10 @@ export type orderType = z.infer<typeof insertOrderSchema> & {
   OrderItem?: orderItemType[];
   customer?: customerType;
 };
+
+export type formDataType = {
+  name: string;
+  phone: string;
+  cep: string;
+  number: string;
+}

@@ -151,16 +151,16 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
             hasReturn
           />
         :
-        <>
-          <HeaderAdmin redirect="/admin/products" />
-          <DescriptionContainer
-            title={selectedProduct ? "Editar produto" : "Criar produto"}
-            desc={
-              selectedProduct ? "Altere qualquer informação deste produto" : 
-              "Preencha os campos abaixo para criar um novo produto"
-            }
-          />
-        </>
+          <>
+            <HeaderAdmin redirect="/admin/products" />
+            <DescriptionContainer
+              title={selectedProduct ? "Editar produto" : "Criar produto"}
+              desc={
+                selectedProduct ? "Altere qualquer informação deste produto" : 
+                "Preencha os campos abaixo para criar um novo produto"
+              }
+            />
+          </>
       }
 
       <FormContainer handleSubmit={handleSubmit(onSubmit)}>

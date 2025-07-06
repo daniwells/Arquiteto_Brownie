@@ -17,7 +17,10 @@ export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
           ? colors.green
           : props.$category == 'secondary' || props.$category == 'delete'
             ? 'transparent'
-            : colors.beige};
+            : props.$category == 'deactivate'
+              ? colors.darkGray : colors.beige
+  };
+
   font-family: 'Comfortaa Bold';
   color: ${(props) =>
     props?.$category == 'secondary'
@@ -36,19 +39,22 @@ export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
         : 'none'};
   padding: 14px;
   font-size: ${(props) => (props?.$fontSize ? props?.$fontSize : '18px')};
-  cursor: pointer;
+  cursor: ${(props) => (props?.$category == 'deactivate' ? '' : 'pointer')};
   transition: all 0.5s ease-in-out;
 
   &:hover {
     box-shadow: none;
     background-color: ${(props) =>
       !(props.$category == 'error') &&
-      !(props.$category == 'success') &&
       props.$category == 'secondary'
         ? colors.beige
         : props?.$category == 'delete'
           ? colors.red
-          : colors.lightBrown};
+          : props?.$category == "success"
+            ? colors.green
+              : props?.$category == 'deactivate'
+                ? colors.darkGray : colors.lightBrown
+      };
     color: white;
   }
 `;
