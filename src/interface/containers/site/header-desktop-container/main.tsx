@@ -44,7 +44,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
       {
         hasReturn && !title && !description &&
         <S.IconStyleContainer onClick={handleReturn} >
-          <S.IconStyle src={arrowLeft} alt="Ícone de carrinho"/>
+          <S.IconStyle src={arrowLeft} alt="Ícone de voltar"/>
         </S.IconStyleContainer>
       }
       
@@ -54,7 +54,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
           {
             hasReturn &&
             <S.IconStyleContainer onClick={handleReturn} >
-              <S.IconStyle src={arrowLeft} alt="Ícone de carrinho"/>
+              <S.IconStyle src={arrowLeft} alt="Ícone de voltar"/>
             </S.IconStyleContainer>
           }
           <DescriptionContainer title={title || ""} desc={description}/>

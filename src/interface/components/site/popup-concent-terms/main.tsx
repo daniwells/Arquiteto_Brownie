@@ -48,7 +48,8 @@ const PopupConcentTerms: React.FC<popupConcentTermsProps> = ({ onClose, submit }
                 }}
               >
                 Eu li e concordo com as políticas de privacidade do site.{' '}
-                <S.PrivacityPolicy 
+                <S.PrivacityPolicy
+                  onClick={onClose}
                   href="/privacity-policy"
                   style={{ textDecoration: 'underline' }}
                 > 
