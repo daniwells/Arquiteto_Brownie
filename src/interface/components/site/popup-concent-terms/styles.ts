@@ -70,7 +70,7 @@ export const TitleError = styled.h2`
     }
 `;
 
-export const PrivacityPolicy = styled(Link)`
+export const PrivacyPolicy = styled(Link)`
     font-size: 14px;
 
     @media ${breakpoints.sm} {

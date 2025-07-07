@@ -1,7 +1,7 @@
 'use client';
 
 // Libs
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { redirect } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -46,7 +46,20 @@ interface formsContentProps {
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup, openConcentTerm } = usePopup();
   const [loading, setLoading] = useState(false);
+  const [showPopupConcent, setShowPopupConcent] = useState(true);
+
   const size_768 = useMediaQuery('(min-width:768px)');
+
+  useEffect(() => {
+    verifyAcceptPolicy();
+  }, []);
+
+  const verifyAcceptPolicy = () => {
+    const dismissed = sessionStorage.getItem("accept_privacy_terms");
+    if (dismissed) {
+      setShowPopupConcent(false);
+    }
+  }
 
   const { handleSubmit, setValue, watch, reset } = useForm<formDataType>({
     defaultValues: {
@@ -74,7 +87,6 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
     setLoading(true);
     response = await createCustomer(customer);
-
     setLoading(false);
 
     if (!response?.success) {
@@ -132,6 +144,8 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   }
   
   const onSubmit = async (data: formDataType) => {
+    verifyAcceptPolicy();
+    
     const cart = await handleGetCart();
     
     if (cart) {
@@ -176,7 +190,9 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
           </>
       }
       
-      <FormContainer handleSubmit={handleSubmit(interceptSubmit)}>
+      <FormContainer handleSubmit={
+        showPopupConcent ? handleSubmit(interceptSubmit) : handleSubmit(onSubmit)
+      }>
         <BaseInput
           value={watchFields.name}
           icon={personIcon}

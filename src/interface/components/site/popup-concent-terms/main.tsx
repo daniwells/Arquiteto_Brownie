@@ -25,6 +25,11 @@ const PopupConcentTerms: React.FC<popupConcentTermsProps> = ({ onClose, submit }
     await submit();
   }
 
+  const acceptPolicy = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAccepted(e.target.checked);
+    sessionStorage.setItem("accept_privacy_terms", String(e.target.checked));
+  }
+
   return (
     <S.Overlay>
       <S.Container>
@@ -36,7 +41,7 @@ const PopupConcentTerms: React.FC<popupConcentTermsProps> = ({ onClose, submit }
           <FormControlLabel
             control={<Checkbox
               checked={accepted}
-              onChange={(e) => setAccepted(e.target.checked)}
+              onChange={acceptPolicy}
             />}
             label={
               <Typography
@@ -48,13 +53,13 @@ const PopupConcentTerms: React.FC<popupConcentTermsProps> = ({ onClose, submit }
                 }}
               >
                 Eu li e concordo com as políticas de privacidade do site.{' '}
-                <S.PrivacityPolicy
+                <S.PrivacyPolicy
                   onClick={onClose}
-                  href="/privacity-policy"
+                  href="/privacy-policy"
                   style={{ textDecoration: 'underline' }}
                 > 
                   Política de Privacidade.
-                </S.PrivacityPolicy>
+                </S.PrivacyPolicy>
               </Typography>
             }
             sx={{

@@ -1,6 +1,7 @@
 import MenuPage from './menuPage';
 import { getLatestProducts } from '../../lib/actions/product.actions';
 import { getAllCategories } from '@/lib/actions/category.actions';
+import PrivacyNotice from '@/interface/containers/site/privacy-banner/main';
 
 export const dynamic = 'force-dynamic';
 
@@ -32,7 +33,10 @@ const Home = async () => {
     });
   }
 
-  return <MenuPage categories={categoriesFormated} data={latestProducts.content} />;
+  return <>
+    <PrivacyNotice/>
+    <MenuPage categories={categoriesFormated} data={latestProducts.content} />;
+  </>
 };
 
 export default Home;
