@@ -72,10 +72,10 @@ export const IconStyleContainer = styled.div`
 `
 
 export const Return = styled(Link)`
-    position: absolute;
-    left: -25%;
-    top: 1%;
+    width: 100vw;
+    padding: 20px;
     display: flex;
+    justify-content: start;
     align-items: center;
     gap: 20px;
     cursor: pointer;
