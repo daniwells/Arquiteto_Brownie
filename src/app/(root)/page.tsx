@@ -35,7 +35,7 @@ const Home = async () => {
 
   return <>
     <PrivacyNotice/>
-    <MenuPage categories={categoriesFormated} data={latestProducts.content} />;
+    <MenuPage categories={categoriesFormated} data={latestProducts.content} />
   </>
 };
 
