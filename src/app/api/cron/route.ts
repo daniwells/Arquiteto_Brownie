@@ -5,7 +5,7 @@ import { prisma } from '@/db/prisma';
 export async function POST() {
   const daysInactive = 1;
   const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - daysInactive);
+  cutoff.setDate(cutoff.getDate() - daysInactive * 60 * 1000);
 
   const customers = await prisma.customer.findMany({
     where: {
