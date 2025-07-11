@@ -3,10 +3,9 @@ import { anonymizeCustomer } from '@/lib/services/anonymizeCustomer';
 import { prisma } from '@/db/prisma';
 
 export async function POST() {
-    const daysInactive = 1;
-//   const cutoff = new Date();
-//   cutoff.setDate(cutoff.getDate() - daysInactive);
-    const cutoff = new Date(Date.now() - daysInactive * 60 * 1000);
+    const daysInactive = 180;
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - daysInactive);
 
     const customers = await prisma.customer.findMany({
         where: {
