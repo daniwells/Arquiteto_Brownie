@@ -3,7 +3,10 @@
     "crons": [
         {
             "path": "/api/cron",
-            "schedule": "0 3 * * *"
+            "schedule": "0 3 * * *",
+            "headers": {
+                "authorization": "Bearer lrxzQRFCS8WZ3It18HCFhueCce2uX/q/qbxyWr9oPGI="
+            }
         }
     ]
 }
