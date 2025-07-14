@@ -74,10 +74,10 @@ export default function PrivacyPolicy() {
         <h2>Quais dados pessoais são coletados?</h2>
         <p>No formulário de pedido, são coletados os seguintes dados:</p>
         <ul>
-          <li>Nome completo</li>
-          <li>Telefone</li>
-          <li>Cep</li>
-          <li>Número da casa</li>
+          <li>&bull; Nome completo</li>
+          <li>&bull; Telefone</li>
+          <li>&bull; Cep</li>
+          <li>&bull; Número da casa</li>
         </ul>
         <p>
           Esses dados são usados para identificação do usuário e entrega do produto.
@@ -104,8 +104,7 @@ export default function PrivacyPolicy() {
         <h2>Duração do tratamento de dados</h2>
         <p>
           Todos os dados pessoais são removidos assim que um pedido é concluído, porém, caso não seja, 
-          os dados são tratados enquanto durar o contrato, e mantidos por até 3
-          anos após seu término, com base no Art. 206, §3º, V do Código Civil e
+          os dados são mantidos até 180 dias após o envio, com base no Art. 206, §3º, V do Código Civil e
           Art. 16 da LGPD.
         </p>
 

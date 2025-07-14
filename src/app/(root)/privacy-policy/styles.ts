@@ -38,6 +38,9 @@ export const Main = styled.main`
     ul li {
         margin-bottom: 0.5rem;
     }
+    li{
+        
+    }
     footer {
         margin-top: 3rem;
         font-size: 0.9rem;
