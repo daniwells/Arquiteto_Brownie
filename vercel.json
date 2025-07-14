@@ -2,11 +2,8 @@
     "$schema": "https://openapi.vercel.sh/vercel.json",
     "crons": [
         {
-            "path": "/api/cron",
-            "schedule": "0 3 * * *",
-            "headers": {
-                "authorization": "Bearer lrxzQRFCS8WZ3It18HCFhueCce2uX/q/qbxyWr9oPGI="
-            }
+            "path": "/api/cron/lrxzQRFCS8WZ3It18HCFhueCce2uX/q/qbxyWr9oPGI=",
+            "schedule": "0 3 * * *"
         }
     ]
 }
