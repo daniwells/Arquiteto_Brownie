@@ -6,6 +6,9 @@ const allowedEmails = EMAIL_ADMIN;
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google],
+  pages: {
+    error: 'sign-in/error',
+  },
   callbacks: {
     async signIn({ profile }) {
       if (profile?.email && allowedEmails.includes(profile?.email)) {

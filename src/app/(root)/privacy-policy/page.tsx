@@ -130,7 +130,7 @@ export default function PrivacyPolicy() {
           Conforme Art. 18 da LGPD, o Usuário pode solicitar: confirmação de
           tratamento, acesso, correção, anonimização, bloqueio, portabilidade,
           eliminação, revogação de consentimento, entre outros, via e-mail
-          suporte@empresa.com.
+          matheus.aurelio28@gmail.com.
         </p>
 
         <h2>Alterações nesta política</h2>
@@ -142,12 +142,12 @@ export default function PrivacyPolicy() {
         <h2>Encarregado da Empresa</h2>
         <p>
           Em caso de dúvidas ou para exercer seus direitos, entre em contato com
-          o Encarregado Sr(a). _________ pelo e-mail suporte@empresa.com.
+          o Encarregado Sr(a). Matheus Aurélio Batista pelo e-mail matheus.aurelio28@gmail.com.
         </p>
 
         <footer>
           <p>Última atualização: Julho de 2025</p>
-          <p>Contato: suporte@empresa.com</p>
+          <p>Contato: matheus.aurelio28@gmail.com</p>
         </footer>
       </S.Main>
     </S.Container>

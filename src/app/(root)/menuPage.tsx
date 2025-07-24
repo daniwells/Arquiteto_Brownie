@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { SwiperSlide } from 'swiper/react';
+import { redirect } from 'next/navigation';
 
 // components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -29,6 +30,13 @@ interface menuProps {
 }
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
+
+  console.log(data)
+  console.log(categories)
+  if(!(data.length > 0) || !(categories.length > 0)){
+    redirect("/unavailable")
+  }
+
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const [searchText, setSearchText] = useState('');
@@ -43,8 +51,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   };
 
   const handleFilterProduct = () => {
-    setFilteredData(
-      data
+    const filterProducts = data
         .filter((product) => {
           if (searchText === '') return true;
 
@@ -64,8 +71,13 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
         })
         .filter((product) => {
           return product.active;
-        }),
-    );
+        })
+    
+    if(!filterProducts){
+      redirect("/admin/products")
+    }
+
+    setFilteredData(filterProducts);
   };
 
   useEffect(() => {
