@@ -27,6 +27,9 @@ import { addItemToCart } from '@/lib/actions/cart.actions';
 // Contexts
 import { usePopup } from '@/contexts/PopupContext';
 
+// Images
+import LogoDark from "../../../../../public/svg/logo-dark.svg";
+
 interface AboutProductProps {
   open: boolean;
   toggleDrawer: (open: boolean) => void;
@@ -98,6 +101,15 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
                       <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80} />
                     </SwiperSlide>
                   )) || false}
+                  {
+                    
+                    product?.images.length == 1 &&
+                      <SwiperSlide>
+                        <S.LogoDarkContainer>
+                          <Image src={LogoDark} alt="Logo" style={{ width: "80px", height: "80px" }} />
+                        </S.LogoDarkContainer>
+                      </SwiperSlide>
+                  }
                 </S.CustomSwiper>
             }
             <S.AboutColumn>

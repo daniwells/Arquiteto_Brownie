@@ -30,9 +30,6 @@ interface menuProps {
 }
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
-
-  console.log(data)
-  console.log(categories)
   if(!(data.length > 0) || !(categories.length > 0)){
     redirect("/unavailable")
   }

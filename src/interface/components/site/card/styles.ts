@@ -18,7 +18,7 @@ interface imageProps {
 export const Image = styled.div<imageProps>`
   max-width: 200px;
   width: 45%;
-  height: 140px;
+  height: 100%;
   ${(props) =>
     props?.$url
       ? `background-image: url("${props?.$url}");`
@@ -27,10 +27,6 @@ export const Image = styled.div<imageProps>`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-
-  @media ${breakpoints.xs} {
-    height: 150px;
-  }
 `;
 
 export const Content = styled.div`

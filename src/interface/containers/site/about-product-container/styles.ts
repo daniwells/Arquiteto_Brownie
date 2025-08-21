@@ -54,6 +54,12 @@ export const AboutProductContainerStyle = styled.div`
       border-radius: 5px;
       object-fit: cover;
     }
+    .swiper-slide div {
+      width: 100%;
+      height: 140px;
+      border-radius: 5px;
+      object-fit: cover;
+    }
   }
 
   @media ${breakpoints.xs}{
@@ -123,5 +129,12 @@ export const AboutColumn = styled.div`
 
   @media ${breakpoints.bs} {
     width: 45%;
+  }
+`
+
+export const LogoDarkContainer = styled.div`
+  background-color: ${colors.mediumGray};
+  img{
+    margin: auto;
   }
 `

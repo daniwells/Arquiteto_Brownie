@@ -20,6 +20,12 @@ export const Wrapper = styled.label`
     border: solid 1px ${colors.darkGray};
     transform: scale(1.01);
   }
+  
+  &:focus-within {
+    border: solid 1px ${colors.darkGray};
+    transform: scale(1.01);
+  }
+  
 `;
 
 export const Input = styled.input`
