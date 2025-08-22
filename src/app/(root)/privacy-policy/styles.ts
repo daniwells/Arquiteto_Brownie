@@ -73,16 +73,21 @@ export const Main = styled.main`
 `
 
 export const IconStyle = styled(Image)`
-    width: 90px;
+    width: 20px;
+    height: 20px;
+
+    @media ${breakpoints.md} {
+        width: 25px;
+        height: 25px;
+    }
 `
 
 export const IconStyleContainer = styled.div`
     background-color: white;
-    width: 50px;
+    padding: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
     border-radius: 50%;
     cursor: pointer;
 
@@ -106,6 +111,15 @@ export const Return = styled(Link)`
     cursor: pointer;
     >label{
         cursor: pointer;
+        font-size: 0.875rem;
+
+        @media ${breakpoints.xs} {            
+            font-size: 1rem;
+        }
+
+        @media ${breakpoints.md} {            
+            font-size: 1.125rem;
+        }
     }
 
     &:hover {
