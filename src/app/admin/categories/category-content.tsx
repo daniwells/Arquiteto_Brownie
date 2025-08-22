@@ -91,7 +91,7 @@ const CategoryContent = () => {
   }, []);
 
   return (
-    <MainContainer>
+    <MainContainer isBottomMenu>
       {
         size_768 ?
           <HeaderDesktopContainer

@@ -72,7 +72,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
   }, [searchText, category]);
 
   return (
-    <MainContainer>
+    <MainContainer isBottomMenu>
       {
         size_768 ?
           <>
@@ -105,14 +105,14 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
                 value="Criar novo produto"
               />
             </RowContainer>
-              {
-                filteredData.length > 0 ?
-                  <CardGridContainer>
-                    {filteredData.map((product) => <CardManage key={product.slug} product={product} />)}
-                  </CardGridContainer>
-                :
-                  <BackToMenu text="Nenhum produto encontrado..."/>
-              }
+            {
+              filteredData.length > 0 ?
+                <CardGridContainer>
+                  {filteredData.map((product) => <CardManage key={product.slug} product={product} />)}
+                </CardGridContainer>
+              :
+                <BackToMenu text="Nenhum produto encontrado..."/>
+            }
           </>    
         :
           <>
@@ -154,7 +154,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
             }
           </>
       }
-      <MenuAdmin />
+      <MenuAdmin/>
     </MainContainer>
   );
 };

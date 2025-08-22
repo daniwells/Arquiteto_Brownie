@@ -4,15 +4,15 @@ import breakpoints from '@/styles/breakpoints';
 
 interface backgroundProps {
   $minheight?: string;
+  $isBottomMenu?: boolean;
 }
 
 export const BackgroundMainContainer = styled.main<backgroundProps>`
   background-color: ${colors.gray};
   width: 100%;
-  padding: 5px;
+  padding: 5px 5px ${props => props.$isBottomMenu ? '100px' : '5px'} 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   grid-gap: 20px;
   min-height: ${(props) => (props.$minheight ? props.$minheight : '34rem')};
@@ -20,15 +20,15 @@ export const BackgroundMainContainer = styled.main<backgroundProps>`
 
   @media ${breakpoints.xs} {
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px 20px ${props => props.$isBottomMenu ? '100px' : '10px'} 20px;
   }
 
   @media ${breakpoints.sm} {
-    padding: 30px;
+    padding-inline: 30px;
   }
 
   @media ${breakpoints.md} {
-    padding: 40px;
+    padding-inline: 40px;
   }
 
   @media ${breakpoints.lg} {

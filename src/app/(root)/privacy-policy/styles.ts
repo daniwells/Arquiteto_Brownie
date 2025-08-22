@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { colors } from "@/styles/themes";
 import Image from "next/image";
 import Link from "next/link";
+import breakpoints from "@/styles/breakpoints";
 
 export const Container = styled.div`
     position: relative;
@@ -15,32 +16,53 @@ export const Main = styled.main`
     color: #333;
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         text-align: center;
         
+        @media ${breakpoints.md} {
+            font-size: 2.375rem;
+        }
     }
+
+    h2 {
+        font-size: 1.125rem;
+        margin-top: 2rem;
+        color: ${colors.beige};
+
+        @media ${breakpoints.md} {
+            font-size: 1.25rem;
+        }
+    }
+
     h3{
-        font-size: 1.2rem;
+        font-size: 0.875;
         text-align: center;
         color: ${colors.beige};
         margin-bottom: 1.5rem;
+
+        @media ${breakpoints.md} {
+            font-size: 1.125rem;
+        }
     }
-    h2 {
-        font-size: 1.5rem;
-        margin-top: 2rem;
-        color: ${colors.beige};
-    }
+
     p, ul {
-        line-height: 1.7;
-        font-size: 1rem;
+        line-height: 1.7rem;
+        font-size: 0.875rem;
         text-align: justify;
+
+        @media ${breakpoints.xs} {            
+            font-size: 1rem;
+        }
+
+        @media ${breakpoints.md} {            
+            font-size: 1.125rem;
+        }
     }
+
     ul li {
         margin-bottom: 0.5rem;
     }
-    li{
-        
-    }
+
     footer {
         margin-top: 3rem;
         font-size: 0.9rem;

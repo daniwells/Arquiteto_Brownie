@@ -17,6 +17,7 @@ import AboutProduct from '@/interface/containers/site/about-product-container/ma
 import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
+import BackToMenu from '@/interface/components/site/back-to-menu/main';
 
 // assets
 import Logo from '@/interface/components/global/logo/main';
@@ -49,26 +50,26 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
 
   const handleFilterProduct = () => {
     const filterProducts = data
-        .filter((product) => {
-          if (searchText === '') return true;
+      .filter((product) => {
+        if (searchText === '') return true;
 
-          return (
-            !searchText.trim() ||
-            [
-              product.name?.toString(),
-              product.category?.toLowerCase(),
-              product.description?.toString(),
-              product.price?.toString(),
-            ].some((field) => field?.toLowerCase().includes(searchText.toLowerCase()))
-          );
-        })
-        .filter((product) => {
-          if (selectedCategory === '') return true;
-          return product.category?.toLowerCase() === selectedCategory.toLowerCase();
-        })
-        .filter((product) => {
-          return product.active;
-        })
+        return (
+          !searchText.trim() ||
+          [
+            product.name?.toString(),
+            product.category?.toLowerCase(),
+            product.description?.toString(),
+            product.price?.toString(),
+          ].some((field) => field?.toLowerCase().includes(searchText.toLowerCase()))
+        );
+      })
+      .filter((product) => {
+        if (selectedCategory === '') return true;
+        return product.category?.toLowerCase() === selectedCategory.toLowerCase();
+      })
+      .filter((product) => {
+        return product.active;
+      })
     
     if(!filterProducts){
       redirect("/admin/products")
@@ -84,7 +85,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   return (
     <>
       <AboutProduct open={open} toggleDrawer={toggleDrawer} product={currentProduct} />
-      <MainContainer>
+      <MainContainer isBottomMenu={!size_768}>
         {
           size_768 ?
             <HeaderDesktopContainer
@@ -105,41 +106,48 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
               />
             </>
         }
-        <NavCategories navItems={categories} handleChange={setSelectedCategory} />
         {
-          size_768 ?
-            <CardDesktopContainer
-              amountCards={filteredData.length}
-            >
-              {filteredData.length > 0 &&
-                filteredData.map((product) => (
-                  <SwiperSlide key={product.slug}>
-                    <CardProductDesktop
-                      product={product}
-                      handleClick={() => {
-                        toggleDrawer(true);
-                        setCurrentProduct(product);
-                      }}
-                    />
-                  </SwiperSlide>
-                ))
+          filteredData.length > 0 ?
+            <>
+              <NavCategories navItems={categories} handleChange={setSelectedCategory} />
+              {
+                size_768 ?
+                  <CardDesktopContainer
+                    amountCards={filteredData.length}
+                  >
+                    {
+                      filteredData.map((product) => (
+                        <SwiperSlide key={product.slug}>
+                          <CardProductDesktop
+                            product={product}
+                            handleClick={() => {
+                              toggleDrawer(true);
+                              setCurrentProduct(product);
+                            }}
+                          />
+                        </SwiperSlide>
+                      ))
+                    }
+                  </CardDesktopContainer>
+                :
+                  <CardContainer>
+                    {
+                      filteredData.map((product) => (
+                        <Card
+                          key={product.slug}
+                          product={product}
+                          handleClick={() => {
+                            toggleDrawer(true);
+                            setCurrentProduct(product);
+                          }}
+                        />
+                      ))
+                    }
+                  </CardContainer>
               }
-            </CardDesktopContainer>
+            </>
           :
-            <CardContainer>
-              {filteredData.length > 0 &&
-                filteredData.map((product) => (
-                  <Card
-                    key={product.slug}
-                    product={product}
-                    handleClick={() => {
-                      toggleDrawer(true);
-                      setCurrentProduct(product);
-                    }}
-                  />
-                ))
-              }
-            </CardContainer>
+            <BackToMenu text="Nenhum produto encontrado..."/>
         }
         {
           size_768 ? 
@@ -147,7 +155,6 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
           :
             <Menu/>
         }
-        
       </MainContainer>
     </>
   );

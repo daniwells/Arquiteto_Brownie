@@ -68,6 +68,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
   return (
     <>
       <MainContainer
+        isBottomMenu={!size_768}
         minHeight={cart?.items ? (cart?.items?.length > 0 ? undefined : '100vh') : '100vh'}
       >
         {

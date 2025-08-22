@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import breakpoints from "@/styles/breakpoints";
 
 export const Banner = styled.div`
     position: fixed;
@@ -40,11 +41,18 @@ export const FloatingButton = styled.button`
     z-index: 999;
     background: #0055aa;
     color: white;
-    padding: 8px 16px;
+    width: 40px;
+    height: 40px;
     border-radius: 20px;
     font-size: 14px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     border: none;
+
+    @media ${breakpoints.bs} {
+        padding: 8px 16px;    
+        width: auto;
+        height: auto;
+    }
 
     a {
         color: white;

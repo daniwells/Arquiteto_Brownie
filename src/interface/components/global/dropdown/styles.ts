@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 import Image from 'next/image';
 
-export const Icon = styled(Image)`
+export const Icon = styled(Image)<{$rotate: boolean}>`
   width: 20px;
+  rotate: ${props => props.$rotate ? "180deg" : "0deg"};
 `;
+
 interface DropdownContainerProps {
   'data-width'?: string | null;
 }

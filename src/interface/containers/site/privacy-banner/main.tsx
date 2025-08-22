@@ -41,11 +41,9 @@ export default function PrivacyNotice() {
             {
               size_630 ? "Política de Privacidade" : "P"
             }
-            
           </Link>
         </S.FloatingButton>
       }
-      
     </>
   );
 }

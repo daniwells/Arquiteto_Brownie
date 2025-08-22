@@ -31,7 +31,7 @@ export const MainAboutProduct = styled.div`
 `
 
 export const AboutProductContainerStyle = styled.div`
-  padding: 10px;
+  padding: 10px 5px;
   border-radius: 20px;
   width: 100%;
   background-color: white;
@@ -63,11 +63,11 @@ export const AboutProductContainerStyle = styled.div`
   }
 
   @media ${breakpoints.xs}{
-    padding: 20px;
+    padding-inline: 20px;
   }
 
   @media ${breakpoints.sm} {
-    padding: 25px;
+    padding-inline: 25px;
   }
 
   @media ${breakpoints.bs} {
@@ -81,7 +81,7 @@ export const AboutProductContainerStyle = styled.div`
     align-items: center;
 
     background-color: ${colors.gray};
-    padding: 40px;
+    padding-inline: 40px;
 
     h3 {
       font-size: 32px;
@@ -133,6 +133,7 @@ export const AboutColumn = styled.div`
 `
 
 export const LogoDarkContainer = styled.div`
+  opacity: 80%;
   background-color: ${colors.mediumGray};
   img{
     margin: auto;

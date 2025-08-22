@@ -1,19 +1,22 @@
 import styled from 'styled-components';
 import Link from 'next/link';
+import { colors } from '@/styles/themes';
 
 export const Container = styled.div`
   display: flex;
   flex-direction: row;
-  grid-gap: 40px;
+  gap: 40px;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color: ${colors.gray};
+  padding-block: 40px;
 `;
 
 export const HomeIconStyle = styled(Link)`
-  background-image: url('/svg/home.svg');
-  background-size: 100%;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -23,15 +26,11 @@ export const HomeIconStyle = styled(Link)`
     opacity 0.3s ease-out;
 
   &:hover {
-    width: 26px;
-    height: 26px;
-    opacity: 0.8;
+    color: ${colors.brown};
   }
 `;
 
 export const CartIconStyle = styled(Link)`
-  background-image: url('/svg/cart.svg');
-  background-size: 100%;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -41,8 +40,6 @@ export const CartIconStyle = styled(Link)`
     opacity 0.3s ease-out;
 
   &:hover {
-    width: 26px;
-    height: 26px;
-    opacity: 0.8;
+    color: ${colors.brown};
   }
 `;

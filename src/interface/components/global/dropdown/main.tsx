@@ -28,7 +28,7 @@ const Dropdown: React.FC<dropdownProps> = ({
     <S.DropdownContainer data-width={width ? width : null}>
       <S.DropdownHeader onClick={() => setIsOpen(!isOpen)}>
         <S.Ball $color={colorBall} /> {selectedOption}{' '}
-        <S.Icon src={arrowDown} alt="Ícone de flecha para baixo" />
+        <S.Icon src={arrowDown} alt="Ícone de flecha para baixo" $rotate={isOpen}/>
       </S.DropdownHeader>
       {isOpen && (
         <S.DropdownList>

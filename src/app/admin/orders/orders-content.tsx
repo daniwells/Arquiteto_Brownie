@@ -89,7 +89,7 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
   }, [searchText, status]);
 
   return (
-    <MainContainer minHeight={orders ? (orders.length > 0 ? undefined : '100vh') : '100vh'}>
+    <MainContainer isBottomMenu minHeight={orders ? (orders.length > 0 ? undefined : '100vh') : '100vh'}>
       {
         size_768 ? 
           <>

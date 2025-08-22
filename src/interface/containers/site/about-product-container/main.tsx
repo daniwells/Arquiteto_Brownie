@@ -83,9 +83,9 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
         }}
       > 
         <S.AboutProductContainerStyle>
-            {
-              size_630 && <HeaderDesktopContainer handleReturn={handleToggle} hasReturn/>
-            }
+          {
+            size_630 && <HeaderDesktopContainer handleReturn={handleToggle} hasReturn/>
+          }
           <S.MainAboutProduct>
             {
               size_630 ?
