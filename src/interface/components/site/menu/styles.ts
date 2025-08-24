@@ -9,11 +9,11 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50px;
+  /* height: 50px; */
   position: fixed;
   bottom: 0;
   background-color: ${colors.gray};
-  padding-block: 40px;
+  padding-block: 20px;
 `;
 
 export const HomeIconStyle = styled(Link)`
