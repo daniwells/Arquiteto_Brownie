@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import * as S from "./styles";
 import Link from 'next/link';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { MdOutlinePrivacyTip } from "react-icons/md";
 
-export default function PrivacyNotice() {
+const PrivacyBanner = () => {
   const [showBanner, setShowBanner] = useState(false);
   const size_630 = useMediaQuery('(min-width:630px)');
 
@@ -39,7 +40,7 @@ export default function PrivacyNotice() {
         <S.FloatingButton>
           <Link href="/privacy-policy">
             {
-              size_630 ? "Política de Privacidade" : "P"
+              size_630 ? "Política de Privacidade" : <MdOutlinePrivacyTip/>
             }
           </Link>
         </S.FloatingButton>
@@ -47,3 +48,5 @@ export default function PrivacyNotice() {
     </>
   );
 }
+
+export default PrivacyBanner;

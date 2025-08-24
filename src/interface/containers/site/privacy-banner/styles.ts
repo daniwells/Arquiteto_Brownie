@@ -57,5 +57,8 @@ export const FloatingButton = styled.button`
     a {
         color: white;
         text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 `
