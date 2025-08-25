@@ -23,14 +23,14 @@ model Product {
 }
 
 model Customer {
-  id           String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name         String  @default("NO_NAME")
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name         String   @default("NO_NAME")
   cep          String
-  phone        String  @unique(map: "customer_phone_idx")
+  phone        String   @unique(map: "customer_phone_idx")
   number       String
   order        Order[]
-  isAnonymized Boolean @default(false)
-  updatedAt DateTime    @default(now()) @db.Timestamp(6)
+  isAnonymized Boolean  @default(false)
+  updatedAt    DateTime @default(now()) @db.Timestamp(6)
 }
 
 enum OrderStatus {
@@ -48,7 +48,7 @@ model Order {
   createdAt  DateTime    @default(now()) @db.Timestamp(6)
   customer   Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
   OrderItem  OrderItem[]
-  updatedAt DateTime    @default(now()) @db.Timestamp(6)
+  updatedAt  DateTime    @default(now()) @db.Timestamp(6)
 }
 
 model OrderItem {
@@ -73,4 +73,10 @@ model Category {
   id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   category String    @unique
   product  Product[]
+}
+
+model Settings {
+  id    String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  key   String @unique
+  value String
 }

@@ -11,22 +11,26 @@ export const HeaderDesktopContainerStyle = styled.div`
     width: 100%;
     max-width: 60rem;
 
-    @media (${breakpoints.md}){
-        gap: 80px;
+    @media (${breakpoints.lg}){
+        gap: 60px;
     }
 `
 
 export const IconStyle = styled(Image)`
-    width: 90px;
+    width: 70px;
+
+    @media (${breakpoints.lg}){
+        width: 90px;
+    }
 `
 
 export const IconStyleContainer = styled.div`
     background-color: white;
     width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
     border-radius: 50%;
     cursor: pointer;
 

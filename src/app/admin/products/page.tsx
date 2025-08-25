@@ -29,6 +29,7 @@ const AdminProducts = async () => {
     <ContentManage
       data={latestProducts.content}
       categories={allCategories.content.map((cat: { category: string }) => cat.category)}
+      userEmail={session?.user?.email || ""}
     />
   );
 };

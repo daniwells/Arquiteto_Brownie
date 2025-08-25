@@ -61,7 +61,7 @@ export const PopupProvider: React.FC<popupProviderProps> = ({ children }) => {
 export const usePopup = () => {
   const context = useContext(PopupContext);
   if (!context) {
-    throw new Error('usepopup must be used within a TicketProvider');
+    throw new Error('usePopup must be used within a PopupProvider');
   }
 
   return context;

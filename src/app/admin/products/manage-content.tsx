@@ -18,7 +18,7 @@ import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import RowContainer from '@/interface/containers/global/row-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
@@ -29,9 +29,10 @@ import { productTypeImageString } from '@/types';
 interface contentManageProps {
   data: productTypeImageString[];
   categories: string[];
+  userEmail: string;
 }
 
-const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
+const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEmail }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const [filteredData, setFilteredData] = useState(data);
@@ -77,6 +78,8 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories }) => {
         size_768 ?
           <>
             <HeaderDesktopContainer
+              userEmail={userEmail}
+              hasUser
               value={searchText}
               handleChange={setSearchText}
               hasSearch

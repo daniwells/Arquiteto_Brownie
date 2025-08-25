@@ -9,7 +9,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  /* height: 50px; */
   position: fixed;
   bottom: 0;
   background-color: ${colors.gray};

@@ -21,7 +21,7 @@ import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import MultiImageInput from '@/interface/components/admin/multi-image-input/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';

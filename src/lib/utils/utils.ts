@@ -2,6 +2,13 @@ import { ZodSchema } from 'zod';
 import { CustomError } from './exceptions';
 import { cartType } from '@/types';
 
+export function limitSizeString(text: string, size: number){
+  if(text.length > size){
+    return `${text.slice(0, size)}...`;
+  }
+  return text;
+}
+
 export function convertToPlainObject<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
@@ -162,6 +169,4 @@ Qnt ${item.qty} - (${item.category}) ${item.name}`).join(" ")}
 
 Preço: R$${cart.itemsPrice}.
   `;
-
-  
 }

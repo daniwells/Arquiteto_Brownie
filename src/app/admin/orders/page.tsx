@@ -18,7 +18,7 @@ const Orders = async () => {
 
   const orderContent = JSON.parse(JSON.stringify(order.content));
 
-  return <OrdersContent orders={orderContent} />;
+  return <OrdersContent orders={orderContent} userEmail={session?.user?.email || ""} />;
 };
 
 export default Orders;

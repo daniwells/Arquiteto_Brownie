@@ -15,7 +15,7 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import MaskedInput from '@/interface/components/global/masked-input/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
 import Return from '@/interface/containers/global/return/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 
 // Images
 import Logo from '@/interface/components/global/logo/main';
@@ -25,6 +25,7 @@ import placeIcon from '../../../../public/svg/place.svg';
 
 // Context
 import { usePopup } from '@/contexts/PopupContext';
+import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 // Actions
 import { createCustomer } from '@/lib/actions/customer.actions';
@@ -45,6 +46,7 @@ interface formsContentProps {
 
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup, openConcentTerm } = usePopup();
+  const { activeStatus, checkStoreStatus } = useActiveStore();
   const [loading, setLoading] = useState(false);
   const [showPopupConcent, setShowPopupConcent] = useState(true);
 
@@ -54,12 +56,22 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     verifyAcceptPolicy();
   }, []);
 
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+    };
+    verify();
+  }, [activeStatus]);
+
   const verifyAcceptPolicy = () => {
     const dismissed = sessionStorage.getItem("accept_privacy_terms");
     if (dismissed) {
       setShowPopupConcent(false);
     }
-  }
+  };
 
   const { handleSubmit, setValue, watch, reset } = useForm<formDataType>({
     defaultValues: {
@@ -141,7 +153,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
   const interceptSubmit = (data: formDataType) => {
     openConcentTerm(() => onSubmit(data));
-  }
+  };
   
   const onSubmit = async (data: formDataType) => {
     verifyAcceptPolicy();
@@ -167,7 +179,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     const message = getMessageToWhatsapp(watchFields.name, orderId, cart);
     const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
     window.location.href = url;
-  }
+  };
 
   return (
     <MainContainer>

@@ -17,7 +17,7 @@ import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
 import CardOrder from '@/interface/components/admin/card-order/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
 
 // Utils
@@ -25,9 +25,10 @@ import { orderType } from '@/types';
 
 interface ordersContentProps {
   orders: orderType[];
+  userEmail: string;
 }
 
-const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
+const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
   
   const [filteredData, setFilteredData] = useState(orders);
@@ -94,11 +95,13 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders }) => {
         size_768 ? 
           <>
             <HeaderDesktopContainer
+              userEmail={userEmail}
               value={searchText}
               handleChange={setSearchText}
               hasSearch
               placeholder="Pesquisar por produto"
               filter={returnFilterStatus()}
+              hasUser
             />
           </>
         :

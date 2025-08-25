@@ -18,11 +18,11 @@ import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';
 import Card from '@/interface/components/site/card/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
-import { LineStyle } from '@/interface/components/admin/line/styles';
+import Line from '@/interface/components/admin/line/main';
 import AboutCustomerOrder from '@/interface/containers/admin/about-customer-order/main';
 import RowContainer from '@/interface/containers/global/row-container/main';
 import OrderButtonsContainer from '@/interface/containers/admin/order-buttons-container/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
 
@@ -226,7 +226,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
             size_768 ? 
               <>
                 {order?.customer && <AboutCustomerOrder customer={order.customer} />}
-                <LineStyle />
+                <Line/>
                 <RowContainer>
                   {returnButtons(50)}
                   <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} />
@@ -235,7 +235,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
             :
               <>
                 {order?.customer && <AboutCustomerOrder customer={order.customer} />}
-                <LineStyle />
+                <Line/>
                 <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} />
                 {returnButtons()}
               </>

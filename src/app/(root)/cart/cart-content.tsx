@@ -4,7 +4,7 @@
 import { redirect } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { SwiperSlide } from 'swiper/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -16,7 +16,7 @@ import PrimaryButton from '@/interface/components/global/primary-button/main';
 import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
 
@@ -25,6 +25,7 @@ import { cartType, cartItemType } from '@/types';
 
 // Context
 import { usePopup } from '@/contexts/PopupContext';
+import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 // Actions
 import { addItemToCart, removeItemFromCart } from '@/lib/actions/cart.actions';
@@ -34,6 +35,7 @@ interface cartContentProps {
 }
 
 const CartContent: React.FC<cartContentProps> = ({ cart }) => {
+  const { activeStatus, checkStoreStatus } = useActiveStore();
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const [loading, setLoading] = useState(false);
@@ -64,6 +66,16 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+    };
+    verify();
+  }, [activeStatus]);
 
   return (
     <>

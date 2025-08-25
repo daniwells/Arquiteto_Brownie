@@ -11,11 +11,11 @@ import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
 import BaseInput from '@/interface/components/global/base-input/main';
 import PrimaryButton from '@/interface/components/global/primary-button/main';
-import { LineStyle } from '@/interface/components/admin/line/styles';
+import Line from '@/interface/components/admin/line/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 
 // Images
 import categoryIcon from '../../../../public/svg/category.svg';
@@ -26,7 +26,7 @@ import { usePopup } from '@/contexts/PopupContext';
 // Actions
 import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
 
-const CategoryContent = () => {
+const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const [loading, setLoading] = useState(false);
@@ -97,6 +97,8 @@ const CategoryContent = () => {
           <HeaderDesktopContainer
             title="Categorias"
             description="Crie ou edite uma categoria para os seus produtos"
+            hasUser
+            userEmail={userEmail}
           />
         :
           <>
@@ -118,7 +120,7 @@ const CategoryContent = () => {
           handleChange={(value: string) => setCreatedCategory(value)}
         />
         <PrimaryButton loading={loading} type="submit" value={'Criar categoria'} />
-        <LineStyle />
+        <Line/>
       </FormContainer>
       <CardContainer>
         {listCategories &&

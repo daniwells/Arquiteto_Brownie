@@ -6,7 +6,8 @@ import { redirect } from 'next/navigation';
 
 // Components
 import Search from '@/interface/components/global/search/main';
-import DescriptionContainer from '../../global/description-container/main';
+import DescriptionContainer from '../description-container/main';
+import UserButton from "@/interface/components/admin/user-button/main";
 
 // Images
 import arrowLeft from '../../../../../public/svg/arrow-left.svg';
@@ -24,7 +25,9 @@ interface headerDesktopContainer {
   handleReturn?: () => void;
   title?: string;
   description?: string;
-  filter?: React.ReactNode
+  filter?: React.ReactNode;
+  hasUser?: boolean;
+  userEmail?: string
 }
 
 const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
@@ -37,7 +40,9 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
   handleReturn,
   title,
   description,
-  filter
+  filter,
+  hasUser,
+  userEmail,
 }) => {
   return (
     <S.HeaderDesktopContainerStyle>
@@ -49,8 +54,13 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
       }
       
       {
+        !title && !description && <S.IconStyle src={logoIcon} alt="Logo do site"/>
+      }
+      
+      {
         title && description &&
         <S.DescAndReturn>
+          <S.IconStyle src={logoIcon} alt="Logo do site"/>
           {
             hasReturn &&
             <S.IconStyleContainer onClick={handleReturn} >
@@ -61,7 +71,6 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
         </S.DescAndReturn>
       }
 
-      <S.IconStyle src={logoIcon} alt="Logo do site"/>
       {
         hasSearch &&
           <Search
@@ -81,6 +90,10 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
 
       {
         filter && filter
+      }
+
+      {
+        hasUser && userEmail && <UserButton userEmail={userEmail}/>
       }
     </S.HeaderDesktopContainerStyle>
   );

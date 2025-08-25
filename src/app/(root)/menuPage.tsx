@@ -14,7 +14,7 @@ import CardContainer from '@/interface/containers/global/card-container/main';
 import NavCategories from '@/interface/components/site/nav-categories/main';
 import Menu from '@/interface/components/site/menu/main';
 import AboutProduct from '@/interface/containers/site/about-product-container/main';
-import HeaderDesktopContainer from '@/interface/containers/site/header-desktop-container/main';
+import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
@@ -25,24 +25,25 @@ import Logo from '@/interface/components/global/logo/main';
 // types
 import { productTypeImageString } from '@/types';
 
+// contexts
+import { useActiveStore } from '@/contexts/ActiveStoreContext';
+
 interface menuProps {
   data: productTypeImageString[];
   categories: { name: string; value: string }[];
 }
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
-  if(!(data.length > 0) || !(categories.length > 0)){
-    redirect("/unavailable")
-  }
-
-  const size_768 = useMediaQuery('(min-width:768px)');
-
+  const { activeStatus, checkStoreStatus } = useActiveStore();
+  
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(data);
   const [selectedCategory, setSelectedCategory] = useState('');
-
-  const [open, setOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<productTypeImageString | null>(null);
+  
+  const [open, setOpen] = useState(false);
+  
+  const size_768 = useMediaQuery('(min-width:768px)');
 
   const toggleDrawer = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -81,6 +82,16 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   useEffect(() => {
     handleFilterProduct();
   }, [searchText, selectedCategory]);
+
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (!(data.length > 0) || !(categories.length > 0) || response) {
+        redirect("/unavailable");
+      }
+    };
+    verify();
+  }, [activeStatus]);
 
   return (
     <>
