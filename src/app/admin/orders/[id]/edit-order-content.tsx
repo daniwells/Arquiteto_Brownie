@@ -172,6 +172,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
         {
           size_768 ?
             <HeaderDesktopContainer
+              logoPosition="end"
               handleReturn={() => redirect("/admin/orders")}
               hasReturn
               description={`Cliente: ${order?.customer?.name}`}

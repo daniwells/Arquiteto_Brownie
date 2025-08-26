@@ -5,10 +5,10 @@ const ProductPrice = ({ value }: { value: string }) => {
   const [intValue, floatValue] = stringValue.split('.');
 
   return (
-    <p>
+    <S.Price>
       R$ {intValue}
       <S.Span>.{floatValue}</S.Span>
-    </p>
+    </S.Price>
   );
 };
 

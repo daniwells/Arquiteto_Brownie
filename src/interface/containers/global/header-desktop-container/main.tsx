@@ -8,12 +8,12 @@ import { redirect } from 'next/navigation';
 import Search from '@/interface/components/global/search/main';
 import DescriptionContainer from '../description-container/main';
 import UserButton from "@/interface/components/admin/user-button/main";
+import Image from "next/image";
 
 // Images
 import arrowLeft from '../../../../../public/svg/arrow-left.svg';
 import logoIcon from "../../../../../public/svg/logo.svg";
 import cartIcon from "../../../../../public/svg/cart.svg";
-
 
 interface headerDesktopContainer {
   value?: string;
@@ -27,7 +27,8 @@ interface headerDesktopContainer {
   description?: string;
   filter?: React.ReactNode;
   hasUser?: boolean;
-  userEmail?: string
+  userEmail?: string;
+  logoPosition: string;
 }
 
 const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
@@ -43,28 +44,32 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
   filter,
   hasUser,
   userEmail,
+  logoPosition
 }) => {
   return (
     <S.HeaderDesktopContainerStyle>
       {
         hasReturn && !title && !description &&
         <S.IconStyleContainer onClick={handleReturn} >
-          <S.IconStyle src={arrowLeft} alt="Ícone de voltar"/>
+          <Image src={arrowLeft} alt="Ícone de voltar" width={12}/>
         </S.IconStyleContainer>
       }
       
       {
-        !title && !description && <S.IconStyle src={logoIcon} alt="Logo do site"/>
+        logoPosition === "start" && <Image src={logoIcon} alt="Logo do site" width={70}/>
       }
       
       {
         title && description &&
         <S.DescAndReturn>
-          <S.IconStyle src={logoIcon} alt="Logo do site"/>
+          {
+            logoPosition === "middle" && <Image src={logoIcon} alt="Logo do site" width={70}/>
+          }
+
           {
             hasReturn &&
             <S.IconStyleContainer onClick={handleReturn} >
-              <S.IconStyle src={arrowLeft} alt="Ícone de voltar"/>
+              <Image src={arrowLeft} alt="Ícone de voltar" width={12}/>
             </S.IconStyleContainer>
           }
           <DescriptionContainer title={title || ""} desc={description}/>
@@ -84,7 +89,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
       {
         hasCart && 
         <S.IconStyleContainer onClick={() => {redirect("/cart")}} >
-          <S.IconStyle src={cartIcon} alt="Ícone de carrinho"/>
+          <Image src={cartIcon} alt="Ícone de carrinho" width={20}/>
         </S.IconStyleContainer>
       }
 
@@ -94,6 +99,10 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
 
       {
         hasUser && userEmail && <UserButton userEmail={userEmail}/>
+      }
+
+      {
+        logoPosition === "end" && <Image src={logoIcon} alt="Logo do site" width={70}/>
       }
     </S.HeaderDesktopContainerStyle>
   );

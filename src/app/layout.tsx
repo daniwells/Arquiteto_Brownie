@@ -37,7 +37,7 @@ export default function RootLayout({
               {children}
             </ActiveStoreProvider>
           </PopupProvider>
-          <GlobalStyles />
+          <GlobalStyles/> 
         </ThemeProvider>
       </body>
     </html>

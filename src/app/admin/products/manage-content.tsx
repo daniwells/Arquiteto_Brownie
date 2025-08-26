@@ -22,6 +22,7 @@ import HeaderDesktopContainer from '@/interface/containers/global/header-desktop
 import RowContainer from '@/interface/containers/global/row-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Utils
 import { productTypeImageString } from '@/types';
@@ -35,6 +36,7 @@ interface contentManageProps {
 const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEmail }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
+  const [mounted, setMounted] = useState(true);
   const [filteredData, setFilteredData] = useState(data);
   const [searchText, setSearchText] = useState('');
   const [category, setCategory] = useState('Todos');
@@ -70,7 +72,12 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
 
   useEffect(() => {
     handleFilterProduct();
+    setMounted(false);
   }, [searchText, category]);
+
+  if(mounted){
+    return <Loading/>;
+  }
 
   return (
     <MainContainer isBottomMenu>
@@ -78,6 +85,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
         size_768 ?
           <>
             <HeaderDesktopContainer
+              logoPosition="start"
               userEmail={userEmail}
               hasUser
               value={searchText}

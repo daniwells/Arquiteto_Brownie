@@ -14,7 +14,7 @@ export const BackgroundMainContainer = styled.main<backgroundProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  grid-gap: 20px;
+  gap: 20px;
   min-height: ${(props) => (props.$minheight ? props.$minheight : '34rem')};
   max-width: 70rem;
 

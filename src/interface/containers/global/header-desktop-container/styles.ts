@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Image from "next/image";
+
 import breakpoints from "@/styles/breakpoints";
 import { colors } from "@/styles/themes";
 
@@ -16,18 +16,11 @@ export const HeaderDesktopContainerStyle = styled.div`
     }
 `
 
-export const IconStyle = styled(Image)`
-    width: 70px;
-
-    @media (${breakpoints.lg}){
-        width: 90px;
-    }
-`
-
 export const IconStyleContainer = styled.div`
     background-color: white;
-    width: 50px;
-    height: 50px;
+    min-width: 40px;
+    min-height: 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,10 +35,15 @@ export const IconStyleContainer = styled.div`
         border: solid 1px ${colors.darkGray};
         transform: scale(1.05);
     }
+
+    @media ${breakpoints.md} {
+        min-width: 50px;
+        min-height: 50px;
+    }
 `
 
 export const DescAndReturn = styled.div`
     display: flex;
-    gap: 40px;
     align-items: center;
+    gap: 20px;
 `

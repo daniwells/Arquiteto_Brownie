@@ -19,6 +19,7 @@ import BackToMenu from '@/interface/components/site/back-to-menu/main';
 import CardOrder from '@/interface/components/admin/card-order/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Utils
 import { orderType } from '@/types';
@@ -30,7 +31,8 @@ interface ordersContentProps {
 
 const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
-  
+
+  const [mounted, setMounted] = useState(true);
   const [filteredData, setFilteredData] = useState(orders);
   const [searchText, setSearchText] = useState('');
   const [status, setStatus] = useState('Todos');
@@ -59,7 +61,6 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
           }),
       );
     }
-    
   };
 
   const returnFilterStatus = () => {
@@ -87,14 +88,20 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
 
   useEffect(() => {
     handleFilterProduct();
+    setMounted(false);
   }, [searchText, status]);
 
+  if(mounted){
+    return <Loading/>
+  }
+  
   return (
     <MainContainer isBottomMenu minHeight={orders ? (orders.length > 0 ? undefined : '100vh') : '100vh'}>
       {
         size_768 ? 
           <>
             <HeaderDesktopContainer
+              logoPosition="start"
               userEmail={userEmail}
               value={searchText}
               handleChange={setSearchText}

@@ -18,6 +18,8 @@ import HeaderDesktopContainer from '@/interface/containers/global/header-desktop
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
+import Loading from '@/interface/containers/global/loading/main';
+import PrivacyBanner from '@/interface/containers/site/privacy-banner/main';
 
 // assets
 import Logo from '@/interface/components/global/logo/main';
@@ -35,6 +37,8 @@ interface menuProps {
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   const { activeStatus, checkStoreStatus } = useActiveStore();
+  
+  const [mounted, setMounted] = useState(true);
   
   const [searchText, setSearchText] = useState('');
   const [filteredData, setFilteredData] = useState(data);
@@ -76,7 +80,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
       redirect("/admin/products")
     }
 
-    setFilteredData(filterProducts);
+    setFilteredData(filterProducts); 
   };
 
   useEffect(() => {
@@ -89,17 +93,24 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
       if (!(data.length > 0) || !(categories.length > 0) || response) {
         redirect("/unavailable");
       }
+      setMounted(false);
     };
     verify();
   }, [activeStatus]);
 
+  if (mounted) {
+    return <Loading/>;
+  }
+
   return (
     <>
+      <PrivacyBanner/>
       <AboutProduct open={open} toggleDrawer={toggleDrawer} product={currentProduct} />
       <MainContainer isBottomMenu={!size_768}>
         {
           size_768 ?
             <HeaderDesktopContainer
+              logoPosition="start"
               value={searchText}
               handleChange={setSearchText}
               placeholder="Pesquisar por produto"
@@ -161,10 +172,7 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
             <BackToMenu text="Nenhum produto encontrado..."/>
         }
         {
-          size_768 ? 
-            <></> 
-          :
-            <Menu/>
+          !size_768 && <Menu/>
         }
       </MainContainer>
     </>

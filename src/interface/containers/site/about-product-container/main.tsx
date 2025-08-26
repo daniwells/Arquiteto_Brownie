@@ -68,78 +68,71 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
     toggleDrawer(false);
   };
 
-  return (
-    <>
-      <Drawer
-        anchor="bottom"
-        open={open}
-        onClose={handleToggle}
-        sx={{
-          '& .MuiDrawer-paper': {
-            borderTopLeftRadius: size_630 ? '0px' : '18px',
-            borderTopRightRadius: size_630 ? '0px' : '18px',
-            height: size_630 ? '100vh' : 'auto',
-          },
-        }}
-      > 
-        <S.AboutProductContainerStyle>
+  return <Drawer
+      anchor="bottom"
+      open={open}
+      onClose={handleToggle}
+      sx={{
+        '& .MuiDrawer-paper': {
+          borderTopLeftRadius: size_630 ? '0px' : '18px',
+          borderTopRightRadius: size_630 ? '0px' : '18px',
+          height: size_630 ? '100vh' : 'auto',
+        },
+      }}
+    > 
+      <S.AboutProductContainerStyle>
+        {
+          size_630 && <HeaderDesktopContainer logoPosition="start" handleReturn={handleToggle} hasReturn/>
+        }
+        <S.MainAboutProduct>
           {
-            size_630 && <HeaderDesktopContainer handleReturn={handleToggle} hasReturn/>
-          }
-          <S.MainAboutProduct>
-            {
-              size_630 ?
-                <ProductGallery images={product?.images || []}/>
-              :
-                <S.CustomSwiper
-                  className="my-swiper"
-                  spaceBetween={5}
-                  slidesPerView={product?.images?.length && product?.images?.length > 2 ? 2.5 : 2}
-                >
-                  {product?.images.map((imagePath, key) => (
-                    <SwiperSlide key={key}>
-                      <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80} />
+            size_630 ?
+              <ProductGallery images={product?.images || []}/>
+            :
+              <S.CustomSwiper
+                className="my-swiper"
+                spaceBetween={5}
+                slidesPerView={product?.images?.length && product?.images?.length > 2 ? 2.5 : 2}
+              >
+                {product?.images.map((imagePath, key) => (
+                  <SwiperSlide key={key}>
+                    <Image src={imagePath} alt={`Produto ${key}`} width={80} height={80} />
+                  </SwiperSlide>
+                )) || false}
+                {
+                  
+                  product?.images.length == 1 &&
+                    <SwiperSlide>
+                      <S.LogoDarkContainer>
+                        <Image src={LogoDark} alt="Logo" style={{ width: "80px", height: "80px" }} />
+                      </S.LogoDarkContainer>
                     </SwiperSlide>
-                  )) || false}
-                  {
-                    
-                    product?.images.length == 1 &&
-                      <SwiperSlide>
-                        <S.LogoDarkContainer>
-                          <Image src={LogoDark} alt="Logo" style={{ width: "80px", height: "80px" }} />
-                        </S.LogoDarkContainer>
-                      </SwiperSlide>
-                  }
-                </S.CustomSwiper>
-            }
-            <S.AboutColumn>
-              <S.Product>
-                <S.ContainerDesc>
-                  <h3>{product?.name}</h3>
-                  <p>{product?.description}</p>
-                </S.ContainerDesc>
+                }
+              </S.CustomSwiper>
+          }
+          <S.AboutColumn>
+            <S.Product>
+              <S.ContainerDesc>
+                <h3>{product?.name}</h3>
+                <p>{product?.description}</p>
+              </S.ContainerDesc>
 
-                <S.AboutProductContent>
-                  <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
-                  <ProductPrice value={String(Number(product?.price) * qty || 0)} />
-                </S.AboutProductContent>
+              <S.AboutProductContent>
+                <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
+                <ProductPrice value={String(Number(product?.price) * qty || 0)} />
+              </S.AboutProductContent>
 
-                <S.ButtonContainer>
-                  <PrimaryButton
-                    loading={loading}
-                    value="Adicionar ao carrinho"
-                    handleClick={handleAddItemsCart}
-                  />
-                </S.ButtonContainer>
-              </S.Product>
-              
-              
-            </S.AboutColumn>
-          </S.MainAboutProduct>
-        </S.AboutProductContainerStyle>
-      </Drawer>
-    </>
-  );
+              <PrimaryButton
+                loading={loading}
+                value="Adicionar ao carrinho"
+                handleClick={handleAddItemsCart}
+              />
+            </S.Product>
+          </S.AboutColumn>
+        </S.MainAboutProduct>
+      </S.AboutProductContainerStyle>
+    </Drawer>
+   
 };
 
 export default AboutProduct;

@@ -16,6 +16,7 @@ import CardContainer from '@/interface/containers/global/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Images
 import categoryIcon from '../../../../public/svg/category.svg';
@@ -29,6 +30,7 @@ import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/
 const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
+  const [mounted, setMounted] = useState(true);
   const [loading, setLoading] = useState(false);
   const { openPopup } = usePopup();
   const [createdCategory, setCreatedCategory] = useState('');
@@ -88,13 +90,19 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
 
   useEffect(() => {
     handleGetAllCategories();
+    setMounted(false);
   }, []);
+
+  if(mounted){
+    return <Loading/>
+  }
 
   return (
     <MainContainer isBottomMenu>
       {
         size_768 ?
           <HeaderDesktopContainer
+            logoPosition="middle"
             title="Categorias"
             description="Crie ou edite uma categoria para os seus produtos"
             hasUser

@@ -84,7 +84,8 @@ export const IconStyle = styled(Image)`
 
 export const IconStyleContainer = styled.div`
     background-color: white;
-    padding: 14px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,6 +99,11 @@ export const IconStyleContainer = styled.div`
     &:hover {
         border: solid 1px ${colors.darkGray};
         transform: scale(1.05);
+    }
+
+    @media ${breakpoints.md} {
+        width: 50px;
+        height: 50px;
     }
 `
 

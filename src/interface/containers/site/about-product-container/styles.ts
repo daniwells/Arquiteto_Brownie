@@ -13,7 +13,7 @@ export const MainAboutProduct = styled.div`
     flex-direction: column;
     align-items: center;
   }
-
+  
   @media ${breakpoints.bs} {
     display: flex;
     flex-direction: row;
@@ -35,6 +35,9 @@ export const AboutProductContainerStyle = styled.div`
   border-radius: 20px;
   width: 100%;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   h3 {
     font-family: 'Pacifico Regular';
@@ -115,12 +118,8 @@ export const Product = styled.div`
   flex-direction: column;
   grid-gap: 15px;
   justify-content: space-between;
+  max-width: 400px;
 `;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`
 
 export const AboutColumn = styled.div`
   width: 100%;

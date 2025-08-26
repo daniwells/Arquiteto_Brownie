@@ -16,6 +16,7 @@ import MaskedInput from '@/interface/components/global/masked-input/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
 import Return from '@/interface/containers/global/return/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Images
 import Logo from '@/interface/components/global/logo/main';
@@ -47,24 +48,11 @@ interface formsContentProps {
 const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const { openPopup, openConcentTerm } = usePopup();
   const { activeStatus, checkStoreStatus } = useActiveStore();
+  const [mounted, setMounted] = useState(true);
   const [loading, setLoading] = useState(false);
   const [showPopupConcent, setShowPopupConcent] = useState(true);
 
   const size_768 = useMediaQuery('(min-width:768px)');
-
-  useEffect(() => {
-    verifyAcceptPolicy();
-  }, []);
-
-  useEffect(() => {
-    const verify = async () => {
-      const response = await checkStoreStatus();
-      if (response) {
-        redirect("/unavailable");
-      }
-    };
-    verify();
-  }, [activeStatus]);
 
   const verifyAcceptPolicy = () => {
     const dismissed = sessionStorage.getItem("accept_privacy_terms");
@@ -181,11 +169,29 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
     window.location.href = url;
   };
 
+  useEffect(() => verifyAcceptPolicy(), []);
+
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+      setMounted(false);
+    };
+    verify();
+  }, [activeStatus]);
+
+  if (mounted) {
+    return <Loading/>;
+  }
+
   return (
     <MainContainer>
       {
         size_768 ?
           <HeaderDesktopContainer
+            logoPosition="end"
             handleReturn={() => redirect("/")}
             title="Preencha seus dados"
             description="Para prosseguir com a sua compra, por favor preencha os campos abaixo"

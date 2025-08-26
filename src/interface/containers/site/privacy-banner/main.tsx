@@ -37,12 +37,12 @@ const PrivacyBanner = () => {
       )}
       {
         !showBanner && 
-        <S.FloatingButton>
-          <Link href="/privacy-policy">
+        <S.FloatingButton href="/privacy-policy">
+          
             {
               size_630 ? "Política de Privacidade" : <MdOutlinePrivacyTip/>
             }
-          </Link>
+          
         </S.FloatingButton>
       }
     </>

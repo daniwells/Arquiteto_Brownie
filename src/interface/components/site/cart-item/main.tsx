@@ -20,12 +20,10 @@ const CartItem: React.FC<cartItemProps> = ({ product, handleQuantity, loading })
 
   return (
     <>
-      <S.Container
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 1 }}
-        transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-      >
-        <S.Image $url={product.images[0]} />
+      <S.Container transition={{ type: 'spring', stiffness: 400, damping: 17 }}>
+        <S.ImageContainer>
+          <S.Image $url={product.images[0]} />
+        </S.ImageContainer>
         <S.Content>
           <div>
             <S.RowCard>

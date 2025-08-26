@@ -10,6 +10,7 @@ interface returnProps {
 const Return: React.FC<returnProps> = ({ redirect }) => {
   return (
     <S.HeaderContainerSite>
+      
       <Link href={redirect}>
         <S.BackIcon src={arrowLeft} alt="Ícone de Voltar" />
       </Link>

@@ -5,12 +5,11 @@ export const Wrapper = styled.label`
   display: flex;
   align-items: center;
   background-color: white;
-  height: 50px;
   border-radius: 50px;
   width: 100%;
   max-width: 600px;
   border: solid 1px transparent;
-  padding-block: 10px;
+  padding-block: 15px;
   padding-inline: 20px;
   cursor: text;
   transition:

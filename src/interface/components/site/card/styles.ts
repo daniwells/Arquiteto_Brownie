@@ -3,21 +3,19 @@ import { colors } from '@/styles/themes';
 import { motion } from 'framer-motion';
 import breakpoints from '@/styles/breakpoints';
 
-export const Container = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  height: 150px;
-  cursor: pointer;
-  width: 100%;
-`;
-
 interface imageProps {
   $url: string;
 }
 
+export const ImageContainer = styled.div`
+  width: 45%;
+  height: 100%;
+  overflow: hidden;
+`
+
 export const Image = styled.div<imageProps>`
   max-width: 200px;
-  width: 45%;
+  width: 100%;
   height: 100%;
   ${(props) =>
     props?.$url
@@ -27,6 +25,20 @@ export const Image = styled.div<imageProps>`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+`;
+
+export const Container = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+  cursor: pointer;
+  width: 100%;
+  
+  &:hover, &:active {
+    ${Image}{
+      scale: 1.05;
+    }
+  }
 `;
 
 export const Content = styled.div`

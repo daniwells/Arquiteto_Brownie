@@ -11,12 +11,12 @@ interface cardProps {
 const Card: React.FC<cardProps> = ({ product, handleClick, qty }) => {
   return (
     <S.Container
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 1 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
       onClick={handleClick}
     >
-      <S.Image $url={product.images[0]} />
+      <S.ImageContainer>
+        <S.Image $url={product.images[0]} />
+      </S.ImageContainer>
       <S.Content>
         <div>
           <h1>{product.name}</h1>

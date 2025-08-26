@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import breakpoints from "@/styles/breakpoints";
+import Link from "next/link";
 
 export const Banner = styled.div`
     position: fixed;
@@ -34,7 +35,7 @@ export const Banner = styled.div`
     }
 `
 
-export const FloatingButton = styled.button`
+export const FloatingButton = styled(Link)`
     position: fixed;
     bottom: 10px;
     right: 10px;
@@ -43,22 +44,19 @@ export const FloatingButton = styled.button`
     color: white;
     width: 40px;
     height: 40px;
-    border-radius: 20px;
     font-size: 14px;
     box-shadow: 0 0 10px rgba(0,0,0,0.2);
     border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     @media ${breakpoints.bs} {
         padding: 8px 16px;    
         width: auto;
         height: auto;
-    }
-
-    a {
-        color: white;
-        text-decoration: none;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 `

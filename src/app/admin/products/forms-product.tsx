@@ -142,6 +142,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
       {
         size_768 ?
           <HeaderDesktopContainer
+            logoPosition="end"
             handleReturn={() => redirect("/admin/products")}
             title={selectedProduct ? "Editar produto" : "Criar produto"}
             description={

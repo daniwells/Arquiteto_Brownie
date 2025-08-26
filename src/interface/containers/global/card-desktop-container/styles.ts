@@ -22,10 +22,10 @@ export const SliderContainer = styled.div`
 export const NavButton = styled.div`
   background-color: white;
   width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 50px;
   border-radius: 50%;
   cursor: pointer;
 

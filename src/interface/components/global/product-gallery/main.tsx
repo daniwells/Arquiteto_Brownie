@@ -16,7 +16,7 @@ const ProductGallery: React.FC<ProductGalleryProps> = ({ images }) => {
           <S.ThumbnailWrapper
             key={index}
             onClick={() => setSelectedImage(img)}
-            active={selectedImage === img ? "true" : "false"}
+            $active={selectedImage === img ? true : false}
           >
             <Image src={img} alt={`Miniatura ${index}`} width={60} height={60} />
           </S.ThumbnailWrapper>

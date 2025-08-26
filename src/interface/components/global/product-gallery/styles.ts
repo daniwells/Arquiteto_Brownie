@@ -35,15 +35,18 @@ export const Thumbnails = styled.div`
   }
 `;
 
-export const ThumbnailWrapper = styled.div<{ active: string }>`
-  border: 2px solid ${({ active }) => (active ? colors.baseYellow : "transparent")};
+export const ThumbnailWrapper = styled.div<{ $active: boolean }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid ${({ $active }) => ($active ? colors.baseYellow : colors.lightGray)};
   border-radius: 8px;
   padding: 4px;
   cursor: pointer;
   transition: border-color 0.2s;
 
   &:hover {
-    border-color: ${({ active }) => (active ? colors.baseYellow : colors.gray)};
+    border-color: ${colors.baseYellow};
   }
 `;
 

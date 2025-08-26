@@ -2,17 +2,15 @@ import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 import { motion } from 'framer-motion';
 
-export const Container = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  height: 150px;
-  cursor: pointer;
-  width: 100%;
-`;
+export const ImageContainer = styled.div`
+  width: 45%;
+  height: 100%;
+  overflow: hidden;
+`
 
 export const Image = styled.div<{ $url: string }>`
   max-width: 200px;
-  width: 45%;
+  width: 100%;
   height: 150px;
   ${(props) =>
     props?.$url
@@ -22,6 +20,20 @@ export const Image = styled.div<{ $url: string }>`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
+`;
+
+export const Container = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
+  height: 150px;
+  cursor: pointer;
+  width: 100%;
+
+  &:hover, &:active {
+      ${Image}{
+        scale: 1.05;
+      }
+    }
 `;
 
 export const Content = styled.div`

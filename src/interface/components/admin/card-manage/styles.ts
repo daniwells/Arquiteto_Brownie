@@ -6,17 +6,13 @@ import breakpoints from '@/styles/breakpoints';
 export const BackgroundCardManage = styled(motion.div)`
   display: flex;
   flex-direction: column;
-
-  @media ${breakpoints.xs} {
-    height: 270px;
-  }
-  
+  align-items: center;
+  justify-content: space-between;
   border-radius: 20px;
   background-color: white;
   padding: 20px;
   width: 100%;
   max-width: 500px;
-  align-items: center;
 `;
 
 export const ImageProductManageCard = styled.div<{ $url: string }>`
@@ -57,6 +53,11 @@ export const AboutProduct = styled.div`
 
   h3 {
     font-size: 18px;
+    color: ${colors.blackGray};
+  }
+
+  p {
+    font-size: 14px;
     color: ${colors.blackGray};
   }
 
