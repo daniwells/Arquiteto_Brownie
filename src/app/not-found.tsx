@@ -1,12 +1,33 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
 import logoIcon from "../../public/svg/logo.svg";
 import PrimaryButton from "@/interface/components/global/primary-button/main";
 import { redirect } from "next/navigation";
+import { useActiveStore } from "@/contexts/ActiveStoreContext";
+import Loading from "@/interface/containers/global/loading/main";
 
 const NotFoundPage = () => {
+  const [mounted, setMounted] = useState(true);
+  const { activeStatus, checkStoreStatus } = useActiveStore();
+
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+      setMounted(false);
+    };
+    verify();
+  }, [activeStatus]);
+
+  if(mounted){
+    return <Loading/>
+  }
+
   return (
     <div style={{
       display: "flex",
@@ -25,8 +46,8 @@ const NotFoundPage = () => {
             priority={true}
         />
         <div>
-          <h1>Not Found</h1>
-          <p>Essa página não foi encontrada</p>
+          <h1>404 - Not Found</h1>
+          <p>Essa página não foi encontrada.</p>
         </div>
       </div>
       <PrimaryButton

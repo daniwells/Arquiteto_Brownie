@@ -25,6 +25,7 @@ import OrderButtonsContainer from '@/interface/containers/admin/order-buttons-co
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Utils
 import { orderType, productTypeImageString } from '@/types';
@@ -36,6 +37,7 @@ import { editOrder, removeOrder } from '@/lib/actions/order.actions';
 
 // Contexts
 import { usePopup } from '@/contexts/PopupContext';
+import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 interface editOrderContentProps {
   order: orderType;
@@ -45,10 +47,13 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
   const size_1024 = useMediaQuery('(min-width:1024px)');
 
+  const { activeStatus, checkStoreStatus } = useActiveStore();
   const { openPopup } = usePopup();
+
   const [products, setProducts] = useState<
-    { product: productTypeImageString; qty: number }[] | null
+  { product: productTypeImageString; qty: number }[] | null
   >(null);
+  const [mounted, setMounted] = useState(true);
   const [status, setStatus] = useState<string>(capitalizeFirstLetter(order.status));
   const [loading, setLoading] = useState(false);
 
@@ -166,6 +171,21 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
     handleGetAllProducts();
   }, []);
 
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+      setMounted(false);
+    };
+    verify();
+  }, [activeStatus]);
+
+  if(mounted){
+    return <Loading/>
+  }
+
   return (
     <>
       <MainContainer>
@@ -175,12 +195,11 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
               logoPosition="end"
               handleReturn={() => redirect("/admin/orders")}
               hasReturn
-              description={`Cliente: ${order?.customer?.name}`}
               title={`Pedido #${order.id?.slice(0, 6)}`}
             />
           :
             <>
-              <HeaderAdmin redirect="/admin/orders" />
+              <HeaderAdmin redirect="/admin/orders"/>
               <Title text={`Pedido #${order.id?.slice(0, 6)}`}/>
             </>
         }

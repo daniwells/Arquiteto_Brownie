@@ -19,7 +19,8 @@ export const ActiveStoreProvider: React.FC<activeStoreProviderProps> = ({ childr
 
   const checkStoreStatus = async () => {
     const response = await getSettings("site_disabled");
-    
+    console.log(response);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     if(response?.content?.value == "false"){
         setActiveStatus(false);
         return false;

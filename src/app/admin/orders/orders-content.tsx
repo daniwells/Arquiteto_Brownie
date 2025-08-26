@@ -113,21 +113,23 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
           </>
         :
           <>
-            <HeaderAdmin/>
+            <HeaderAdmin userEmail={userEmail}/>
             <Title text="Gerenciar pedidos" />
           </>
       }
-      {orders && orders.length > 0 ? (
-        filteredData && filteredData.length > 0 ? 
+      {
+        orders && orders.length > 0 ? (
           <>
             {
               size_768 ?
                 <CardGridContainer>
-                  {filteredData.length > 0 &&
-                    filteredData.map((order) => (
-                      // order.status != "FINALIZADO" &&
-                      <CardOrder key={order.id} order={order} />                      
-                    ))
+                  {
+                    filteredData.length > 0 ?
+                      filteredData.map((order) => (
+                        <CardOrder key={order.id} order={order} />                      
+                      ))
+                    :
+                      <BackToMenu text="Nenhum pedido encontrado..." />
                   }
                 </CardGridContainer>
               :
@@ -140,22 +142,22 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
                 />
                 {returnFilterStatus()}
                 <CardContainer height="18rem">
-                  {filteredData.length > 0 &&
-                    filteredData.map((order) => 
-                      // order.status != "FINALIZADO" &&
-                      <CardOrder  key={order.id} order={order} />                      
-                    )
+                  {
+                    filteredData.length > 0 ?
+                      filteredData.map((order) => 
+                        <CardOrder  key={order.id} order={order} />                      
+                      )
+                    :
+                      <BackToMenu text="Nenhum pedido encontrado..." />
                   }
                 </CardContainer>
               </>
             }  
           </>
-        :
-          
-          <BackToMenu text="Nenhum pedido encontrado..." />
-      ) : (
-        <BackToMenu text="Nenhum pedido feito até o momento..." />
-      )}
+        ) : (
+          <BackToMenu text="Nenhum pedido feito até o momento..." />
+        )
+      }
       <MenuAdmin />
     </MainContainer>
   );

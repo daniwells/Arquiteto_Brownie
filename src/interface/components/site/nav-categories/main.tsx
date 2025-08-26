@@ -7,9 +7,10 @@ import { Swiper as SwiperClass } from 'swiper';
 interface navProps {
   handleChange: (category: string) => void;
   navItems: { name: string; value: string }[];
+  hasSearchText?: boolean;
 }
 
-const NavCategories: React.FC<navProps> = ({ handleChange, navItems }) => {
+const NavCategories: React.FC<navProps> = ({ handleChange, navItems, hasSearchText }) => {
   const [active, setActive] = useState(navItems[0]);
   const swiperRef = useRef<SwiperClass | null>(null);
 
@@ -27,21 +28,25 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems }) => {
   return (
     <S.BackgroundNav>
       <Title text="Nosso menu" />
-      <S.NavBar
-        className="my-swiper"
-        spaceBetween={20}
-        slidesPerView="auto"
-        onSwiper={(swiper) => (swiperRef.current = swiper)}
-      >
-        {navItems.map((item, index) => (
-          <SwiperSlide key={item.value}>
-            <S.NavItem onClick={() => handleItemClick(item, index)}>
-              <a href="#">{item.name}</a>
-              {active.value === item.value && <S.Underline layoutId="underline" />}
-            </S.NavItem>
-          </SwiperSlide>
-        ))}
-      </S.NavBar>
+      {
+        !hasSearchText &&
+         <S.NavBar
+          className="my-swiper"
+          spaceBetween={20}
+          slidesPerView="auto"
+          onSwiper={(swiper) => (swiperRef.current = swiper)}
+        >
+          {navItems.map((item, index) => (
+            <SwiperSlide key={item.value}>
+              <S.NavItem onClick={() => handleItemClick(item, index)}>
+                <a href="#">{item.name}</a>
+                {active.value === item.value && <S.Underline layoutId="underline" />}
+              </S.NavItem>
+            </SwiperSlide>
+          ))}
+        </S.NavBar>
+      }
+     
     </S.BackgroundNav>
   );
 };

@@ -60,7 +60,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
       }
       
       {
-        title && description &&
+        (title || description) &&
         <S.DescAndReturn>
           {
             logoPosition === "middle" && <Image src={logoIcon} alt="Logo do site" width={70}/>
@@ -72,7 +72,7 @@ const HeaderDesktopContainer: React.FC<headerDesktopContainer> = ({
               <Image src={arrowLeft} alt="Ícone de voltar" width={12}/>
             </S.IconStyleContainer>
           }
-          <DescriptionContainer title={title || ""} desc={description}/>
+          <DescriptionContainer title={title || ""} desc={description || ""}/>
         </S.DescAndReturn>
       }
 

@@ -54,34 +54,33 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
   };
 
   const handleFilterProduct = () => {
-    const filterProducts = data
-      .filter((product) => {
-        if (searchText === '') return true;
+    const normalizedSearch = searchText.trim().toLowerCase();
 
-        return (
-          !searchText.trim() ||
-          [
-            product.name?.toString(),
-            product.category?.toLowerCase(),
-            product.description?.toString(),
-            product.price?.toString(),
-          ].some((field) => field?.toLowerCase().includes(searchText.toLowerCase()))
-        );
-      })
-      .filter((product) => {
-        if (selectedCategory === '') return true;
-        return product.category?.toLowerCase() === selectedCategory.toLowerCase();
-      })
-      .filter((product) => {
-        return product.active;
-      })
-    
+    const filterProducts = data.filter((product) => {
+      const matchesText =
+        !normalizedSearch ||
+        [product.name, product.description, product.price?.toString()]
+          .filter(Boolean)
+          .some((field) => field!.toLowerCase().includes(normalizedSearch));
+
+      const matchesCategory =
+        !selectedCategory ||
+        product.category?.toLowerCase() === selectedCategory.toLowerCase();
+
+      if (normalizedSearch) {
+        return matchesText && product.active;
+      }
+
+      return matchesCategory && product.active;
+    });
+
     if(!filterProducts){
       redirect("/admin/products")
     }
 
-    setFilteredData(filterProducts); 
+    setFilteredData(filterProducts);
   };
+
 
   useEffect(() => {
     handleFilterProduct();
@@ -131,7 +130,12 @@ const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
         {
           filteredData.length > 0 ?
             <>
-              <NavCategories navItems={categories} handleChange={setSelectedCategory} />
+              <NavCategories 
+                navItems={categories}
+                handleChange={setSelectedCategory}
+                hasSearchText={searchText ? true : false}
+              />
+              
               {
                 size_768 ?
                   <CardDesktopContainer

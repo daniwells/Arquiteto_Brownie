@@ -22,6 +22,7 @@ import MultiImageInput from '@/interface/components/admin/multi-image-input/main
 import Dropdown from '@/interface/components/global/dropdown/main';
 import DropdownSecond from '@/interface/components/admin/dropdown-second/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
+import Loading from '@/interface/containers/global/loading/main';
 
 // Images
 import cakeIcon from '../../../../public/svg/cake.svg';
@@ -39,6 +40,7 @@ import { productType } from '@/types';
 
 // Context
 import { usePopup } from '@/contexts/PopupContext';
+import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 interface formData {
   name: string;
@@ -56,7 +58,10 @@ interface formsProduct {
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
+  const { activeStatus, checkStoreStatus } = useActiveStore();
   const { openPopup } = usePopup();
+
+  const [mounted, setMounted] = useState(true);
   const [categories, setCategories] = useState(['']);
   const [loading, setLoading] = useState(false);
 
@@ -136,6 +141,21 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
       redirect('/admin/products');
     }
   };
+
+  useEffect(() => {
+    const verify = async () => {
+      const response = await checkStoreStatus();
+      if (response) {
+        redirect("/unavailable");
+      }
+      setMounted(false);
+    };
+    verify();
+  }, [activeStatus]);
+
+  if(mounted){
+    return <Loading/>
+  }
 
   return (
     <MainContainer>

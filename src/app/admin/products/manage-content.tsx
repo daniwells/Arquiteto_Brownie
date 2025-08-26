@@ -127,7 +127,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
           </>    
         :
           <>
-            <HeaderAdmin />
+            <HeaderAdmin userEmail={userEmail} />
             <Title text="Gerenciar produtos" />
             <Search 
               id="search-products"

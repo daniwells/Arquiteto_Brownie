@@ -11,21 +11,6 @@ export const GlobalStyles = createGlobalStyle`
     font-size: 20px;
   }
 
-  @font-face {
-    font-family: 'Comfortaa Regular';
-    src: url('/fonts/Comfortaa-Regular.ttf');
-  }
-
-  @font-face {
-    font-family: 'Comfortaa Bold';
-    src: url('/fonts/Comfortaa-Bold.ttf');
-  }
-
-  @font-face {
-    font-family: 'Pacifico Regular';
-    src: url('/fonts/Pacifico-Regular.ttf');
-  }
-
   body{
     overflow-x: hidden;
     font-family: 'Comfortaa Regular', Arial, Helvetica, sans-serif;

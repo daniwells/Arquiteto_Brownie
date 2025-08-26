@@ -110,7 +110,7 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
           />
         :
           <>
-            <HeaderAdmin />
+            <HeaderAdmin userEmail={userEmail}/>
             <DescriptionContainer
               title="Categorias"
               desc="Crie ou edite uma categoria para os seus produtos"

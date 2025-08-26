@@ -19,6 +19,9 @@ export const Container = styled.div`
   width: 100%;
   padding: 24px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 600px) {
     padding: 20px;
