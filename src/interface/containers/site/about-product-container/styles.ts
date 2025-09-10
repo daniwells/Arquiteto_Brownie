@@ -110,7 +110,7 @@ export const AboutProductContent = styled.div`
 `;
 
 export const ContainerDesc = styled.div`
-  margin-block: 20px;
+  margin-bottom: 20px;
 `;
 
 export const Product = styled.div`
