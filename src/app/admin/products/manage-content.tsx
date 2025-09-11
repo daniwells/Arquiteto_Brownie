@@ -101,7 +101,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
                   ]}
                   selectedOption={category}
                   setSelectedOption={(value: string) => setCategory(value)}
-                  width={`${category.length + 400}px`}
+                  width={`${category.length + 240}px`}
                 />
               }
             />

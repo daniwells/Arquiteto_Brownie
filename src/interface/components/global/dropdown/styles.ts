@@ -15,6 +15,8 @@ interface DropdownContainerProps {
 export const DropdownContainer = styled.div<DropdownContainerProps>`
   position: relative;
   width: ${(props) => (props['data-width'] ? props['data-width'] : '240px')};
+  min-width: 165px;
+  max-width: 270px;
 `;
 
 export const DropdownHeader = styled.div`

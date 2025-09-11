@@ -27,6 +27,23 @@ import { usePopup } from '@/contexts/PopupContext';
 // Actions
 import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
 
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+
+
 const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
@@ -93,6 +110,28 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
     setMounted(false);
   }, []);
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
+
+    if (active.id !== over?.id) {
+      setListCategories((items) => {
+        if (!items) return items;
+
+        const oldIndex = items.findIndex((i) => i.id === active.id);
+        const newIndex = items.findIndex((i) => i.id === over.id);
+
+        return arrayMove(items, oldIndex, newIndex);
+      });
+    }
+  };
+
   if(mounted){
     return <Loading/>
   }
@@ -118,29 +157,39 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
           </>
       }
       
-      <FormContainer handleSubmit={handleSubmit}>
-        <BaseInput
-          value={createdCategory}
-          icon={categoryIcon}
-          altIcon="ícone de categoria"
-          placeholder="Categoria"
-          id="category"
-          handleChange={(value: string) => setCreatedCategory(value)}
-        />
-        <PrimaryButton loading={loading} type="submit" value={'Criar categoria'} />
-        <Line/>
-        <CardContainer>
-          {listCategories &&
-            listCategories.map((category) => (
-              <CardCategory
-                loading={loading}
-                handleRemove={() => handleRemoveCategory(category.id)}
-                value={category.category}
-                key={category.id}
-              />
-            ))}
-        </CardContainer>
+      <FormContainer style="padding-top: 30px;" handleSubmit={handleSubmit}>
+          <BaseInput
+            value={createdCategory}
+            icon={categoryIcon}
+            altIcon="ícone de categoria"
+            placeholder="Categoria"
+            id="category"
+            handleChange={(value: string) => setCreatedCategory(value)}
+          />
+          <PrimaryButton loading={loading} type="submit" value={'Criar categoria'} />
+          <Line/>
       </FormContainer>
+      <CardContainer>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={listCategories || []} strategy={verticalListSortingStrategy}>
+            {listCategories &&
+              listCategories.map((category) => (
+                <CardCategory
+                  id={category.id}
+                  loading={loading}
+                  handleRemove={() => handleRemoveCategory(category.id)}
+                  value={category.category}
+                  key={category.id}
+                />
+              )
+            )}
+          </SortableContext>
+        </DndContext>
+      </CardContainer>
       <MenuAdmin />
     </MainContainer>
   );

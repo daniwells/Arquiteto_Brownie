@@ -208,7 +208,7 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
           </>
       }
       
-      <FormContainer handleSubmit={
+      <FormContainer style="padding-block: 30px;" handleSubmit={
         showPopupConcent ? handleSubmit(interceptSubmit) : handleSubmit(onSubmit)
       }>
         <BaseInput

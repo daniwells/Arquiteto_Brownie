@@ -184,7 +184,7 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
           </>
       }
 
-      <FormContainer handleSubmit={handleSubmit(onSubmit)}>
+      <FormContainer style="padding-block: 30px;" handleSubmit={handleSubmit(onSubmit)}>
         <BaseInput
           value={watchFields.name}
           icon={cakeIcon}
