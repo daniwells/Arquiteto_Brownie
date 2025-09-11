@@ -110,7 +110,7 @@ export const AboutProductContent = styled.div`
 `;
 
 export const ContainerDesc = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 export const Product = styled.div`
@@ -137,4 +137,15 @@ export const LogoDarkContainer = styled.div`
   img{
     margin: auto;
   }
+`
+
+export const PriceAndFreight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`
+
+export const Freight = styled.div`
+  font-size: 16px;
+  color: ${colors.darkGray};
 `

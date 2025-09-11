@@ -129,18 +129,18 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
         />
         <PrimaryButton loading={loading} type="submit" value={'Criar categoria'} />
         <Line/>
+        <CardContainer>
+          {listCategories &&
+            listCategories.map((category) => (
+              <CardCategory
+                loading={loading}
+                handleRemove={() => handleRemoveCategory(category.id)}
+                value={category.category}
+                key={category.id}
+              />
+            ))}
+        </CardContainer>
       </FormContainer>
-      <CardContainer>
-        {listCategories &&
-          listCategories.map((category) => (
-            <CardCategory
-              loading={loading}
-              handleRemove={() => handleRemoveCategory(category.id)}
-              value={category.category}
-              key={category.id}
-            />
-          ))}
-      </CardContainer>
       <MenuAdmin />
     </MainContainer>
   );

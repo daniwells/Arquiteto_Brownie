@@ -119,7 +119,10 @@ const AboutProduct: React.FC<AboutProductProps> = ({ open, toggleDrawer, product
 
               <S.AboutProductContent>
                 <AddOrRemove quantity={qty} handleQuantity={handleQuantity} />
-                <ProductPrice value={String(Number(product?.price) * qty || 0)} />
+                <S.PriceAndFreight>
+                  <ProductPrice value={String(Number(product?.price) * qty || 0)} />
+                  <S.Freight>+ Frete</S.Freight>
+                </S.PriceAndFreight>
               </S.AboutProductContent>
 
               <PrimaryButton
