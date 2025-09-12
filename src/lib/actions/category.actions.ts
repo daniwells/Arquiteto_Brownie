@@ -31,11 +31,16 @@ export async function insertCategory(category: string) {
   try {
     if (!category) return { success: false, message: 'Categoria não encontrada' };
 
+    const maxPosition = await prisma.category.aggregate({
+      _max: { position: true },
+    });
+
+    const nextPosition = (maxPosition._max.position ?? 0) + 1;
+
     const session = await auth();
     if (!session) throw new CustomError('Usuário não autenticado');
 
-    // Save category in database
-    const insertedCategory = await prisma.category.create({ data: { category: category } });
+    const insertedCategory = await prisma.category.create({ data: { category: category,  position: nextPosition, } });
 
     if (!insertedCategory) throw new CustomError('Erro ao criar a categoria');
 
@@ -47,6 +52,45 @@ export async function insertCategory(category: string) {
     return {
       success: false,
       message: await formatError(error),
+    };
+  }
+}
+
+export async function patchCategory(idA: string, idB: string) {
+  try {
+    const categories = await prisma.category.findMany({
+      where: { id: { in: [idA, idB] } },
+      select: { id: true, position: true },
+    });
+
+    if (categories.length !== 2) throw new Error("Uma ou ambas categorias não existem");
+
+    const posA = categories.find(c => c.id === idA)!.position;
+    const posB = categories.find(c => c.id === idB)!.position;
+
+    await prisma.$transaction([
+      prisma.category.update({
+        where: { id: idA },
+        data: { position: -1 },
+      }),
+      prisma.category.update({
+        where: { id: idB },
+        data: { position: posA },
+      }),
+      prisma.category.update({
+        where: { id: idA },
+        data: { position: posB },
+      }),
+    ]);
+
+    return {
+      success: true,
+      message: "Posições invertidas com sucesso",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message: "Erro inesperado inverter posições",
     };
   }
 }

@@ -19,7 +19,7 @@ const Home = async () => {
     }
   });
 
-  const categoriesFormated = [{ name: '', value: '' }];
+  const categoriesFormated = [{ name: '', value: '', position: 1 }];
   if (categories?.success) {
     if (categories.content.length > 1) {
       categoriesFormated.shift();
@@ -27,7 +27,7 @@ const Home = async () => {
 
     categories.content.map((category) => {
       if (validCategories.includes(category.category)) {
-        categoriesFormated.push({ name: `${category.category}`, value: category.category });
+        categoriesFormated.push({ name: `${category.category}`, value: category.category, position: category.position });
       }
     });
   }

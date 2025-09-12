@@ -6,7 +6,7 @@ import { Swiper as SwiperClass } from 'swiper';
 
 interface navProps {
   handleChange: (category: string) => void;
-  navItems: { name: string; value: string }[];
+  navItems: { name: string; value: string, position: number }[];
   hasSearchText?: boolean;
 }
 
@@ -18,7 +18,7 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems, hasSearchTe
     handleChange(active.value);
   }, [active]);
 
-  const handleItemClick = (item: { name: string; value: string }, index: number) => {
+  const handleItemClick = (item: { name: string; value: string, position: number }, index: number) => {
     setActive(item);
     if (swiperRef.current) {
       swiperRef.current.slideTo(index);
@@ -36,7 +36,7 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems, hasSearchTe
           slidesPerView="auto"
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
-          {navItems.map((item, index) => (
+          {navItems?.sort((a, b) => a.position - b.position).map((item, index) => (
             <SwiperSlide key={item.value}>
               <S.NavItem onClick={() => handleItemClick(item, index)}>
                 <a href="#">{item.name}</a>

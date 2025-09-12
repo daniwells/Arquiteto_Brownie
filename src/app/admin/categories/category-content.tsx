@@ -25,7 +25,7 @@ import categoryIcon from '../../../../public/svg/category.svg';
 import { usePopup } from '@/contexts/PopupContext';
 
 // Actions
-import { getAllCategories, insertCategory, removeCategory } from '@/lib/actions/category.actions';
+import { getAllCategories, insertCategory, removeCategory, patchCategory } from '@/lib/actions/category.actions';
 
 import {
   DndContext,
@@ -55,6 +55,7 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
     | {
         category: string;
         id: string;
+        position: number;
       }[]
     | null
   >(null);
@@ -117,19 +118,40 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
     })
   );
 
+  const handlePatchCategory = async (idA: string, idB: string) => {
+    setLoading(true);
+    const response = await patchCategory(idA, idB);
+    setLoading(false);
+
+    if (!response?.success) {
+      const message = response.message ? await response.message : '';
+      openPopup(message, 'error');
+    }
+
+    handleGetAllCategories();
+  };
+
+
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
 
-    if (active.id !== over?.id) {
-      setListCategories((items) => {
-        if (!items) return items;
+    if (active.id === over?.id) return;
 
-        const oldIndex = items.findIndex((i) => i.id === active.id);
-        const newIndex = items.findIndex((i) => i.id === over.id);
+    setListCategories((items) => {
+      if (!items) return items;
 
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
+      const oldIndex = items.findIndex((i) => i.id === active.id);
+      const newIndex = items.findIndex((i) => i.id === over.id);
+
+      const newItems = arrayMove(items, oldIndex, newIndex);
+
+      return newItems.map((item, index) => ({
+        ...item,
+        position: index,
+      }));
+    });
+
+    handlePatchCategory(active.id, over.id)
   };
 
   if(mounted){
@@ -175,19 +197,23 @@ const CategoryContent: React.FC<{userEmail: string}> = ({userEmail}) => {
           collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
         >
-          <SortableContext items={listCategories || []} strategy={verticalListSortingStrategy}>
-            {listCategories &&
-              listCategories.map((category) => (
-                <CardCategory
-                  id={category.id}
-                  loading={loading}
-                  handleRemove={() => handleRemoveCategory(category.id)}
-                  value={category.category}
-                  key={category.id}
-                />
-              )
-            )}
-          </SortableContext>
+        <SortableContext
+          items={listCategories?.map(c => c.id) || []}
+          strategy={verticalListSortingStrategy}
+        >
+          {listCategories
+            ?.sort((a, b) => a.position - b.position)
+            .map((category) => (
+              <CardCategory
+                id={category.id}
+                loading={loading}
+                handleRemove={() => handleRemoveCategory(category.id)}
+                value={category.category}
+                key={category.id}
+              />
+            ))
+          }
+        </SortableContext>
         </DndContext>
       </CardContainer>
       <MenuAdmin />

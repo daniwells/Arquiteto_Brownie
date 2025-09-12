@@ -73,6 +73,7 @@ model Category {
   id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   category String    @unique
   product  Product[]
+  position Int       @unique
 }
 
 model Settings {

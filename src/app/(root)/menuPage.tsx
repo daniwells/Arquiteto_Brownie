@@ -32,7 +32,7 @@ import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 interface menuProps {
   data: productTypeImageString[];
-  categories: { name: string; value: string }[];
+  categories: { name: string; value: string, position: number }[];
 }
 
 const MenuPage: React.FC<menuProps> = ({ data, categories }) => {
