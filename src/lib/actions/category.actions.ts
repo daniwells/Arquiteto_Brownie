@@ -90,7 +90,7 @@ export async function patchCategory(idA: string, idB: string) {
   } catch (error) {
     return {
       success: false,
-      message: "Erro inesperado inverter posições",
+      message: await formatError(error, 'category'),
     };
   }
 }
