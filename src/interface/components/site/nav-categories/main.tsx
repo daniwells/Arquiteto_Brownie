@@ -11,7 +11,7 @@ interface navProps {
 }
 
 const NavCategories: React.FC<navProps> = ({ handleChange, navItems, hasSearchText }) => {
-  const [active, setActive] = useState(navItems[0]);
+  const [active, setActive] = useState(() => [...navItems].sort((a, b) => a.position - b.position)[0]);
   const swiperRef = useRef<SwiperClass | null>(null);
 
   useEffect(() => {
@@ -36,14 +36,17 @@ const NavCategories: React.FC<navProps> = ({ handleChange, navItems, hasSearchTe
           slidesPerView="auto"
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
-          {navItems?.sort((a, b) => a.position - b.position).map((item, index) => (
-            <SwiperSlide key={item.value}>
-              <S.NavItem onClick={() => handleItemClick(item, index)}>
-                <a href="#">{item.name}</a>
-                {active.value === item.value && <S.Underline layoutId="underline" />}
-              </S.NavItem>
-            </SwiperSlide>
-          ))}
+          {navItems
+            ?.sort((a, b) => a.position - b.position)
+            .map((item, index) => (
+              <SwiperSlide key={item.value}>
+                <S.NavItem onClick={() => handleItemClick(item, index)}>
+                  <a href="#">{item.name}</a>
+                  {active.value === item.value && <S.Underline layoutId="underline" />}
+                </S.NavItem>
+              </SwiperSlide>
+            )
+          )}
         </S.NavBar>
       }
      
