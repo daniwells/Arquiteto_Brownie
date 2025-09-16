@@ -108,7 +108,7 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
         <>
           {
             size_768 ?
-              <CardDesktopContainer amountCards={cart?.items.length}>
+              <CardDesktopContainer length={cart?.items.length} amountCards={cart?.items.length}>
                 {cart?.items.map((item) => 
 
                   <SwiperSlide key={item.id}>

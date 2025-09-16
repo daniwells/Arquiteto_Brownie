@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 interface cardDesktopContainerProps {
     children: React.ReactNode;
     amountCards: number;
+    length?: number;
 }
 
 const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children, amountCards}) => {
@@ -24,6 +25,12 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children, am
     useEffect(() => {
         setSwiperReady(true);
     }, []);
+
+    const returnNavButton = () => {
+        return <S.NavButton ref={nextRef}>
+                    <Image src={arrowRightIcon} alt="Flecha apontada para a direita" width={10}/>
+                </S.NavButton>
+    }
 
     return (
         <S.Wrapper>
@@ -64,9 +71,15 @@ const CardDesktopContainer: React.FC<cardDesktopContainerProps> = ({children, am
                 )}
             </S.SliderContainer>
             
-            <S.NavButton ref={nextRef}>
-                <Image src={arrowRightIcon} alt="Flecha apontada para a direita" width={10}/>
-            </S.NavButton>
+            {
+                length &&
+                    size_1200 && length > 3 ?
+                        returnNavButton()
+                    :
+                        !size_1200 && length > 2 &&
+                            returnNavButton()
+            }
+            
         </S.Wrapper>
     );
 };

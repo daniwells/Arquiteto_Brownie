@@ -6,8 +6,11 @@ export const TotalPriceContainer = styled.div<{background?: string}>`
   text-align: center;
   color: ${colors.darkGray};
   margin-top: 20px;
-
   
+  @media ${breakpoints.md} {
+    width: 290px;
+  }
+
   ${(props) =>
     props.background &&
     css`
@@ -23,14 +26,9 @@ export const TotalPriceContainer = styled.div<{background?: string}>`
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 200px;
   font-size: 18px;
   >Button{
     margin-top: 20px;
-  }
-
-  @media ${breakpoints.bg} {
-    width: 250px;
   }
 `;
 
