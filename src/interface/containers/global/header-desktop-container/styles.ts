@@ -9,6 +9,11 @@ export const HeaderDesktopContainerStyle = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    max-width: 60rem;
+    
+    @media (${breakpoints.md}){
+        height: 5rem;
+    }
 
     @media (${breakpoints.lg}){
         gap: 60px;
