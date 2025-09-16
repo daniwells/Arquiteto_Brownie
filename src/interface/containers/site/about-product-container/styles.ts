@@ -6,7 +6,7 @@ import breakpoints from '@/styles/breakpoints';
 
 export const MainAboutProduct = styled.div`
   width: 100%;
-  max-width: 60rem;
+  max-width: 70rem;
 
   @media ${breakpoints.sm} {
     display: flex;

@@ -9,9 +9,10 @@ interface TotalPriceInfoProps {
   totalPrice: string;
   isCart?: boolean;
   hasBackground?: boolean;
+  button?: React.ReactNode;
 }
 
-const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCart, hasBackground }) => {
+const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCart, hasBackground, button}) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const formatedDate = (date: Date) => {
@@ -27,10 +28,8 @@ const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCar
         <S.Span>Preço total:</S.Span> <ProductPrice value={totalPrice} />
       </S.Row>
       {
-        size_768 && isCart && 
-        <S.Row>
-          <PrimaryButton value="Finalizar Pedido" handleClick={() => redirect("/forms")}/>
-        </S.Row>
+        size_768 && button &&
+          <S.Row>{button}</S.Row>
       }
     </S.TotalPriceContainer>
   );

@@ -16,7 +16,7 @@ export const AboutCustomerOrderContainer = styled.div`
   font-family: 'Comfortaa Regular';
   color: ${colors.darkGray};
   width: 100%;
-
+  
   > div {
     display: flex;
     width: 100%;
@@ -36,7 +36,13 @@ export const AboutCustomerOrderContainer = styled.div`
     p {
       font-size: 16px;
     }
+    width: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
   }
+
+  
 `;
 
 export const ToolTip = styled.span`

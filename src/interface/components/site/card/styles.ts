@@ -8,6 +8,7 @@ interface imageProps {
 }
 
 export const ImageContainer = styled.div`
+  max-width: 200px;
   width: 45%;
   height: 100%;
   overflow: hidden;

@@ -2,6 +2,7 @@
 
 // Styles
 import { colors } from '@/styles/themes';
+import * as S from "./styles";
 
 // Libs
 import { useState, useEffect } from 'react';
@@ -20,8 +21,6 @@ import Card from '@/interface/components/site/card/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import Line from '@/interface/components/admin/line/main';
 import AboutCustomerOrder from '@/interface/containers/admin/about-customer-order/main';
-import RowContainer from '@/interface/containers/global/row-container/main';
-import OrderButtonsContainer from '@/interface/containers/admin/order-buttons-container/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
 import CardDesktopContainer from '@/interface/containers/global/card-desktop-container/main';
 import CardProductDesktop from '@/interface/components/site/card-product-desktop/main';
@@ -125,7 +124,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   };
 
   const returnButtons = (width?: number) => {
-    return <OrderButtonsContainer width={width}>
+    return <S.OrderButtonsContainer $width={width}>
         <PrimaryButton
           loading={loading}
           value="Finalizar pedido"
@@ -138,7 +137,7 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
           value="Cancelar pedido"
           handleClick={handleRemoveOrder}
         />
-    </OrderButtonsContainer>
+    </S.OrderButtonsContainer>
   }
 
   const returnOrderStatus = () => {
@@ -233,32 +232,20 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
               )}
             </CardContainer>
         }
-        
         {
 
-          size_1024 ?
-              <RowContainer>
-                {returnButtons()}
-                {order?.customer && <AboutCustomerOrder customer={order.customer} />}
-                <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} />
-              </RowContainer>
+          size_768 ?
+            <S.Row>
+              <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} button={returnButtons()} />
+              {order?.customer && <AboutCustomerOrder customer={order.customer} />}
+            </S.Row>
           :
-            size_768 ? 
-              <>
-                {order?.customer && <AboutCustomerOrder customer={order.customer} />}
-                <Line/>
-                <RowContainer>
-                  {returnButtons(50)}
-                  <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} />
-                </RowContainer>
-              </>
-            :
-              <>
-                {order?.customer && <AboutCustomerOrder customer={order.customer} />}
-                <Line/>
-                <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} />
-                {returnButtons()}
-              </>
+            <>
+              {order?.customer && <AboutCustomerOrder customer={order.customer} />}
+              <Line/>
+              <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()}/>
+              {returnButtons()}
+            </>
         }
       </MainContainer>
     </>

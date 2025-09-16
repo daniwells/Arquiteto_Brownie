@@ -5,12 +5,9 @@ import breakpoints from '@/styles/breakpoints';
 export const TotalPriceContainer = styled.div<{background?: string}>`
   text-align: center;
   color: ${colors.darkGray};
-  margin-top: 20px;
-  
-  @media ${breakpoints.md} {
-    width: 290px;
-  }
-
+  min-width: 290px;
+  width: 290px;
+    
   ${(props) =>
     props.background &&
     css`
@@ -18,7 +15,6 @@ export const TotalPriceContainer = styled.div<{background?: string}>`
         background-color: white;
         padding: 20px;
         border-radius: 10px;
-        margin-top: 10px;
       }
     `}
 `;
