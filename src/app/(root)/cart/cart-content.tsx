@@ -136,7 +136,6 @@ const CartContent: React.FC<cartContentProps> = ({ cart }) => {
           }  
           <TotalPriceInfo 
             hasBackground
-            isCart
             totalPrice={cart.itemsPrice}
             date={new Date()}
             button={<PrimaryButton value="Finalizar Pedido" handleClick={() => redirect("/forms")}/>}

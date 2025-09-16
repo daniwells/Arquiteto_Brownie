@@ -1,18 +1,15 @@
 import * as S from './styles';
 import ProductPrice from '../../global/product-price/main';
-import PrimaryButton from '../../global/primary-button/main';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { redirect } from 'next/navigation';
 
 interface TotalPriceInfoProps {
   date: Date;
   totalPrice: string;
-  isCart?: boolean;
   hasBackground?: boolean;
   button?: React.ReactNode;
 }
 
-const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, isCart, hasBackground, button}) => {
+const TotalPriceInfo: React.FC<TotalPriceInfoProps> = ({ date, totalPrice, hasBackground, button}) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
   const formatedDate = (date: Date) => {

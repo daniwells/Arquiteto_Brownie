@@ -1,6 +1,5 @@
 import { colors } from '@/styles/themes';
 import styled from 'styled-components';
-import breakpoints from '@/styles/breakpoints';
 
 import Image from 'next/image';
 
