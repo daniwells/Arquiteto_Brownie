@@ -44,7 +44,6 @@ interface editOrderContentProps {
 
 const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
-  const size_1024 = useMediaQuery('(min-width:1024px)');
 
   const { activeStatus, checkStoreStatus } = useActiveStore();
   const { openPopup } = usePopup();
