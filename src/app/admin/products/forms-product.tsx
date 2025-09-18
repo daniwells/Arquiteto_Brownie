@@ -40,7 +40,6 @@ import { productType } from '@/types';
 
 // Context
 import { usePopup } from '@/contexts/PopupContext';
-import { useActiveStore } from '@/contexts/ActiveStoreContext';
 
 interface formData {
   name: string;
@@ -58,7 +57,6 @@ interface formsProduct {
 const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   const size_768 = useMediaQuery('(min-width:768px)');
 
-  const { activeStatus, checkStoreStatus } = useActiveStore();
   const { openPopup } = usePopup();
 
   const [mounted, setMounted] = useState(true);
@@ -143,15 +141,8 @@ const FormsProduct: React.FC<formsProduct> = ({ selectedProduct }) => {
   };
 
   useEffect(() => {
-    const verify = async () => {
-      const response = await checkStoreStatus();
-      if (response) {
-        redirect("/unavailable");
-      }
-      setMounted(false);
-    };
-    verify();
-  }, [activeStatus]);
+    setMounted(false);
+  }, []);
 
   if(mounted){
     return <Loading/>

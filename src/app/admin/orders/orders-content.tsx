@@ -82,7 +82,7 @@ const OrdersContent: React.FC<ordersContentProps> = ({ orders, userEmail }) => {
                   ]}
                   selectedOption={status}
                   setSelectedOption={(value: string) => setStatus(value)}
-                  width={ size_768 ? "240px" : "175px"}
+                  width={ size_768 ? "240px" : "275px"}
                 />
   }
 

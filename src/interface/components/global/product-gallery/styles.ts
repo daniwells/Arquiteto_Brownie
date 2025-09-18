@@ -12,10 +12,6 @@ export const Container = styled.div`
   @media ${breakpoints.md}{
     width: 50%;
   }
-
-  @media ${breakpoints.bg}{
-    width: 55%;
-  }
 `;
 
 export const Thumbnails = styled.div`

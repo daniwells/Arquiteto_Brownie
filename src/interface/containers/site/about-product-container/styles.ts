@@ -23,6 +23,8 @@ export const MainAboutProduct = styled.div`
 
   @media ${breakpoints.md} {
     height: 280px;
+    justify-content: start;
+    gap: 15%;
   }
 
   @media ${breakpoints.lg} {
@@ -118,12 +120,11 @@ export const Product = styled.div`
   flex-direction: column;
   grid-gap: 15px;
   justify-content: space-between;
-  max-width: 400px;
 `;
 
 export const AboutColumn = styled.div`
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
   height: 100%;
 
   @media ${breakpoints.bs} {

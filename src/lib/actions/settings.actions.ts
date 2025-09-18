@@ -40,9 +40,10 @@ export const editSettings = async (key: string, value: string) => {
     const session = await auth();
     if (!session) throw new CustomError('Usuário não autenticado');
 
-    const settings = await prisma.settings.update({
-        where: { key: key },
-        data: {value: value},
+    const settings = await prisma.settings.upsert({
+      where: { key: key },
+      update: {value: value},
+      create: { key: key, value: value },
     });
 
     if (!settings)

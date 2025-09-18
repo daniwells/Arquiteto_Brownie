@@ -101,7 +101,8 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
                   ]}
                   selectedOption={category}
                   setSelectedOption={(value: string) => setCategory(value)}
-                  width={`${category.length + 240}px`}
+                  width={`${category.length > 10 ? category.length + 240 : 240}px`}
+                  
                 />
               }
             />
@@ -143,7 +144,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
               ]}
               selectedOption={category}
               setSelectedOption={(value: string) => setCategory(value)}
-              width={`${category.length + 200}px`}
+              width={`${category.length + 240}px`}
             />
             <PrimaryButton
               category="normal"
