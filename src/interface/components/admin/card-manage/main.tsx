@@ -8,7 +8,7 @@ import * as S from './styles';
 
 // Components
 import ProductPrice from '../../global/product-price/main';
-import PrimaryButton from '../../global/primary-button/main';
+import PrimaryButton from '../../global/button/main';
 
 // Utils
 import { productTypeImageString } from '@/types';

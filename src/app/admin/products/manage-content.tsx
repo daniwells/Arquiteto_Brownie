@@ -2,6 +2,7 @@
 
 // Styles
 import { colors } from '@/styles/themes';
+import * as S from "./styles";
 
 // Libs
 import React, { useEffect, useState } from 'react';
@@ -13,13 +14,12 @@ import MainContainer from '@/interface/containers/global/main-container/main';
 import Title from '@/interface/components/global/title/main';
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import CardManage from '@/interface/components/admin/card-manage/main';
-import PrimaryButton from '@/interface/components/global/primary-button/main';
+import PrimaryButton from '@/interface/components/global/button/main';
 import MenuAdmin from '@/interface/components/admin/menu-admin/main';
 import Search from '@/interface/components/global/search/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import Dropdown from '@/interface/components/global/dropdown/main';
 import HeaderDesktopContainer from '@/interface/containers/global/header-desktop-container/main';
-import RowContainer from '@/interface/containers/global/row-container/main';
 import CardGridContainer from '@/interface/containers/admin/card-grid-container/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
 import Loading from '@/interface/containers/global/loading/main';
@@ -105,7 +105,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
                 />
               }
             />
-            <RowContainer>
+            <S.Row>
               <Title text="Gerenciar produtos" />
               <PrimaryButton
                 category="normal"
@@ -115,7 +115,7 @@ const ContentManage: React.FC<contentManageProps> = ({ data, categories, userEma
                 }}
                 value="Criar novo produto"
               />
-            </RowContainer>
+            </S.Row>
             {
               filteredData.length > 0 ?
                 <CardGridContainer>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { APP_NAME } from "@/lib/constants";
 import logoIcon from "../../public/svg/logo.svg";
-import PrimaryButton from "@/interface/components/global/primary-button/main";
+import PrimaryButton from "@/interface/components/global/button/main";
 import { redirect } from "next/navigation";
 import { useActiveStore } from "@/contexts/ActiveStoreContext";
 import Loading from "@/interface/containers/global/loading/main";

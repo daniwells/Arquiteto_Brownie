@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { colors } from '@/styles/themes';
 
-interface primaryButtonStyleProps {
+
+export const ButtonStyle = styled.button<{
   $category?: string;
   $fontSize?: string;
-}
-
-export const PrimaryButtonStyle = styled.button<primaryButtonStyleProps>`
+}>`
   max-width: 400px;
   background-color: ${(props) =>
     props.$category == 'dark'

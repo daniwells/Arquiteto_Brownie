@@ -7,7 +7,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import * as S from './styles';
 
 // Components
-import PrimaryButton from '@/interface/components/global/primary-button/main';
+import PrimaryButton from '@/interface/components/global/button/main';
 import DescriptionContainer from '@/interface/containers/global/description-container/main';
 
 // Images

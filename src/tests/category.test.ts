@@ -3,8 +3,8 @@ import { getAllCategories, insertCategory } from '@/lib/actions/category.actions
 import { prisma } from '@/db/prisma';
 
 const mockCategories = [
-    { id: '1', name: 'Category A' },
-    { id: '2', name: 'Category B' },
+    { id: '1', name: 'Category A', position: 2 },
+    { id: '2', name: 'Category B', position: 1 },
 ];
 
 describe('getAllCategories', () => {

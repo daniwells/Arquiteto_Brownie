@@ -10,7 +10,7 @@ import DescriptionContainer from '@/interface/containers/global/description-cont
 import HeaderAdmin from '@/interface/components/admin/header-admin/main';
 import FormContainer from '@/interface/containers/global/form-container/main';
 import BaseInput from '@/interface/components/global/base-input/main';
-import PrimaryButton from '@/interface/components/global/primary-button/main';
+import PrimaryButton from '@/interface/components/global/button/main';
 import Line from '@/interface/components/admin/line/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import CardCategory from '@/interface/components/admin/card-category/main';

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FormControlLabel, Checkbox, Typography } from '@mui/material';
 
 // Components
-import PrimaryButton from '../../global/primary-button/main';
+import PrimaryButton from '../../global/button/main';
 
 // Images
 import removeIcon from "../../../../../public/svg/remove.svg"

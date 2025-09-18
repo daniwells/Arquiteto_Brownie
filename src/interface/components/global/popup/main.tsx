@@ -1,7 +1,7 @@
 // components/ErrorPopup/ErrorPopup.tsx
 import React from 'react';
 import * as S from './styles';
-import PrimaryButton from '../primary-button/main';
+import PrimaryButton from '../button/main';
 
 interface popupProps {
   message: string;

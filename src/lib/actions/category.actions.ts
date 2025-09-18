@@ -31,17 +31,17 @@ export async function insertCategory(category: string) {
   try {
     if (!category) return { success: false, message: 'Categoria não encontrada' };
 
-    const maxPosition = await prisma.category.aggregate({
-      _max: { position: true },
+    const lastCategory = await prisma.category.findFirst({
+      orderBy: { position: "desc" },
     });
 
-    const nextPosition = (maxPosition._max.position ?? 0) + 1;
+    const nextPosition = (lastCategory?.position ?? 0) + 1;
 
     const session = await auth();
     if (!session) throw new CustomError('Usuário não autenticado');
-
+    
     const insertedCategory = await prisma.category.create({ data: { category: category,  position: nextPosition, } });
-
+    
     if (!insertedCategory) throw new CustomError('Erro ao criar a categoria');
 
     return {
@@ -49,6 +49,7 @@ export async function insertCategory(category: string) {
       message: 'Categoria criada com sucesso',
     };
   } catch (error) {
+    console.log(`ERROR: ${error}`)
     return {
       success: false,
       message: await formatError(error),

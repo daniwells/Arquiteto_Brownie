@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import * as S from './styles';
 
 // Components
-import PrimaryButton from '../../global/primary-button/main';
+import PrimaryButton from '../../global/button/main';
 import ProductPrice from '../../global/product-price/main';
 
 // Utils

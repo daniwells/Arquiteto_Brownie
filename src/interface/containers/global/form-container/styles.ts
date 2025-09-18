@@ -6,7 +6,6 @@ export const Form = styled.form<{$style?: string}>`
   flex-direction: column;
   gap: 20px;
   ${props => props.$style}
-  //padding-block: 30px;
   align-items: center;
   max-width: 600px;
 `;

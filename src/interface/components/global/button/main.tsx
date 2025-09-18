@@ -1,7 +1,7 @@
 import * as S from './styles';
 import { CircularProgress } from '@mui/material';
 
-interface primaryButtonProps {
+interface buttonProps {
   value: string;
   handleClick?: () => void;
   type?: 'submit' | 'button' | 'reset';
@@ -10,7 +10,7 @@ interface primaryButtonProps {
   fontSize?: string;
 }
 
-const PrimaryButton: React.FC<primaryButtonProps> = ({
+const Button: React.FC<buttonProps> = ({
   value,
   handleClick,
   type,
@@ -19,15 +19,15 @@ const PrimaryButton: React.FC<primaryButtonProps> = ({
   fontSize,
 }) => {
   return (
-    <S.PrimaryButtonStyle
+    <S.ButtonStyle
       $fontSize={fontSize}
       $category={category}
       type={type}
       onClick={category == "deactivate" ? () => {} : handleClick}
     >
       {loading ? <CircularProgress size={24} color="inherit" /> : value}
-    </S.PrimaryButtonStyle>
+    </S.ButtonStyle>
   );
 };
 
-export default PrimaryButton;
+export default Button;

@@ -1,7 +1,7 @@
 import * as S from './styles';
 import { productTypeImageString, cartItemType } from '@/types';
 import ProductPrice from '../../global/product-price/main';
-import PrimaryButton from '../../global/primary-button/main';
+import PrimaryButton from '../../global/button/main';
 import AddOrRemove from '../../global/add-or-remove/main';
 import { useState } from 'react';
 

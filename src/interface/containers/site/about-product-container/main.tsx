@@ -13,7 +13,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 // Components
 import AddOrRemove from '@/interface/components/global/add-or-remove/main';
-import PrimaryButton from '@/interface/components/global/primary-button/main';
+import PrimaryButton from '@/interface/components/global/button/main';
 import ProductPrice from '@/interface/components/global/product-price/main';
 import HeaderDesktopContainer from '../../global/header-desktop-container/main';
 import ProductGallery from '@/interface/components/global/product-gallery/main';

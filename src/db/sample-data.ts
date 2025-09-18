@@ -1,4 +1,4 @@
-import { hashSync } from 'bcrypt-ts-edge';
+/*import { hashSync } from 'bcrypt-ts-edge';
 
 const sampleData = {
   managers: [
@@ -49,3 +49,4 @@ const sampleData = {
 };
 
 export default sampleData;
+*/

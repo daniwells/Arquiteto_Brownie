@@ -12,7 +12,7 @@ import Logo from '@/interface/components/global/logo/main';
 import Menu from '@/interface/components/site/menu/main';
 import CardContainer from '@/interface/containers/global/card-container/main';
 import CartItem from '@/interface/components/site/cart-item/main';
-import PrimaryButton from '@/interface/components/global/primary-button/main';
+import PrimaryButton from '@/interface/components/global/button/main';
 import Title from '@/interface/components/global/title/main';
 import TotalPriceInfo from '@/interface/components/site/total-price-info/main';
 import BackToMenu from '@/interface/components/site/back-to-menu/main';
