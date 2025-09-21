@@ -153,15 +153,11 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
 
     try {
       setLoading(true);
-      console.log("AAAAAAAAAAAAAAAAAAAA")
-      console.log(ORIGIN_CEP)
-      console.log("AAAAAAAAAAAAAAAAAAAA")
       const { data: freightData } = await axios.post("/api/freight", {
         originCEP: ORIGIN_CEP,
         destinationCEP: data.cep,
       });
       
-      console.log(freightData)
       setLoading(false);
 
       if (!freightData || freightData.error) {

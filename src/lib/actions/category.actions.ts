@@ -49,7 +49,6 @@ export async function insertCategory(category: string) {
       message: 'Categoria criada com sucesso',
     };
   } catch (error) {
-    console.log(`ERROR: ${error}`)
     return {
       success: false,
       message: await formatError(error),
