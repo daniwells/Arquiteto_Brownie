@@ -134,7 +134,7 @@ describe('createOrder', () => {
     });
 
 
-    expect(mockValidateCart).toHaveBeenCalledWith(mockCart.items);
+    expect(mockValidateCart).toHaveBeenCalledWith(mockCart);
   });
 
   it('should fail when there is an unespected error ', async () => {
