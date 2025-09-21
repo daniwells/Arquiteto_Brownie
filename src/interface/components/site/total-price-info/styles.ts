@@ -7,7 +7,7 @@ export const TotalPriceContainer = styled.div<{background?: string}>`
   color: ${colors.darkGray};
   min-width: 290px;
   width: 290px;
-    
+  
   ${(props) =>
     props.background &&
     css`
@@ -23,9 +23,12 @@ export const Row = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+  
   >Button{
     margin-top: 20px;
   }
+
+  
 `;
 
 export const Span = styled.span`

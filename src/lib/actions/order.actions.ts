@@ -71,7 +71,7 @@ export const getOrderById = async (value: string) => {
 export const createOrder = async (cart: cartType, customerId: string) => {
   try {
     if (!cart) return { success: false, message: 'Carrinho não adicionado' };
-    const validatedCart = await validateCart(cart.items);
+    const validatedCart = await validateCart(cart);
 
 
     let orderId = "";
@@ -79,7 +79,8 @@ export const createOrder = async (cart: cartType, customerId: string) => {
       const responseOrder = await tx.order.create({
         data: {
           customerId: customerId,
-          itemsPrice: (await validatedCart).total,
+          itemsPrice: cart.itemsPrice,
+          freightPrice: (await validatedCart).freightPrice,
           totalPrice: (await validatedCart).total,
           createdAt: new Date(),
         },

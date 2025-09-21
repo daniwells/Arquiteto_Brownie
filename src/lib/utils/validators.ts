@@ -68,8 +68,8 @@ export const insertOrderItemSchema = z.object({
 export const insertOrderSchema = z.object({
   customerId: z.string(),
   itemsPrice: currency,
-  shippingPrice: z.number(),
   totalPrice: currency,
+  freightType: currency,
   createdAt: z.date(),
 });
 

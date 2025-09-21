@@ -165,8 +165,10 @@ Olá, me chamo ${name}, gostaria de finalizar a minha compra no Arquiteto do Bro
 Informações do pedido:
 Código: ${orderId}
 ${cart.items.map((item) => `
-Qnt ${item.qty} - (${item.category}) ${item.name}`).join(" ")}
+Qnt ${item.qty} - (${item.category}) ${item.name} - R$${item.price}`).join(" ")}
 
-Preço: R$${cart.itemsPrice}.
+Preço (itens): R$${cart.itemsPrice}.
+Frete: R$${cart.freightPrice}.
+Preço Total: R$${cart.totalPrice}.
   `;
 }

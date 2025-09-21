@@ -1,8 +1,10 @@
 import { prisma } from '../../db/prisma';
-import { cartItemType } from '@/types';
 import { CustomError } from '../utils/exceptions';
+import { cartType } from '@/types';
 
-export const validateCart = async (cartItems: cartItemType[]) => {
+export const validateCart = async (cart: cartType) => {
+    const cartItems = cart.items;
+
     const ids = cartItems.map((item) => item.id || "");
 
     const products = await prisma.product.findMany({
@@ -41,6 +43,7 @@ export const validateCart = async (cartItems: cartItemType[]) => {
 
     return {
         items: itemsWithPrice,
-        total,
+        freightPrice: cart.freightPrice,
+        total: total + (Number(cart.freightPrice) || 0),
     };
 }

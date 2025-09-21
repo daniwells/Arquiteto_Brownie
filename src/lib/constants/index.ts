@@ -5,3 +5,4 @@ export const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhos
 export const LATEST_PRODUCTS_LIMIT = Number(process.env.LATEST_PRODUCTS_LINIT) || 100;
 export const EMAIL_ADMIN = process.env.EMAIL_ADMIN?.split(';') || [];
 export const NEXT_PUBLIC_WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "";
+export const ORIGIN_CEP = process.env.NEXT_PUBLIC_ORIGIN_CEP || "";

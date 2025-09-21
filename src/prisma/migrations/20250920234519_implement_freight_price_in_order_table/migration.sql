@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Order" ADD COLUMN     "freightPrice" DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+ALTER COLUMN "itemsPrice" SET DEFAULT 0.00,
+ALTER COLUMN "totalPrice" SET DEFAULT 0.00;

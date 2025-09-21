@@ -235,7 +235,14 @@ const EditOrderContent: React.FC<editOrderContentProps> = ({ order }) => {
 
           size_768 ?
             <S.Row>
-              <TotalPriceInfo hasBackground totalPrice={order.totalPrice} date={new Date()} button={returnButtons()} />
+              <TotalPriceInfo 
+                hasBackground 
+                totalPrice={order.totalPrice}
+                itemsPrice={order.itemsPrice}
+                freightPrice={order.freightPrice}
+                date={new Date()}
+                button={returnButtons()}
+              />
               {order?.customer && <AboutCustomerOrder customer={order.customer} />}
             </S.Row>
           :

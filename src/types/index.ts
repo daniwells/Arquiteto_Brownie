@@ -28,6 +28,8 @@ export type cartItemType = productTypeImageString & { qty: number };
 export type cartType = {
   items: cartItemType[];
   itemsPrice: string;
+  totalPrice: string;
+  freightPrice?: string;
 };
 
 export type customerType = z.infer<typeof insertCustomerSchema> & {
@@ -43,6 +45,7 @@ export type orderType = z.infer<typeof insertOrderSchema> & {
   status: OrderStatus;
   OrderItem?: orderItemType[];
   customer?: customerType;
+  freightPrice: string;
 };
 
 export type formDataType = {

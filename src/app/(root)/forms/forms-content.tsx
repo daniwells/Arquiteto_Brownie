@@ -5,6 +5,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { redirect } from 'next/navigation';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import axios from "axios";
+
 
 // Components
 import MainContainer from '@/interface/containers/global/main-container/main';
@@ -36,7 +38,7 @@ import { cartType } from '@/types';
 
 // Utils
 import { getMessageToWhatsapp } from '@/lib/utils/utils';
-import { NEXT_PUBLIC_WHATSAPP_NUMBER } from '@/lib/constants';
+import { NEXT_PUBLIC_WHATSAPP_NUMBER, ORIGIN_CEP } from '@/lib/constants';
 
 // Types
 import { formDataType } from '@/types';
@@ -142,22 +144,52 @@ const FormsContent: React.FC<formsContentProps> = ({ itemsPrice }) => {
   const interceptSubmit = (data: formDataType) => {
     openConcentTerm(() => onSubmit(data));
   };
-  
+
   const onSubmit = async (data: formDataType) => {
     verifyAcceptPolicy();
-    
+
     const cart = await handleGetCart();
-    
-    if (cart) {
-      const idCustomer = await handleCreateCustomer(data);
-      if (idCustomer) {
-        const { status, orderId } = await handleCreateOrder(idCustomer, cart);
-        if (status) {
-          openPopup('Pedido criado com sucesso', 'success');
-          handleSendToWhatsApp(cart, orderId || "");
-          reset();
-        }
+    if (!cart) return;
+
+    try {
+      setLoading(true);
+      console.log("AAAAAAAAAAAAAAAAAAAA")
+      console.log(ORIGIN_CEP)
+      console.log("AAAAAAAAAAAAAAAAAAAA")
+      const { data: freightData } = await axios.post("/api/freight", {
+        originCEP: ORIGIN_CEP,
+        destinationCEP: data.cep,
+      });
+      
+      console.log(freightData)
+      setLoading(false);
+
+      if (!freightData || freightData.error) {
+        console.error("Erro ao calcular frete", freightData?.error);
+        openPopup("Não foi possível calcular o frete", "error");
+        return;
       }
+
+      const updatedCart = {
+        ...cart,
+        freightPrice: freightData.price,
+        totalPrice: String(parseFloat(cart.itemsPrice) + parseFloat(freightData.price)),
+      };
+
+      const idCustomer = await handleCreateCustomer(data);
+      if (!idCustomer) return;
+
+      const { status, orderId } = await handleCreateOrder(idCustomer, updatedCart);
+      if (!status) return;
+
+      openPopup("Pedido criado com sucesso", "success");
+      handleSendToWhatsApp(updatedCart, orderId || "");
+      reset();
+
+    } catch (err: any) {
+      console.error(err);
+      openPopup("Erro ao processar pedido", "error");
+      setLoading(false);
     }
   };
   
